@@ -1,0 +1,6 @@
+GmailIOSCoursesTests/
+GmailIOSCoursesUITests/
+Podfile
+Podfile.lock
+GmailIOSCourses.xcodeproj
+GmailIOSCourses.xcworkspace
