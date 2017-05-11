@@ -96,24 +96,31 @@
                                     <outlet property="delegate" destination="o2K-HX-myK" id="rVJ-8g-VXc"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="PzO-eT-YP7">
-                                <rect key="frame" x="250" y="540" width="100" height="50"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="PzO-eT-YP7">
+                                <rect key="frame" x="230" y="520" width="120" height="70"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4z4-tF-gLg">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4z4-tF-gLg">
+                                        <rect key="frame" x="8" y="8" width="104" height="54"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <state key="normal" title="Send"/>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" red="1" green="0.049586463259999998" blue="0.081416205229999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="4z4-tF-gLg" secondAttribute="trailing" constant="8" id="0an-eP-ANf"/>
+                                    <constraint firstAttribute="bottom" secondItem="4z4-tF-gLg" secondAttribute="bottom" constant="8" id="6pS-6P-fhH"/>
+                                    <constraint firstItem="4z4-tF-gLg" firstAttribute="leading" secondItem="PzO-eT-YP7" secondAttribute="leading" constant="8" id="f5S-uP-nvB"/>
+                                    <constraint firstItem="4z4-tF-gLg" firstAttribute="top" secondItem="PzO-eT-YP7" secondAttribute="top" constant="8" id="vRF-QM-egj"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PzO-eT-YP7" firstAttribute="top" secondItem="uuQ-IG-7He" secondAttribute="bottom" constant="520" id="2NO-2A-waA"/>
+                            <constraint firstItem="PzO-eT-YP7" firstAttribute="top" secondItem="uuQ-IG-7He" secondAttribute="bottom" constant="500" id="2NO-2A-waA"/>
                             <constraint firstItem="lgF-RM-TSQ" firstAttribute="leading" secondItem="gr4-M2-sDA" secondAttribute="leading" id="Db7-Vw-H8E"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PzO-eT-YP7" secondAttribute="trailing" constant="9" id="Gak-NX-Aql"/>
-                            <constraint firstItem="PzO-eT-YP7" firstAttribute="leading" secondItem="gr4-M2-sDA" secondAttribute="leadingMargin" constant="234" id="NkZ-Eb-PFA"/>
+                            <constraint firstItem="PzO-eT-YP7" firstAttribute="leading" secondItem="gr4-M2-sDA" secondAttribute="leadingMargin" constant="214" id="NkZ-Eb-PFA"/>
                             <constraint firstItem="Mk5-58-tYq" firstAttribute="top" secondItem="PzO-eT-YP7" secondAttribute="bottom" constant="77" id="iYY-PI-bLI"/>
                             <constraint firstItem="lgF-RM-TSQ" firstAttribute="top" secondItem="uuQ-IG-7He" secondAttribute="bottom" constant="8" id="iud-I1-r8p"/>
                             <constraint firstItem="Mk5-58-tYq" firstAttribute="top" secondItem="lgF-RM-TSQ" secondAttribute="bottom" id="k3s-4v-F7f"/>

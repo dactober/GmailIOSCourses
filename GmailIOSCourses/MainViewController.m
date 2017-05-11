@@ -28,13 +28,13 @@
     
     self.messages=[NSMutableArray new];
     
-    void(^callback)(NSArray*)=^(NSArray* listOfMessages){
+   
+    [self.coordinator readListOfMessages:^(NSArray* listOfMessages){
         dispatch_async(dispatch_get_main_queue(), ^{
             self.listOfMessages=listOfMessages;
             [self.myTableView reloadData];
         });
-    };
-    [self.coordinator readListOfMessages:callback];
+    }];
    
     
     
@@ -57,14 +57,14 @@
     
     CustomTableCell *cell=(CustomTableCell *)[tableView dequeueReusableCellWithIdentifier:myId forIndexPath:indexPath];
     self.tableDictionary =[self.listOfMessages objectAtIndex:indexPath.row];
-    void(^callback)(NSDictionary*)=^(NSDictionary* listOfMessages){
+    
+    [self.coordinator getMessage:[self.tableDictionary objectForKey:@"id"] callback:^(NSDictionary* listOfMessages){
         dispatch_async(dispatch_get_main_queue(), ^{
             self.message=[self.coordinator createMessage:listOfMessages];
             [self.messages addObject:self.message];
             [cell customCellData:self.message];
         });
-    };
-    [self.coordinator getMessage:[self.tableDictionary objectForKey:@"id"] callback:callback];
+    }];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

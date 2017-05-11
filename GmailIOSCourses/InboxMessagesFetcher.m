@@ -1,14 +1,13 @@
-//
-//  ReadMessages1.m
-//  GmailIOSCourses
-//
-//  Created by Aleksey Drachyov on 5/5/17.
-//  Copyright © 2017 Aleksey Drachyov. All rights reserved.
-//
 
-#import "ReadMessages.h"
 
-@implementation ReadMessages
+
+
+
+
+#import "InboxMessagesFetcher.h"
+
+
+@implementation InboxMessagesFetcher
 -(instancetype)initWithData:(NSString*)accessToken{
     self=[super init];
     if(self){

@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ReadMessages : NSObject
-
+@interface InboxMessagesFetcher:NSObject
 -(void)readListOfMessages:(NSString*)serverAddressForReadMessages callback:(void(^)(NSArray*))callback;
 -(void)getMessage:(NSString*)serverAddressForReadMessages callback:(void(^)(NSDictionary*))callback;
 -(instancetype)initWithData:(NSString*)accessToken;
@@ -17,3 +16,4 @@
 @property(strong,nonatomic)NSString *accessToken;
 @property(strong,nonatomic)NSURLSession *session;
 @end
+
