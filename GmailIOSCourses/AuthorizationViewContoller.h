@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "GTMOAuth2ViewControllerTouch.h"
-#import "AppDelegate.h"
 #import "MainViewController.h"
 #import "GTLRGmail.h"
 #import "Coordinator.h"

@@ -20,6 +20,7 @@
     // Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
     self.subject.text=self.cell.subject.text;
     self.from.text=self.cell.title.text;
     self.body.text=[self.message decodeMessage];

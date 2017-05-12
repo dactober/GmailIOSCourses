@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		011CBF121EC5FA4C005759D1 /* LabelIds.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF111EC5FA4C005759D1 /* LabelIds.m */; };
+		011CBF151EC5FD68005759D1 /* PartsOfMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF141EC5FD68005759D1 /* PartsOfMessage.m */; };
+		011CBF181EC5FDC6005759D1 /* BodyOFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF171EC5FDC6005759D1 /* BodyOFMessage.m */; };
+		011CBF1B1EC6025C005759D1 /* PartOfMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF1A1EC6025C005759D1 /* PartOfMessage.m */; };
 		011CDB891EC5064E00C8CE4C /* Payload.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CDB881EC5064E00C8CE4C /* Payload.m */; };
 		01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01244E711EB696BF00DA93E7 /* CustomTableCell.m */; };
 		012B592F1EC11CA400577F8A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 012B592E1EC11CA400577F8A /* DetailViewController.m */; };
@@ -46,6 +50,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		011CBF101EC5FA4B005759D1 /* LabelIds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelIds.h; sourceTree = "<group>"; };
+		011CBF111EC5FA4C005759D1 /* LabelIds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelIds.m; sourceTree = "<group>"; };
+		011CBF131EC5FD68005759D1 /* PartsOfMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartsOfMessage.h; sourceTree = "<group>"; };
+		011CBF141EC5FD68005759D1 /* PartsOfMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartsOfMessage.m; sourceTree = "<group>"; };
+		011CBF161EC5FDC6005759D1 /* BodyOFMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyOFMessage.h; sourceTree = "<group>"; };
+		011CBF171EC5FDC6005759D1 /* BodyOFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyOFMessage.m; sourceTree = "<group>"; };
+		011CBF191EC6025C005759D1 /* PartOfMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartOfMessage.h; sourceTree = "<group>"; };
+		011CBF1A1EC6025C005759D1 /* PartOfMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartOfMessage.m; sourceTree = "<group>"; };
 		011CDB871EC5064E00C8CE4C /* Payload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Payload.h; sourceTree = "<group>"; };
 		011CDB881EC5064E00C8CE4C /* Payload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Payload.m; sourceTree = "<group>"; };
 		01244E701EB696BF00DA93E7 /* CustomTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableCell.h; sourceTree = "<group>"; };
@@ -124,6 +136,14 @@
 				01F5A1061EBE5F9B00A1A268 /* Message.m */,
 				011CDB871EC5064E00C8CE4C /* Payload.h */,
 				011CDB881EC5064E00C8CE4C /* Payload.m */,
+				011CBF101EC5FA4B005759D1 /* LabelIds.h */,
+				011CBF111EC5FA4C005759D1 /* LabelIds.m */,
+				011CBF131EC5FD68005759D1 /* PartsOfMessage.h */,
+				011CBF141EC5FD68005759D1 /* PartsOfMessage.m */,
+				011CBF161EC5FDC6005759D1 /* BodyOFMessage.h */,
+				011CBF171EC5FDC6005759D1 /* BodyOFMessage.m */,
+				011CBF191EC6025C005759D1 /* PartOfMessage.h */,
+				011CBF1A1EC6025C005759D1 /* PartOfMessage.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -426,10 +446,14 @@
 				018080CB1EB3F75200288280 /* main.m in Sources */,
 				012B592F1EC11CA400577F8A /* DetailViewController.m in Sources */,
 				011CDB891EC5064E00C8CE4C /* Payload.m in Sources */,
+				011CBF181EC5FDC6005759D1 /* BodyOFMessage.m in Sources */,
+				011CBF151EC5FD68005759D1 /* PartsOfMessage.m in Sources */,
 				013469D31EBBE81900272BEB /* InboxMessagesFetcher.m in Sources */,
 				01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */,
+				011CBF1B1EC6025C005759D1 /* PartOfMessage.m in Sources */,
 				01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */,
 				013469D21EBBE81900272BEB /* Coordinator.m in Sources */,
+				011CBF121EC5FA4C005759D1 /* LabelIds.m in Sources */,
 				01A8BE921EC25E10008D187B /* SendViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
