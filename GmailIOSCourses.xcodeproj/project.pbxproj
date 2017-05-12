@@ -1,0 +1,703 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		011CDB891EC5064E00C8CE4C /* Payload.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CDB881EC5064E00C8CE4C /* Payload.m */; };
+		01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01244E711EB696BF00DA93E7 /* CustomTableCell.m */; };
+		012B592F1EC11CA400577F8A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 012B592E1EC11CA400577F8A /* DetailViewController.m */; };
+		013469D21EBBE81900272BEB /* Coordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 013469CF1EBBE81900272BEB /* Coordinator.m */; };
+		013469D31EBBE81900272BEB /* InboxMessagesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 013469D11EBBE81900272BEB /* InboxMessagesFetcher.m */; };
+		018080CB1EB3F75200288280 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 018080CA1EB3F75200288280 /* main.m */; };
+		018080CE1EB3F75200288280 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 018080CD1EB3F75200288280 /* AppDelegate.m */; };
+		018080D11EB3F75200288280 /* AuthorizationViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 018080D01EB3F75200288280 /* AuthorizationViewContoller.m */; };
+		018080D41EB3F75200288280 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018080D21EB3F75200288280 /* Main.storyboard */; };
+		018080D71EB3F75200288280 /* GmailIOSCourses.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 018080D51EB3F75200288280 /* GmailIOSCourses.xcdatamodeld */; };
+		018080D91EB3F75200288280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 018080D81EB3F75200288280 /* Assets.xcassets */; };
+		018080DC1EB3F75200288280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018080DA1EB3F75200288280 /* LaunchScreen.storyboard */; };
+		018080E71EB3F75300288280 /* GmailIOSCoursesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 018080E61EB3F75300288280 /* GmailIOSCoursesTests.m */; };
+		018080F21EB3F75300288280 /* GmailIOSCoursesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 018080F11EB3F75300288280 /* GmailIOSCoursesUITests.m */; };
+		01A8BE921EC25E10008D187B /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A8BE911EC25E10008D187B /* SendViewController.m */; };
+		01B11FFD1EB6108600EC80F6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B11FFC1EB6108600EC80F6 /* MainViewController.m */; };
+		01B11FFF1EB61C4900EC80F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01B11FFE1EB61C4900EC80F6 /* GoogleService-Info.plist */; };
+		01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5A1061EBE5F9B00A1A268 /* Message.m */; };
+		80119999D826E07FED376295 /* libPods-GmailIOSCourses.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		018080E31EB3F75300288280 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 018080BE1EB3F75200288280 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 018080C51EB3F75200288280;
+			remoteInfo = GmailIOSCourses;
+		};
+		018080EE1EB3F75300288280 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 018080BE1EB3F75200288280 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 018080C51EB3F75200288280;
+			remoteInfo = GmailIOSCourses;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		011CDB871EC5064E00C8CE4C /* Payload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Payload.h; sourceTree = "<group>"; };
+		011CDB881EC5064E00C8CE4C /* Payload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Payload.m; sourceTree = "<group>"; };
+		01244E701EB696BF00DA93E7 /* CustomTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableCell.h; sourceTree = "<group>"; };
+		01244E711EB696BF00DA93E7 /* CustomTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableCell.m; sourceTree = "<group>"; };
+		012B592D1EC11CA400577F8A /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		012B592E1EC11CA400577F8A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		013469CE1EBBE81900272BEB /* Coordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coordinator.h; sourceTree = "<group>"; };
+		013469CF1EBBE81900272BEB /* Coordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coordinator.m; sourceTree = "<group>"; };
+		013469D01EBBE81900272BEB /* InboxMessagesFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InboxMessagesFetcher.h; sourceTree = "<group>"; };
+		013469D11EBBE81900272BEB /* InboxMessagesFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InboxMessagesFetcher.m; sourceTree = "<group>"; };
+		018080C61EB3F75200288280 /* GmailIOSCourses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GmailIOSCourses.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		018080CA1EB3F75200288280 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		018080CC1EB3F75200288280 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		018080CD1EB3F75200288280 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		018080CF1EB3F75200288280 /* AuthorizationViewContoller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthorizationViewContoller.h; sourceTree = "<group>"; };
+		018080D01EB3F75200288280 /* AuthorizationViewContoller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthorizationViewContoller.m; sourceTree = "<group>"; };
+		018080D31EB3F75200288280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		018080D61EB3F75200288280 /* GmailIOSCourses.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GmailIOSCourses.xcdatamodel; sourceTree = "<group>"; };
+		018080D81EB3F75200288280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		018080DB1EB3F75200288280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		018080DD1EB3F75200288280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		018080E21EB3F75300288280 /* GmailIOSCoursesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GmailIOSCoursesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		018080E61EB3F75300288280 /* GmailIOSCoursesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GmailIOSCoursesTests.m; sourceTree = "<group>"; };
+		018080E81EB3F75300288280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		018080ED1EB3F75300288280 /* GmailIOSCoursesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GmailIOSCoursesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		018080F11EB3F75300288280 /* GmailIOSCoursesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GmailIOSCoursesUITests.m; sourceTree = "<group>"; };
+		018080F31EB3F75300288280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01A8BE901EC25E10008D187B /* SendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendViewController.h; sourceTree = "<group>"; };
+		01A8BE911EC25E10008D187B /* SendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendViewController.m; sourceTree = "<group>"; };
+		01B11FFB1EB6108600EC80F6 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		01B11FFC1EB6108600EC80F6 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		01B11FFE1EB61C4900EC80F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		01F5A1051EBE5F9B00A1A268 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		01F5A1061EBE5F9B00A1A268 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		0FDD8A6959C7A9599D0E2352 /* Pods-GmailIOSCourses.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GmailIOSCourses.release.xcconfig"; path = "Pods/Target Support Files/Pods-GmailIOSCourses/Pods-GmailIOSCourses.release.xcconfig"; sourceTree = "<group>"; };
+		517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GmailIOSCourses.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DFA4C64963AC5A9774BE509 /* Pods-GmailIOSCourses.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GmailIOSCourses.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GmailIOSCourses/Pods-GmailIOSCourses.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		018080C31EB3F75200288280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80119999D826E07FED376295 /* libPods-GmailIOSCourses.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		018080DF1EB3F75300288280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		018080EA1EB3F75300288280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		01244E731EB6A0EB00DA93E7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				013469CE1EBBE81900272BEB /* Coordinator.h */,
+				013469CF1EBBE81900272BEB /* Coordinator.m */,
+				013469D01EBBE81900272BEB /* InboxMessagesFetcher.h */,
+				013469D11EBBE81900272BEB /* InboxMessagesFetcher.m */,
+				01244E701EB696BF00DA93E7 /* CustomTableCell.h */,
+				01244E711EB696BF00DA93E7 /* CustomTableCell.m */,
+				01F5A1051EBE5F9B00A1A268 /* Message.h */,
+				01F5A1061EBE5F9B00A1A268 /* Message.m */,
+				011CDB871EC5064E00C8CE4C /* Payload.h */,
+				011CDB881EC5064E00C8CE4C /* Payload.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		01244E741EB6A10500DA93E7 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				018080CC1EB3F75200288280 /* AppDelegate.h */,
+				018080CD1EB3F75200288280 /* AppDelegate.m */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		018080BD1EB3F75200288280 = {
+			isa = PBXGroup;
+			children = (
+				018080C81EB3F75200288280 /* GmailIOSCourses */,
+				018080E51EB3F75300288280 /* GmailIOSCoursesTests */,
+				018080F01EB3F75300288280 /* GmailIOSCoursesUITests */,
+				018080C71EB3F75200288280 /* Products */,
+				B0D72BE8EB30F92CD5F5E628 /* Pods */,
+				6B1217AD7CC786834742CB89 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		018080C71EB3F75200288280 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				018080C61EB3F75200288280 /* GmailIOSCourses.app */,
+				018080E21EB3F75300288280 /* GmailIOSCoursesTests.xctest */,
+				018080ED1EB3F75300288280 /* GmailIOSCoursesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		018080C81EB3F75200288280 /* GmailIOSCourses */ = {
+			isa = PBXGroup;
+			children = (
+				01244E741EB6A10500DA93E7 /* Delegates */,
+				01B11FFA1EB604DE00EC80F6 /* ViewControllers */,
+				01244E731EB6A0EB00DA93E7 /* Model */,
+				018080D21EB3F75200288280 /* Main.storyboard */,
+				018080D81EB3F75200288280 /* Assets.xcassets */,
+				018080DA1EB3F75200288280 /* LaunchScreen.storyboard */,
+				01B11FFE1EB61C4900EC80F6 /* GoogleService-Info.plist */,
+				018080DD1EB3F75200288280 /* Info.plist */,
+				018080D51EB3F75200288280 /* GmailIOSCourses.xcdatamodeld */,
+				018080C91EB3F75200288280 /* Supporting Files */,
+			);
+			path = GmailIOSCourses;
+			sourceTree = "<group>";
+		};
+		018080C91EB3F75200288280 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				018080CA1EB3F75200288280 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		018080E51EB3F75300288280 /* GmailIOSCoursesTests */ = {
+			isa = PBXGroup;
+			children = (
+				018080E61EB3F75300288280 /* GmailIOSCoursesTests.m */,
+				018080E81EB3F75300288280 /* Info.plist */,
+			);
+			path = GmailIOSCoursesTests;
+			sourceTree = "<group>";
+		};
+		018080F01EB3F75300288280 /* GmailIOSCoursesUITests */ = {
+			isa = PBXGroup;
+			children = (
+				018080F11EB3F75300288280 /* GmailIOSCoursesUITests.m */,
+				018080F31EB3F75300288280 /* Info.plist */,
+			);
+			path = GmailIOSCoursesUITests;
+			sourceTree = "<group>";
+		};
+		01B11FFA1EB604DE00EC80F6 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				018080CF1EB3F75200288280 /* AuthorizationViewContoller.h */,
+				018080D01EB3F75200288280 /* AuthorizationViewContoller.m */,
+				01B11FFB1EB6108600EC80F6 /* MainViewController.h */,
+				01B11FFC1EB6108600EC80F6 /* MainViewController.m */,
+				012B592D1EC11CA400577F8A /* DetailViewController.h */,
+				012B592E1EC11CA400577F8A /* DetailViewController.m */,
+				01A8BE901EC25E10008D187B /* SendViewController.h */,
+				01A8BE911EC25E10008D187B /* SendViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6B1217AD7CC786834742CB89 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B0D72BE8EB30F92CD5F5E628 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6DFA4C64963AC5A9774BE509 /* Pods-GmailIOSCourses.debug.xcconfig */,
+				0FDD8A6959C7A9599D0E2352 /* Pods-GmailIOSCourses.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		018080C51EB3F75200288280 /* GmailIOSCourses */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 018080F61EB3F75300288280 /* Build configuration list for PBXNativeTarget "GmailIOSCourses" */;
+			buildPhases = (
+				43BFB3B63498461CCA75E279 /* [CP] Check Pods Manifest.lock */,
+				018080C21EB3F75200288280 /* Sources */,
+				018080C31EB3F75200288280 /* Frameworks */,
+				018080C41EB3F75200288280 /* Resources */,
+				7553BFDD51581B159AB14C33 /* [CP] Embed Pods Frameworks */,
+				06E1C24748197949DC5D326A /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GmailIOSCourses;
+			productName = GmailIOSCourses;
+			productReference = 018080C61EB3F75200288280 /* GmailIOSCourses.app */;
+			productType = "com.apple.product-type.application";
+		};
+		018080E11EB3F75300288280 /* GmailIOSCoursesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 018080F91EB3F75300288280 /* Build configuration list for PBXNativeTarget "GmailIOSCoursesTests" */;
+			buildPhases = (
+				018080DE1EB3F75300288280 /* Sources */,
+				018080DF1EB3F75300288280 /* Frameworks */,
+				018080E01EB3F75300288280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				018080E41EB3F75300288280 /* PBXTargetDependency */,
+			);
+			name = GmailIOSCoursesTests;
+			productName = GmailIOSCoursesTests;
+			productReference = 018080E21EB3F75300288280 /* GmailIOSCoursesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		018080EC1EB3F75300288280 /* GmailIOSCoursesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 018080FC1EB3F75300288280 /* Build configuration list for PBXNativeTarget "GmailIOSCoursesUITests" */;
+			buildPhases = (
+				018080E91EB3F75300288280 /* Sources */,
+				018080EA1EB3F75300288280 /* Frameworks */,
+				018080EB1EB3F75300288280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				018080EF1EB3F75300288280 /* PBXTargetDependency */,
+			);
+			name = GmailIOSCoursesUITests;
+			productName = GmailIOSCoursesUITests;
+			productReference = 018080ED1EB3F75300288280 /* GmailIOSCoursesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		018080BE1EB3F75200288280 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Aleksey Drachyov";
+				TargetAttributes = {
+					018080C51EB3F75200288280 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
+					018080E11EB3F75300288280 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 018080C51EB3F75200288280;
+					};
+					018080EC1EB3F75300288280 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 018080C51EB3F75200288280;
+					};
+				};
+			};
+			buildConfigurationList = 018080C11EB3F75200288280 /* Build configuration list for PBXProject "GmailIOSCourses" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 018080BD1EB3F75200288280;
+			productRefGroup = 018080C71EB3F75200288280 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				018080C51EB3F75200288280 /* GmailIOSCourses */,
+				018080E11EB3F75300288280 /* GmailIOSCoursesTests */,
+				018080EC1EB3F75300288280 /* GmailIOSCoursesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		018080C41EB3F75200288280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				018080DC1EB3F75200288280 /* LaunchScreen.storyboard in Resources */,
+				01B11FFF1EB61C4900EC80F6 /* GoogleService-Info.plist in Resources */,
+				018080D91EB3F75200288280 /* Assets.xcassets in Resources */,
+				018080D41EB3F75200288280 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		018080E01EB3F75300288280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		018080EB1EB3F75300288280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		06E1C24748197949DC5D326A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GmailIOSCourses/Pods-GmailIOSCourses-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		43BFB3B63498461CCA75E279 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7553BFDD51581B159AB14C33 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GmailIOSCourses/Pods-GmailIOSCourses-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		018080C21EB3F75200288280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				018080D11EB3F75200288280 /* AuthorizationViewContoller.m in Sources */,
+				018080D71EB3F75200288280 /* GmailIOSCourses.xcdatamodeld in Sources */,
+				018080CE1EB3F75200288280 /* AppDelegate.m in Sources */,
+				01B11FFD1EB6108600EC80F6 /* MainViewController.m in Sources */,
+				018080CB1EB3F75200288280 /* main.m in Sources */,
+				012B592F1EC11CA400577F8A /* DetailViewController.m in Sources */,
+				011CDB891EC5064E00C8CE4C /* Payload.m in Sources */,
+				013469D31EBBE81900272BEB /* InboxMessagesFetcher.m in Sources */,
+				01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */,
+				01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */,
+				013469D21EBBE81900272BEB /* Coordinator.m in Sources */,
+				01A8BE921EC25E10008D187B /* SendViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		018080DE1EB3F75300288280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				018080E71EB3F75300288280 /* GmailIOSCoursesTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		018080E91EB3F75300288280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				018080F21EB3F75300288280 /* GmailIOSCoursesUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		018080E41EB3F75300288280 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 018080C51EB3F75200288280 /* GmailIOSCourses */;
+			targetProxy = 018080E31EB3F75300288280 /* PBXContainerItemProxy */;
+		};
+		018080EF1EB3F75300288280 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 018080C51EB3F75200288280 /* GmailIOSCourses */;
+			targetProxy = 018080EE1EB3F75300288280 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		018080D21EB3F75200288280 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				018080D31EB3F75200288280 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		018080DA1EB3F75200288280 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				018080DB1EB3F75200288280 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		018080F41EB3F75300288280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		018080F51EB3F75300288280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		018080F71EB3F75300288280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DFA4C64963AC5A9774BE509 /* Pods-GmailIOSCourses.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GmailIOSCourses/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.GmailIOSCourses;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		018080F81EB3F75300288280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FDD8A6959C7A9599D0E2352 /* Pods-GmailIOSCourses.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GmailIOSCourses/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.GmailIOSCourses;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		018080FA1EB3F75300288280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = GmailIOSCoursesTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.GmailIOSCoursesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GmailIOSCourses.app/GmailIOSCourses";
+			};
+			name = Debug;
+		};
+		018080FB1EB3F75300288280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = GmailIOSCoursesTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.GmailIOSCoursesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GmailIOSCourses.app/GmailIOSCourses";
+			};
+			name = Release;
+		};
+		018080FD1EB3F75300288280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = GmailIOSCoursesUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.GmailIOSCoursesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = GmailIOSCourses;
+			};
+			name = Debug;
+		};
+		018080FE1EB3F75300288280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = GmailIOSCoursesUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.GmailIOSCoursesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = GmailIOSCourses;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		018080C11EB3F75200288280 /* Build configuration list for PBXProject "GmailIOSCourses" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				018080F41EB3F75300288280 /* Debug */,
+				018080F51EB3F75300288280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		018080F61EB3F75300288280 /* Build configuration list for PBXNativeTarget "GmailIOSCourses" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				018080F71EB3F75300288280 /* Debug */,
+				018080F81EB3F75300288280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		018080F91EB3F75300288280 /* Build configuration list for PBXNativeTarget "GmailIOSCoursesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				018080FA1EB3F75300288280 /* Debug */,
+				018080FB1EB3F75300288280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		018080FC1EB3F75300288280 /* Build configuration list for PBXNativeTarget "GmailIOSCoursesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				018080FD1EB3F75300288280 /* Debug */,
+				018080FE1EB3F75300288280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		018080D51EB3F75200288280 /* GmailIOSCourses.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				018080D61EB3F75200288280 /* GmailIOSCourses.xcdatamodel */,
+			);
+			currentVersion = 018080D61EB3F75200288280 /* GmailIOSCourses.xcdatamodel */;
+			path = GmailIOSCourses.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 018080BE1EB3F75200288280 /* Project object */;
+}
