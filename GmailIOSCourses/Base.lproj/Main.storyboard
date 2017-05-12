@@ -96,11 +96,11 @@
                                     <outlet property="delegate" destination="o2K-HX-myK" id="rVJ-8g-VXc"/>
                                 </connections>
                             </tableView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="PzO-eT-YP7">
-                                <rect key="frame" x="230" y="520" width="120" height="70"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PzO-eT-YP7">
+                                <rect key="frame" x="246" y="532" width="104" height="58"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJ0-0q-mSn">
-                                        <rect key="frame" x="8" y="8" width="104" height="54"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJ0-0q-mSn">
+                                        <rect key="frame" x="8" y="8" width="88" height="42"/>
                                         <state key="normal" title="Send"/>
                                         <connections>
                                             <action selector="send:" destination="o2K-HX-myK" eventType="touchUpInside" id="b4q-9y-7rJ"/>
@@ -119,10 +119,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PzO-eT-YP7" firstAttribute="top" secondItem="uuQ-IG-7He" secondAttribute="bottom" constant="500" id="2NO-2A-waA"/>
                             <constraint firstItem="lgF-RM-TSQ" firstAttribute="leading" secondItem="gr4-M2-sDA" secondAttribute="leading" id="Db7-Vw-H8E"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PzO-eT-YP7" secondAttribute="trailing" constant="9" id="Gak-NX-Aql"/>
-                            <constraint firstItem="PzO-eT-YP7" firstAttribute="leading" secondItem="gr4-M2-sDA" secondAttribute="leadingMargin" constant="214" id="NkZ-Eb-PFA"/>
                             <constraint firstItem="Mk5-58-tYq" firstAttribute="top" secondItem="PzO-eT-YP7" secondAttribute="bottom" constant="77" id="iYY-PI-bLI"/>
                             <constraint firstItem="lgF-RM-TSQ" firstAttribute="top" secondItem="uuQ-IG-7He" secondAttribute="bottom" constant="8" id="iud-I1-r8p"/>
                             <constraint firstItem="Mk5-58-tYq" firstAttribute="top" secondItem="lgF-RM-TSQ" secondAttribute="bottom" id="k3s-4v-F7f"/>
@@ -187,10 +185,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GDJ-Lf-43P">
-                                <rect key="frame" x="317" y="28" width="50" height="19"/>
+                                <rect key="frame" x="315" y="28" width="52" height="19"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkO-Pe-8bm">
-                                        <rect key="frame" x="6" y="-6" width="36" height="30"/>
+                                        <rect key="frame" x="8" y="-6" width="36" height="30"/>
                                         <state key="normal" title="Send"/>
                                         <connections>
                                             <action selector="sendMessage:" destination="BZX-TS-hio" eventType="touchUpInside" id="5gS-kC-Ndv"/>
@@ -201,10 +199,7 @@
                                 <constraints>
                                     <constraint firstItem="ZkO-Pe-8bm" firstAttribute="centerY" secondItem="GDJ-Lf-43P" secondAttribute="centerY" id="29x-pK-JNx"/>
                                     <constraint firstAttribute="trailing" secondItem="ZkO-Pe-8bm" secondAttribute="trailing" constant="8" id="8b0-RO-0Ey"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZkO-Pe-8bm" secondAttribute="trailing" constant="8" id="AWI-NH-Um9"/>
                                     <constraint firstItem="ZkO-Pe-8bm" firstAttribute="leading" secondItem="GDJ-Lf-43P" secondAttribute="leading" constant="8" id="LA9-ro-XN0"/>
-                                    <constraint firstItem="ZkO-Pe-8bm" firstAttribute="leading" secondItem="GDJ-Lf-43P" secondAttribute="leading" constant="6" id="M1Z-yr-6BC"/>
-                                    <constraint firstItem="ZkO-Pe-8bm" firstAttribute="top" secondItem="GDJ-Lf-43P" secondAttribute="top" constant="-6" id="foQ-Q0-DHj"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -224,6 +219,7 @@
                             <constraint firstItem="y57-MW-xFE" firstAttribute="top" secondItem="53i-L2-YAa" secondAttribute="bottom" constant="23" id="fuk-aE-CaD"/>
                             <constraint firstItem="53i-L2-YAa" firstAttribute="top" secondItem="0dJ-GA-DhQ" secondAttribute="bottom" constant="27" id="gwI-xa-WnS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="y57-MW-xFE" secondAttribute="trailing" constant="8" id="nZQ-VE-JXN"/>
+                            <constraint firstItem="53i-L2-YAa" firstAttribute="top" secondItem="GDJ-Lf-43P" secondAttribute="bottom" id="t2r-aB-ILK"/>
                             <constraint firstItem="b0w-ec-5gN" firstAttribute="top" secondItem="y57-MW-xFE" secondAttribute="bottom" constant="18" id="u1P-ex-8XK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="53i-L2-YAa" secondAttribute="trailing" constant="8" id="uU7-7S-mOu"/>
                             <constraint firstItem="U3F-si-26M" firstAttribute="top" secondItem="X6h-lb-3tA" secondAttribute="bottom" constant="20" id="vPy-RM-LvR"/>
