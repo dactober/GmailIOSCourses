@@ -29,6 +29,10 @@
     
         self.message=message;
 }
+- (IBAction)send:(id)sender {
+}
+- (IBAction)delete:(id)sender {
+}
 
 
 @end

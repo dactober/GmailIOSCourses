@@ -9,6 +9,9 @@
 #import "SendViewController.h"
 
 @interface SendViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *to;
+@property (weak, nonatomic) IBOutlet UITextField *subject;
+@property (weak, nonatomic) IBOutlet UITextView *body;
 
 @end
 
@@ -18,20 +21,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)setData:(Coordinator*)coordinator{
+    self.coordinator=coordinator;
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+- (IBAction)sendMessage:(id)sender {
+     [self.coordinator sendMessage:self.to.text subject:self.subject.text body:self.body.text];
+    [self.navigationController popViewControllerAnimated:YES];
 }
-*/
+
 
 @end

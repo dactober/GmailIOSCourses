@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		011CBF121EC5FA4C005759D1 /* LabelIds.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF111EC5FA4C005759D1 /* LabelIds.m */; };
 		011CBF181EC5FDC6005759D1 /* BodyOFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF171EC5FDC6005759D1 /* BodyOFMessage.m */; };
+		011CBF1E1EC64469005759D1 /* SendMessageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF1D1EC64469005759D1 /* SendMessageFetcher.m */; };
 		011CDB891EC5064E00C8CE4C /* Payload.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CDB881EC5064E00C8CE4C /* Payload.m */; };
 		01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01244E711EB696BF00DA93E7 /* CustomTableCell.m */; };
 		012B592F1EC11CA400577F8A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 012B592E1EC11CA400577F8A /* DetailViewController.m */; };
@@ -52,6 +53,8 @@
 		011CBF111EC5FA4C005759D1 /* LabelIds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelIds.m; sourceTree = "<group>"; };
 		011CBF161EC5FDC6005759D1 /* BodyOFMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyOFMessage.h; sourceTree = "<group>"; };
 		011CBF171EC5FDC6005759D1 /* BodyOFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyOFMessage.m; sourceTree = "<group>"; };
+		011CBF1C1EC64469005759D1 /* SendMessageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMessageFetcher.h; sourceTree = "<group>"; };
+		011CBF1D1EC64469005759D1 /* SendMessageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMessageFetcher.m; sourceTree = "<group>"; };
 		011CDB871EC5064E00C8CE4C /* Payload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Payload.h; sourceTree = "<group>"; };
 		011CDB881EC5064E00C8CE4C /* Payload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Payload.m; sourceTree = "<group>"; };
 		01244E701EB696BF00DA93E7 /* CustomTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableCell.h; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				011CBF111EC5FA4C005759D1 /* LabelIds.m */,
 				011CBF161EC5FDC6005759D1 /* BodyOFMessage.h */,
 				011CBF171EC5FDC6005759D1 /* BodyOFMessage.m */,
+				011CBF1C1EC64469005759D1 /* SendMessageFetcher.h */,
+				011CBF1D1EC64469005759D1 /* SendMessageFetcher.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -441,6 +446,7 @@
 				01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */,
 				01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */,
 				013469D21EBBE81900272BEB /* Coordinator.m in Sources */,
+				011CBF1E1EC64469005759D1 /* SendMessageFetcher.m in Sources */,
 				011CBF121EC5FA4C005759D1 /* LabelIds.m in Sources */,
 				01A8BE921EC25E10008D187B /* SendViewController.m in Sources */,
 			);

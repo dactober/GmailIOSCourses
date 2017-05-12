@@ -75,10 +75,12 @@
    [dvc setData:[self.messages objectForKey:indexPathForDictionary]];
     [self.navigationController pushViewController:dvc animated:YES];
 }
-- (IBAction)sent:(id)sender {
-    SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
-    [self.navigationController pushViewController:send animated:YES];
-}
 
+
+- (IBAction)send:(id)sender {
+    SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
+            [send setData:self.coordinator];
+            [self.navigationController pushViewController:send animated:YES];
+}
 
 @end

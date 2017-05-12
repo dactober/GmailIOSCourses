@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Coordinator.h"
 @interface SendViewController : UIViewController
-
+-(void)setData:(Coordinator*)coordinator;
+@property(nonatomic,strong)Coordinator* coordinator;
 @end

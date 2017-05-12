@@ -22,4 +22,5 @@
 @property(nonatomic,strong)NSString *from;
 -(instancetype)initWithData:(NSDictionary*) message;
 -(NSString *)decodedMessage;
++ (NSString *)encodedMessage:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body;
 @end

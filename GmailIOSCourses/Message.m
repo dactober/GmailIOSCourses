@@ -87,5 +87,14 @@
     return decodedString;
     
 }
-
++ (NSString *)encodedMessage:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body{
+    NSString *message = [NSString stringWithFormat:@"From: <%@>\nTo: <%@>\nSubject: <Test\n\n%@>",from,to,body];
+    NSString *rawMessage = [message stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    
+    NSData *encodedMessage = [rawMessage dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *encoded = [encodedMessage base64EncodedStringWithOptions:0];
+    NSLog(@"%@", encoded);
+    
+    return encoded;
+}
 @end

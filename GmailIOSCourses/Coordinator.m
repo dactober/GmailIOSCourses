@@ -15,6 +15,7 @@
         self.userID=email;
         self.accessToken=accessToken;
         self.imf=[[InboxMessagesFetcher alloc]initWithData:self.accessToken];
+        self.smf=[[SendMessageFetcher alloc]initWithData:self.accessToken];
     }
     return self;
 }
@@ -32,5 +33,9 @@
 -(Message *)createMessage:(NSDictionary *)message{
     Message *msg=[[Message alloc]initWithData:message];
     return msg;
+}
+-(void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body{
+    [self.smf send:self.userID to:to subject:subject body:body];
+    
 }
 @end
