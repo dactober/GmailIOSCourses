@@ -16,7 +16,7 @@
         self.body=[[BodyOFMessage alloc] initWithData:[payload objectForKey:@"body"]];
         self.fileName=[payload objectForKey:@"fileName"];
         self.headers=[payload objectForKey:@"headers"];
-        self.parts=[[PartsOfMessage alloc]initWithData:[payload objectForKey:@"parts"]];
+        self.parts=[payload objectForKey:@"parts"];
     }
     return self;
 }

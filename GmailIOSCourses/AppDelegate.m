@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MainViewController.h"
+#import "AuthorizationViewContoller.h"
 @interface AppDelegate ()
 
 @end
@@ -16,7 +16,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    AuthorizationViewContoller *auth=[AuthorizationViewContoller new];
     // Override point for customization after application launch.
     return YES;
 }

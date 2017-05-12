@@ -21,13 +21,12 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    self.subject.text=self.cell.subject.text;
-    self.from.text=self.cell.title.text;
-    self.body.text=[self.message decodeMessage];
+    self.subject.text=self.message.subject;
+    self.from.text=self.message.from;
+    self.body.text=[self.message decodedMessage];
 }
--(void)setData:(CustomTableCell *)cell message:(Message *)message{
+-(void)setData:(Message *)message{
     
-        self.cell=cell;
         self.message=message;
 }
 

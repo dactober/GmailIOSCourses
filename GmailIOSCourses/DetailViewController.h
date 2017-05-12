@@ -15,6 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *body;
 @property (strong,nonatomic) CustomTableCell *cell;
 @property (strong,nonatomic)Message *message;
--(void)setData:(CustomTableCell *)cell message:(Message *)message;
+-(void)setData:(Message *)message;
 
 @end

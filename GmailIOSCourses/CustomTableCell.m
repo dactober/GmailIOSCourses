@@ -9,26 +9,27 @@
 #import "CustomTableCell.h"
 
 @implementation CustomTableCell
-static bool sub=false;
-static bool fr=false;
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
 -(void)customCellData:(Message *)message{
-    sub=false;
-    fr=false;
-    self.headers=[message.payload objectForKey:@"headers"];
-    for(int i=0;i<self.headers.count;i++){
+    
+    bool sub=false;
+    bool fr=false;
+    for(int i=0;i<message.payload.headers.count;i++){
         if(sub && fr){
             break;
         }
-        if([[self.headers[i] objectForKey:@"name"] isEqual:@"Subject"]){
-            self.subject.text=[self.headers[i] objectForKey:@"value"];
+        if([[message.payload.headers[i] objectForKey:@"name"] isEqual:@"Subject"]){
+            self.subject.text=[message.payload.headers[i]objectForKey:@"value"];
+            [message setSubject:[message.payload.headers[i]objectForKey:@"value"]];
             sub=true;
         }else{
-            if([[self.headers[i] objectForKey:@"name"] isEqual:@"From"]){
-                self.title.text=[self.headers[i] objectForKey:@"value"];
+            if([[message.payload.headers[i] objectForKey:@"name"] isEqual:@"From"]){
+                self.title.text=[message.payload.headers[i] objectForKey:@"value"];
+                [message setFrom:[message.payload.headers[i]objectForKey:@"value"]];
                 fr=true;
             }
         }

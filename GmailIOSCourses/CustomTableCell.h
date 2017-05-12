@@ -14,6 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *body;
 @property(strong,nonatomic)NSDictionary *subjectOfMessage;
 @property (strong,nonatomic)NSDictionary *from;
-@property(strong,nonatomic)NSArray *headers;
+
 -(void)customCellData:(Message *)message;
 @end

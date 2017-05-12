@@ -9,12 +9,12 @@
 #import "BodyOFMessage.h"
 
 @implementation BodyOFMessage
-long size;
+
 -(instancetype)initWithData:(NSDictionary *)body{
     self=[super init];
     if(self){
         self.data=[body objectForKey:@"data"];
-        size=[body objectForKey:@"size"];
+        self.size=[[NSNumber alloc]initWithLong:[body objectForKey:@"size"]];
     }
     return self;
 }

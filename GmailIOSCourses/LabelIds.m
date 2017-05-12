@@ -12,7 +12,9 @@
 -(instancetype)initWithData:(NSArray *)labelIds{
     self=[super init];
     if(self){
-        
+        self.tag=labelIds[0];
+        self.category=labelIds[0];
+        self.list=labelIds[0];
     }
     return self;
 }

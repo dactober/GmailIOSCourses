@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "BodyOFMessage.h"
-#import "PartsOfMessage.h"
+
 @interface Payload : NSObject
 @property(nonatomic,strong)NSString* mimeType;
 @property(nonatomic,strong)NSString* fileName;
 @property(nonatomic,strong)NSArray* headers;
 @property(nonatomic,strong)BodyOFMessage* body;
-@property(nonatomic,strong)PartsOfMessage *parts;
+@property(nonatomic,strong)NSArray *parts;
 -(instancetype)initWithData:(NSDictionary *)payload;
 @end

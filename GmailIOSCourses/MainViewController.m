@@ -15,7 +15,7 @@
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property(nonatomic,strong)NSArray* listOfMessages;
-@property(nonatomic,strong)NSMutableArray *messages;
+@property(nonatomic,strong)NSMutableDictionary *messages;
 @property(nonatomic,strong)Message *message;
 @property(nonatomic,strong)NSDictionary* tableDictionary;
 
@@ -26,7 +26,7 @@
     
     [super viewDidLoad];
     
-    self.messages=[NSMutableArray new];
+    self.messages=[NSMutableDictionary new];
     
    
     [self.coordinator readListOfMessages:^(NSArray* listOfMessages){
@@ -61,7 +61,8 @@
     [self.coordinator getMessage:[self.tableDictionary objectForKey:@"id"] callback:^(NSDictionary* listOfMessages){
         dispatch_async(dispatch_get_main_queue(), ^{
             self.message=[self.coordinator createMessage:listOfMessages];
-            [self.messages addObject:self.message];
+            NSString *indexPathForDictionary=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
+            self.messages[indexPathForDictionary]=self.message;
             [cell customCellData:self.message];
         });
     }];
@@ -69,8 +70,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *indexPathForDictionary=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
     DetailViewController *dvc=[self.storyboard instantiateViewControllerWithIdentifier:@"Detail"];
-   [dvc setData:[self.myTableView cellForRowAtIndexPath:indexPath] message:[self.messages objectAtIndex:indexPath.row]];
+   [dvc setData:[self.messages objectForKey:indexPathForDictionary]];
     [self.navigationController pushViewController:dvc animated:YES];
 }
 - (IBAction)sent:(id)sender {

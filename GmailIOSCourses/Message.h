@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Payload.h"
-#import "PartsOfMessage.h"
 #import "LabelIds.h"
 @interface Message : NSObject
 @property(nonatomic,strong)NSString *sizeEstimate;
@@ -19,7 +18,8 @@
 @property(nonatomic,strong)NSString *historyID;
 @property(nonatomic,strong)Payload *payload;
 @property(nonatomic,strong)NSString *threadId;
-@property (nonatomic,strong)PartsOfMessage *parts;
+@property(nonatomic,strong)NSString* subject;
+@property(nonatomic,strong)NSString *from;
 -(instancetype)initWithData:(NSDictionary*) message;
 -(NSString *)decodedMessage;
 @end
