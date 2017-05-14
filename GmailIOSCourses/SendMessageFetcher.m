@@ -21,20 +21,16 @@
     NSString *server=[NSString stringWithFormat:@"https://www.googleapis.com/upload/gmail/v1/users/%@/messages/send?uploadType=media",from];
     NSURL *userinfoEndpoint = [NSURL URLWithString:server];
     NSString *currentAccessToken = self.accessToken;
+    //"raw": "RnJvbTogaW50ZWdvMTExQGdtYWlsLmNvbQ0KVG86IGludGVnbzExMUBnbWFpbC5jb20NClN1YmplY3Q6IHRlc3QNCg0KVGVzdA=="                              @"{\"raw\": \"%@\"}"
+    NSString *message = [NSString stringWithFormat:@"\"raw\": \"%@\"",[Message encodedMessage:from to:to subject:subject body:body]];
     
-   
-    
-    // Handle refreshing tokens
-    
-    NSString *message = [NSString stringWithFormat:@"{\"raw\": \"%@\"}",[Message encodedMessage:from to:to subject:subject body:body]];
     NSLog(@"%@", message);
-    
     // creates request to the userinfo endpoint, with access token in the Authorization header
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:userinfoEndpoint];
     NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@", currentAccessToken];
     [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];
     [request setHTTPMethod:@"POST"];
-    [request setValue:@"message/rfc822" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"message/rfc2822" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[message length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[message dataUsingEncoding:NSUTF8StringEncoding]];
      

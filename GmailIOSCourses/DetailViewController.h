@@ -5,7 +5,7 @@
 //  Created by Aleksey Drachyov on 5/9/17.
 //  Copyright © 2017 Aleksey Drachyov. All rights reserved.
 //
-
+@class Coordinator;
 #import <UIKit/UIKit.h>
 #import "CustomTableCell.h"
 #import "Message.h"
@@ -15,6 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *body;
 @property (strong,nonatomic) CustomTableCell *cell;
 @property (strong,nonatomic)Message *message;
--(void)setData:(Message *)message;
+-(void)setData:(Message *)message coordinator:(Coordinator*)coordinator;
 
 @end

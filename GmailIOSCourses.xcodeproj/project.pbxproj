@@ -24,6 +24,7 @@
 		018080DC1EB3F75200288280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018080DA1EB3F75200288280 /* LaunchScreen.storyboard */; };
 		018080E71EB3F75300288280 /* GmailIOSCoursesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 018080E61EB3F75300288280 /* GmailIOSCoursesTests.m */; };
 		018080F21EB3F75300288280 /* GmailIOSCoursesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 018080F11EB3F75300288280 /* GmailIOSCoursesUITests.m */; };
+		019106051EC7A0A400591EE5 /* DetailViewControllerForHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 019106041EC7A0A400591EE5 /* DetailViewControllerForHtml.m */; };
 		01A8BE921EC25E10008D187B /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A8BE911EC25E10008D187B /* SendViewController.m */; };
 		01B11FFD1EB6108600EC80F6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B11FFC1EB6108600EC80F6 /* MainViewController.m */; };
 		01B11FFF1EB61C4900EC80F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01B11FFE1EB61C4900EC80F6 /* GoogleService-Info.plist */; };
@@ -82,6 +83,8 @@
 		018080ED1EB3F75300288280 /* GmailIOSCoursesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GmailIOSCoursesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		018080F11EB3F75300288280 /* GmailIOSCoursesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GmailIOSCoursesUITests.m; sourceTree = "<group>"; };
 		018080F31EB3F75300288280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		019106031EC7A0A400591EE5 /* DetailViewControllerForHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewControllerForHtml.h; sourceTree = "<group>"; };
+		019106041EC7A0A400591EE5 /* DetailViewControllerForHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewControllerForHtml.m; sourceTree = "<group>"; };
 		01A8BE901EC25E10008D187B /* SendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendViewController.h; sourceTree = "<group>"; };
 		01A8BE911EC25E10008D187B /* SendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendViewController.m; sourceTree = "<group>"; };
 		01B11FFB1EB6108600EC80F6 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 				01B11FFC1EB6108600EC80F6 /* MainViewController.m */,
 				012B592D1EC11CA400577F8A /* DetailViewController.h */,
 				012B592E1EC11CA400577F8A /* DetailViewController.m */,
+				019106031EC7A0A400591EE5 /* DetailViewControllerForHtml.h */,
+				019106041EC7A0A400591EE5 /* DetailViewControllerForHtml.m */,
 				01A8BE901EC25E10008D187B /* SendViewController.h */,
 				01A8BE911EC25E10008D187B /* SendViewController.m */,
 			);
@@ -440,6 +445,7 @@
 				01B11FFD1EB6108600EC80F6 /* MainViewController.m in Sources */,
 				018080CB1EB3F75200288280 /* main.m in Sources */,
 				012B592F1EC11CA400577F8A /* DetailViewController.m in Sources */,
+				019106051EC7A0A400591EE5 /* DetailViewControllerForHtml.m in Sources */,
 				011CDB891EC5064E00C8CE4C /* Payload.m in Sources */,
 				011CBF181EC5FDC6005759D1 /* BodyOFMessage.m in Sources */,
 				013469D31EBBE81900272BEB /* InboxMessagesFetcher.m in Sources */,

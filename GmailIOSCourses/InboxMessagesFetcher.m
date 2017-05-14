@@ -43,7 +43,7 @@
     
     [[self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        
+        NSString * str=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         callback(json);
         ;

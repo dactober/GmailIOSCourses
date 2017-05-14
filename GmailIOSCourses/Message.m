@@ -7,7 +7,7 @@
 //
 
 #import "Message.h"
-
+#import "Coordinator.h"
 @implementation Message
 -(instancetype)initWithData:(NSDictionary*) message{
     self=[super init];
@@ -88,13 +88,32 @@
     
 }
 + (NSString *)encodedMessage:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body{
-    NSString *message = [NSString stringWithFormat:@"From: <%@>\nTo: <%@>\nSubject: <%@\n\n%@>",from,to,subject,body];
+    NSString *message = [NSString stringWithFormat:@"From: %@\r\nTo: %@\r\nSubject: %@\r\n\r\n%@",from,to,subject,body];
    // NSString *rawMessage = [message stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
     
     NSData *encodedMessage = [message dataUsingEncoding:NSUTF8StringEncoding];
     NSString *encoded = [encodedMessage base64EncodedStringWithOptions:0];
+    encoded = [encoded stringByReplacingOccurrencesOfString:@"+"
+                                           withString:@"-"];
+    encoded = [encoded stringByReplacingOccurrencesOfString:@"/"
+                                           withString:@"_"];
     NSLog(@"%@", encoded);
     
     return encoded;
+}
+-(void)deleteMessage:(Coordinator*)coordinator callback:(void(^)(void))callback{
+    NSString* serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/%@/messages/%@",coordinator.userID,self.ID];
+    NSURL *url = [NSURL URLWithString:serverAddressForReadMessages];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@",coordinator.accessToken];
+    [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];
+    [request setHTTPMethod:@"DELETE"];
+    
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        callback();
+        
+    }] resume];
 }
 @end

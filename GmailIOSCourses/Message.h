@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Payload.h"
 #import "LabelIds.h"
+@class Coordinator;
 @interface Message : NSObject
 @property(nonatomic,strong)NSString *sizeEstimate;
 @property(nonatomic,strong)LabelIds *labelIDs;
@@ -20,6 +21,7 @@
 @property(nonatomic,strong)NSString *threadId;
 @property(nonatomic,strong)NSString* subject;
 @property(nonatomic,strong)NSString *from;
+-(void)deleteMessage:(Coordinator* )coordinator callback:(void(^)(void))callback;
 -(instancetype)initWithData:(NSDictionary*) message;
 -(NSString *)decodedMessage;
 + (NSString *)encodedMessage:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body;

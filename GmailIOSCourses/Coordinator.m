@@ -27,7 +27,7 @@
     
 }
 -(void)getMessage:(NSString *)messageID callback:(void(^)(NSDictionary*))callback{
-    self.serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/%@/messages/%@",self.userID,messageID];
+    self.serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/%@/messages/%@?field=raw",self.userID,messageID];
     [self.imf getMessage:self.serverAddressForReadMessages callback:callback];
 }
 -(Message *)createMessage:(NSDictionary *)message{

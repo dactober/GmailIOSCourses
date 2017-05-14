@@ -29,16 +29,20 @@
     self.messages=[NSMutableDictionary new];
     
    
+    
+   
+    
+    
+    // Do any additional setup after loading the view.
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
     [self.coordinator readListOfMessages:^(NSArray* listOfMessages){
         dispatch_async(dispatch_get_main_queue(), ^{
             self.listOfMessages=listOfMessages;
             [self.myTableView reloadData];
         });
     }];
-   
-    
-    
-    // Do any additional setup after loading the view.
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -46,6 +50,7 @@
     return 1;
     
 }
+
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -72,14 +77,14 @@
 {
     NSString *indexPathForDictionary=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
     DetailViewController *dvc=[self.storyboard instantiateViewControllerWithIdentifier:@"Detail"];
-   [dvc setData:[self.messages objectForKey:indexPathForDictionary]];
+    [dvc setData:[self.messages objectForKey:indexPathForDictionary] coordinator:self.coordinator];
     [self.navigationController pushViewController:dvc animated:YES];
 }
 
 
 - (IBAction)send:(id)sender {
     SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
-            [send setData:self.coordinator];
+    [send setData:self.coordinator flag:false message:nil];
             [self.navigationController pushViewController:send animated:YES];
 }
 

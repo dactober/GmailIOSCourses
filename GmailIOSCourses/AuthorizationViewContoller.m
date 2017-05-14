@@ -71,7 +71,7 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     GTMOAuth2ViewControllerTouch *authController;
     // If modifying these scopes, delete your previously saved credentials by
     // resetting the iOS simulator or uninstall the app.
-    NSArray *scopes = [NSArray arrayWithObjects:kGTLRAuthScopeGmailReadonly,kGTLRAuthScopeGmailModify,kGTLRAuthScopeGmailMailGoogleCom,kGTLRAuthScopeGmailSend,kGTLRAuthScopeGmailInsert,kGTLRAuthScopeGmailLabels,kGTLRAuthScopeGmailCompose,kGTLRAuthScopeGmailSettingsBasic,kGTLRAuthScopeGmailSettingsSharing, nil];
+    NSArray *scopes = [NSArray arrayWithObjects:kGTLRAuthScopeGmailReadonly,kGTLRAuthScopeGmailMailGoogleCom,kGTLRAuthScopeGmailSend,kGTLRAuthScopeGmailInsert,kGTLRAuthScopeGmailLabels,kGTLRAuthScopeGmailCompose,kGTLRAuthScopeGmailSettingsBasic, nil];
     authController = [[GTMOAuth2ViewControllerTouch alloc]
                       initWithScope:[scopes componentsJoinedByString:@" "]
                       clientID:kClientID
