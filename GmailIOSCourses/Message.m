@@ -89,7 +89,7 @@
 }
 + (NSString *)encodedMessage:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body{
     NSString *message = [NSString stringWithFormat:@"From: %@\r\nTo: %@\r\nSubject: %@\r\n\r\n%@",from,to,subject,body];
-   // NSString *rawMessage = [message stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+   
     
     NSData *encodedMessage = [message dataUsingEncoding:NSUTF8StringEncoding];
     NSString *encoded = [encodedMessage base64EncodedStringWithOptions:0];

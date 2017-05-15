@@ -18,21 +18,25 @@
     return self;
 }
 -(void)send:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body{
-    NSString *server=[NSString stringWithFormat:@"https://www.googleapis.com/upload/gmail/v1/users/%@/messages/send?uploadType=media",from];
+    NSString *server=[NSString stringWithFormat:@"https://content.googleapis.com/gmail/v1/users/%@/messages/send?alt=json",from];
     NSURL *userinfoEndpoint = [NSURL URLWithString:server];
     NSString *currentAccessToken = self.accessToken;
     //"raw": "RnJvbTogaW50ZWdvMTExQGdtYWlsLmNvbQ0KVG86IGludGVnbzExMUBnbWFpbC5jb20NClN1YmplY3Q6IHRlc3QNCg0KVGVzdA=="                              @"{\"raw\": \"%@\"}"
-    NSString *message = [NSString stringWithFormat:@"\"raw\": \"%@\"",[Message encodedMessage:from to:to subject:subject body:body]];
+    //NSString *message = [NSString stringWithFormat:@"\"raw\": \"%@\"",];
+    NSDictionary *dict=@{@"raw":[Message encodedMessage:from to:to subject:subject body:body]};
     
-    NSLog(@"%@", message);
+    NSData *messageData = [NSJSONSerialization dataWithJSONObject:dict
+                                                       options:NSJSONWritingPrettyPrinted error:nil];
+    
+   // NSLog(@"%@", message);
     // creates request to the userinfo endpoint, with access token in the Authorization header
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:userinfoEndpoint];
     NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@", currentAccessToken];
     [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];
     [request setHTTPMethod:@"POST"];
-    [request setValue:@"message/rfc2822" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[message length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[message dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+  //  [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[message length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:messageData ];
      
      NSURLSessionConfiguration *configuration =
      [NSURLSessionConfiguration defaultSessionConfiguration];
