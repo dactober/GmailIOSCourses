@@ -7,31 +7,57 @@
 //
 
 #import "DetailViewControllerForHtml.h"
-
+#import "Coordinator.h"
+#import "Message.h"
+#import "SendViewController.h"
 @interface DetailViewControllerForHtml ()
-
+@property (weak, nonatomic) IBOutlet UILabel *subject;
+@property (weak, nonatomic) IBOutlet UILabel *from;
+@property (weak, nonatomic) IBOutlet UIWebView *body;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+@property(nonatomic,strong)Coordinator *coordinator;
+@property (strong,nonatomic)Message *message;
 @end
 
 @implementation DetailViewControllerForHtml
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.body.delegate=self;
+    
     // Do any additional setup after loading the view.
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.subject.text=self.message.subject;
+    self.from.text=self.message.from;
+    self.activity.hidden=NO;
+    self.activity.startAnimating;
+    NSString *body = [NSString stringWithFormat:@"%@",[self.message decodedMessage]];
+    body = [body stringByReplacingOccurrencesOfString:@"http"
+                                           withString:@"https"];
+    [self.body loadHTMLString:body baseURL:nil];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    self.activity.stopAnimating;
+  self.activity.hidden=YES;
 }
-*/
+-(void)setData:(Message *)message coordinator:(Coordinator*)coordinator{
+    self.coordinator=coordinator;
+    self.message=message;
+}
+- (IBAction)send:(id)sender {
+    SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
+    [send setData:self.coordinator flag:true message:self.message];
+    [self.navigationController pushViewController:send animated:YES];
+}
+- (IBAction)delete:(id)sender {
+    [self.message deleteMessage:self.coordinator callback:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    }];
+}
 
 @end

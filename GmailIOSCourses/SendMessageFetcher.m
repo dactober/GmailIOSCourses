@@ -21,8 +21,7 @@
     NSString *server=[NSString stringWithFormat:@"https://content.googleapis.com/gmail/v1/users/%@/messages/send?alt=json",from];
     NSURL *userinfoEndpoint = [NSURL URLWithString:server];
     NSString *currentAccessToken = self.accessToken;
-    //"raw": "RnJvbTogaW50ZWdvMTExQGdtYWlsLmNvbQ0KVG86IGludGVnbzExMUBnbWFpbC5jb20NClN1YmplY3Q6IHRlc3QNCg0KVGVzdA=="                              @"{\"raw\": \"%@\"}"
-    //NSString *message = [NSString stringWithFormat:@"\"raw\": \"%@\"",];
+    
     NSDictionary *dict=@{@"raw":[Message encodedMessage:from to:to subject:subject body:body]};
     
     NSData *messageData = [NSJSONSerialization dataWithJSONObject:dict
@@ -35,7 +34,7 @@
     [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-  //  [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[message length]] forHTTPHeaderField:@"Content-Length"];
+  
     [request setHTTPBody:messageData ];
      
      NSURLSessionConfiguration *configuration =

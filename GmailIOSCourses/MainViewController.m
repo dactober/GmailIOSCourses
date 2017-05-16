@@ -12,6 +12,7 @@
 #import "CustomTableCell.h"
 #import "DetailViewController.h"
 #import "Message.h"
+#import "DetailViewControllerForHtml.h"
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property(nonatomic,strong)NSArray* listOfMessages;
@@ -35,14 +36,17 @@
     
     // Do any additional setup after loading the view.
 }
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
+-(void)updateListOfMessages{
     [self.coordinator readListOfMessages:^(NSArray* listOfMessages){
         dispatch_async(dispatch_get_main_queue(), ^{
             self.listOfMessages=listOfMessages;
             [self.myTableView reloadData];
         });
     }];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self updateListOfMessages];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -76,9 +80,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *indexPathForDictionary=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-    DetailViewController *dvc=[self.storyboard instantiateViewControllerWithIdentifier:@"Detail"];
-    [dvc setData:[self.messages objectForKey:indexPathForDictionary] coordinator:self.coordinator];
-    [self.navigationController pushViewController:dvc animated:YES];
+    self.message=[self.messages objectForKey:indexPathForDictionary];
+    if([self.message.payload.mimeType isEqualToString:@"text/html"]){
+        DetailViewControllerForHtml *dvcfHTML=[self.storyboard instantiateViewControllerWithIdentifier:@"html"];
+        [dvcfHTML setData:self.message coordinator:self.coordinator];
+        [self.navigationController pushViewController:dvcfHTML animated:YES];
+    }else{
+        DetailViewController *dvc=[self.storyboard instantiateViewControllerWithIdentifier:@"Detail"];
+        [dvc setData:[self.messages objectForKey:indexPathForDictionary] coordinator:self.coordinator];
+        [self.navigationController pushViewController:dvc animated:YES];
+    }
+    
 }
 
 
@@ -86,6 +98,9 @@
     SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
     [send setData:self.coordinator flag:false message:nil];
             [self.navigationController pushViewController:send animated:YES];
+}
+- (IBAction)refresh:(id)sender {
+    [self updateListOfMessages];
 }
 
 @end

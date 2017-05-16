@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface DetailViewControllerForHtml : UIViewController
-
+@class Message;
+@class Coordinator;
+@interface DetailViewControllerForHtml : UIViewController <UIWebViewDelegate>
+-(void)setData:(Message *)message coordinator:(Coordinator*)coordinator;
 @end

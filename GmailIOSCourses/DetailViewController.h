@@ -13,7 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *subject;
 @property (weak, nonatomic) IBOutlet UILabel *from;
 @property (weak, nonatomic) IBOutlet UILabel *body;
-@property (strong,nonatomic) CustomTableCell *cell;
 @property (strong,nonatomic)Message *message;
 -(void)setData:(Message *)message coordinator:(Coordinator*)coordinator;
 
