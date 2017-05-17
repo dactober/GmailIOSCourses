@@ -7,6 +7,19 @@
 //
 
 #import "AuthorizationViewContoller.h"
+#import "GTMOAuth2ViewControllerTouch.h"
+#import "MainViewController.h"
+#import "GTLRGmail.h"
+#import "Coordinator.h"
+#import "SettingsTableViewController.h"
+#import "SearchViewController.h"
+@interface AuthorizationViewContoller()
+@property (nonatomic, strong) GTLRGmailService *service;
+@property(nonatomic,strong)SettingsTableViewController* settingsViewController;
+@property(nonatomic,strong)SearchViewController *searchViewController;
+@property(nonatomic,strong)MainViewController *mainViewController;
+@end
+
 static NSString *accessToken;
 static NSString *const kKeychainItemName = @"Google API";
 static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrcjj.apps.googleusercontent.com";
@@ -33,9 +46,35 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 -(void)createMainViewController{
     self.mainViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"Main"];
     Coordinator *coordinator=[[Coordinator alloc] initWithData:self.service.authorizer.userEmail accessToken:accessToken];
+    self.settingsViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
+    self.searchViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"Search"];
     [self.mainViewController setCoordinator:coordinator];
+    [self.mainViewController setSettingsViewController:self.settingsViewController];
+    [self.mainViewController setSearchViewController:self.searchViewController];
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
-    [self presentViewController:nav animated:YES completion:nil];
+    UINavigationController* nav1 = [[UINavigationController alloc] initWithRootViewController:self.settingsViewController];
+    UINavigationController* nav2 = [[UINavigationController alloc] initWithRootViewController:self.searchViewController];
+    NSMutableArray *tabViewControllers = [[NSMutableArray alloc] init];
+    [tabViewControllers addObject:nav];
+    [tabViewControllers addObject:nav1];
+    [tabViewControllers addObject:nav2];
+    UITabBarController *tabController = [[UITabBarController alloc]init];
+    [tabController setViewControllers:tabViewControllers];
+    nav.tabBarItem =
+    [[UITabBarItem alloc] initWithTitle:@"AllMail"
+                                  image:[UIImage imageNamed:@"AllMail"]
+                                    tag:1];
+    nav1.tabBarItem =
+    [[UITabBarItem alloc] initWithTitle:@"Settings"
+                                  image:[UIImage imageNamed:@"Settings"]
+                                    tag:2];
+    nav2.tabBarItem =
+    [[UITabBarItem alloc] initWithTitle:@"Search"
+                                  image:[UIImage imageNamed:@"Search"]
+                                    tag:3];
+    
+   
+    [self presentViewController:tabController animated:YES completion:nil];
 }
 // When the view appears, ensure that the Gmail API service is authorized, and perform API calls.
 - (void)viewDidAppear:(BOOL)animated {

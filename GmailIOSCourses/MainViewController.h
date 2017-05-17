@@ -11,8 +11,11 @@
 #import "GTLRGmail.h"
 #import "Coordinator.h"
 #import "SendViewController.h"
+#import "SettingsTableViewController.h"
+#import "SearchViewController.h"
 @interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
-
+@property(nonatomic,strong)SettingsTableViewController* settingsViewController;
+@property(nonatomic,strong)SearchViewController *searchViewController;
 @property (strong,nonatomic)Coordinator *coordinator;
 @end
 static NSString *myId=@"Id";

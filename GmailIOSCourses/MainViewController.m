@@ -13,6 +13,7 @@
 #import "DetailViewController.h"
 #import "Message.h"
 #import "DetailViewControllerForHtml.h"
+
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property(nonatomic,strong)NSMutableArray* listOfMessages;
@@ -28,7 +29,7 @@
     [super viewDidLoad];
     self.listOfMessages=[[NSMutableArray alloc]init];
     self.messages=[NSMutableDictionary new];
-    self.myTableView.allowsMultipleSelectionDuringEditing = NO;
+  
    
     
    
@@ -40,7 +41,9 @@
     [self.coordinator readListOfMessages:^(NSMutableArray* listOfMessages){
         dispatch_async(dispatch_get_main_queue(), ^{
             self.listOfMessages=listOfMessages;
+            [self.settingsViewController setMessages:listOfMessages];
             [self.myTableView reloadData];
+            
         });
     }];
 }

@@ -7,14 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GTMOAuth2ViewControllerTouch.h"
-#import "MainViewController.h"
-#import "GTLRGmail.h"
-#import "Coordinator.h"
+
 @interface AuthorizationViewContoller : UIViewController
-@property (nonatomic, strong) GTLRGmailService *service;
 
-
-@property(nonatomic,strong)MainViewController *mainViewController;
 @end
 

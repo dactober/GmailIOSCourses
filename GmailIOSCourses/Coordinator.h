@@ -7,20 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+@class AllMessagesFetcher;
+@class Message;
 
-#import "CustomTableCell.h"
-#import "DetailViewController.h"
-#import "InboxMessagesFetcher.h"
-#import "SendMessageFetcher.h"
 @interface Coordinator : NSObject
 -(instancetype)initWithData:(NSString*)email accessToken:(NSString*)accessToken;
 @property(nonatomic,strong)NSString *serverAddressForReadMessages;
 @property (strong)NSString *userID;
 @property (strong)NSString *accessToken;
-@property(strong,nonatomic)InboxMessagesFetcher *imf;
+@property(strong,nonatomic)AllMessagesFetcher *amf;
 -(void)readListOfMessages:(void(^)(NSMutableArray*))callback;
 -(void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback;
 
 -(void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body;
-@property(nonatomic,strong)SendMessageFetcher* smf;
+
 @end

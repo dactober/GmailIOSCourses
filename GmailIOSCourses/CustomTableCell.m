@@ -16,25 +16,14 @@ const NSString* destination=@"/Users/alekseydrachyov/Documents/work/GmailIOSCour
 }
 -(void)customCellData:(Message *)message{
     
-    bool sub=false;
-    bool fr=false;
-    for(int i=0;i<message.payload.headers.count;i++){
-        if(sub && fr){
-            break;
-        }
-        if([[message.payload.headers[i] objectForKey:@"name"] isEqual:@"Subject"]){
-            self.subject.text=[message.payload.headers[i]objectForKey:@"value"];
-            [message setSubject:[message.payload.headers[i]objectForKey:@"value"]];
-            sub=true;
-        }else{
-            if([[message.payload.headers[i] objectForKey:@"name"] isEqual:@"From"]){
-                self.title.text=[message.payload.headers[i] objectForKey:@"value"];
-                [message setFrom:[message.payload.headers[i]objectForKey:@"value"]];
-                fr=true;
-            }
-        }
-    }
+    
+    self.subject.text=message.subject;
     self.body.text=message.snippet;
+    self.title.text=message.from;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"E d MMM yyyy HH:mm:ss Z"];
+    NSString *stringDate = [dateFormatter stringFromDate:message.date];
+    self.date.text=stringDate;
    self.image.image=[[UIImage alloc]initWithContentsOfFile: destination];
     
     

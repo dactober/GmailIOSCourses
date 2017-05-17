@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MessagesFetcherProtocol.h"
+@interface SendMessagesFetcher : NSObject<MessagesFetcherProtocol>
 
-@interface SendMessageFetcher : NSObject
 
--(instancetype)initWithData:(NSString*)accessToken;
 @property(nonatomic,strong)NSString* accessToken;
--(void)send:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body;
+
 @end

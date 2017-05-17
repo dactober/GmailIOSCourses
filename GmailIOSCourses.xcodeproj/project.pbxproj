@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		011CBF121EC5FA4C005759D1 /* LabelIds.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF111EC5FA4C005759D1 /* LabelIds.m */; };
 		011CBF181EC5FDC6005759D1 /* BodyOFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF171EC5FDC6005759D1 /* BodyOFMessage.m */; };
-		011CBF1E1EC64469005759D1 /* SendMessageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF1D1EC64469005759D1 /* SendMessageFetcher.m */; };
+		011CBF1E1EC64469005759D1 /* SendMessagesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CBF1D1EC64469005759D1 /* SendMessagesFetcher.m */; };
 		011CDB891EC5064E00C8CE4C /* Payload.m in Sources */ = {isa = PBXBuildFile; fileRef = 011CDB881EC5064E00C8CE4C /* Payload.m */; };
 		01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01244E711EB696BF00DA93E7 /* CustomTableCell.m */; };
 		012B592F1EC11CA400577F8A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 012B592E1EC11CA400577F8A /* DetailViewController.m */; };
@@ -28,6 +28,9 @@
 		01A8BE921EC25E10008D187B /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A8BE911EC25E10008D187B /* SendViewController.m */; };
 		01B11FFD1EB6108600EC80F6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B11FFC1EB6108600EC80F6 /* MainViewController.m */; };
 		01B11FFF1EB61C4900EC80F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01B11FFE1EB61C4900EC80F6 /* GoogleService-Info.plist */; };
+		01C971DA1ECCE2E00020B152 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C971D91ECCE2E00020B152 /* SearchViewController.m */; };
+		01C971E01ECCEFE20020B152 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C971DF1ECCEFE20020B152 /* SettingsTableViewController.m */; };
+		01C971E31ECCF90A0020B152 /* AllMessagesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C971E21ECCF90A0020B152 /* AllMessagesFetcher.m */; };
 		01F1ADC31ECB3DBC007839EE /* non_existing_id.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F1ADC21ECB3DBC007839EE /* non_existing_id.png */; };
 		01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5A1061EBE5F9B00A1A268 /* Message.m */; };
 		80119999D826E07FED376295 /* libPods-GmailIOSCourses.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */; };
@@ -55,8 +58,8 @@
 		011CBF111EC5FA4C005759D1 /* LabelIds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelIds.m; sourceTree = "<group>"; };
 		011CBF161EC5FDC6005759D1 /* BodyOFMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyOFMessage.h; sourceTree = "<group>"; };
 		011CBF171EC5FDC6005759D1 /* BodyOFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BodyOFMessage.m; sourceTree = "<group>"; };
-		011CBF1C1EC64469005759D1 /* SendMessageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMessageFetcher.h; sourceTree = "<group>"; };
-		011CBF1D1EC64469005759D1 /* SendMessageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMessageFetcher.m; sourceTree = "<group>"; };
+		011CBF1C1EC64469005759D1 /* SendMessagesFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMessagesFetcher.h; sourceTree = "<group>"; };
+		011CBF1D1EC64469005759D1 /* SendMessagesFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMessagesFetcher.m; sourceTree = "<group>"; };
 		011CDB871EC5064E00C8CE4C /* Payload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Payload.h; sourceTree = "<group>"; };
 		011CDB881EC5064E00C8CE4C /* Payload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Payload.m; sourceTree = "<group>"; };
 		01244E701EB696BF00DA93E7 /* CustomTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableCell.h; sourceTree = "<group>"; };
@@ -91,6 +94,13 @@
 		01B11FFB1EB6108600EC80F6 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		01B11FFC1EB6108600EC80F6 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		01B11FFE1EB61C4900EC80F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		01C971D81ECCE2E00020B152 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		01C971D91ECCE2E00020B152 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		01C971DE1ECCEFE20020B152 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
+		01C971DF1ECCEFE20020B152 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		01C971E11ECCF90A0020B152 /* AllMessagesFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMessagesFetcher.h; sourceTree = "<group>"; };
+		01C971E21ECCF90A0020B152 /* AllMessagesFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMessagesFetcher.m; sourceTree = "<group>"; };
+		01C971E41ECCFA860020B152 /* MessagesFetcherProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesFetcherProtocol.h; sourceTree = "<group>"; };
 		01F1ADC21ECB3DBC007839EE /* non_existing_id.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = non_existing_id.png; sourceTree = "<group>"; };
 		01F5A1051EBE5F9B00A1A268 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		01F5A1061EBE5F9B00A1A268 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
@@ -128,10 +138,10 @@
 		01244E731EB6A0EB00DA93E7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				01C971E61ECCFBFB0020B152 /* Fetchers */,
+				01C971E51ECCFBE20020B152 /* Protocols */,
 				013469CE1EBBE81900272BEB /* Coordinator.h */,
 				013469CF1EBBE81900272BEB /* Coordinator.m */,
-				013469D01EBBE81900272BEB /* InboxMessagesFetcher.h */,
-				013469D11EBBE81900272BEB /* InboxMessagesFetcher.m */,
 				01244E701EB696BF00DA93E7 /* CustomTableCell.h */,
 				01244E711EB696BF00DA93E7 /* CustomTableCell.m */,
 				01F5A1051EBE5F9B00A1A268 /* Message.h */,
@@ -142,8 +152,6 @@
 				011CBF111EC5FA4C005759D1 /* LabelIds.m */,
 				011CBF161EC5FDC6005759D1 /* BodyOFMessage.h */,
 				011CBF171EC5FDC6005759D1 /* BodyOFMessage.m */,
-				011CBF1C1EC64469005759D1 /* SendMessageFetcher.h */,
-				011CBF1D1EC64469005759D1 /* SendMessageFetcher.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -236,8 +244,33 @@
 				019106041EC7A0A400591EE5 /* DetailViewControllerForHtml.m */,
 				01A8BE901EC25E10008D187B /* SendViewController.h */,
 				01A8BE911EC25E10008D187B /* SendViewController.m */,
+				01C971D81ECCE2E00020B152 /* SearchViewController.h */,
+				01C971D91ECCE2E00020B152 /* SearchViewController.m */,
+				01C971DE1ECCEFE20020B152 /* SettingsTableViewController.h */,
+				01C971DF1ECCEFE20020B152 /* SettingsTableViewController.m */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		01C971E51ECCFBE20020B152 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				01C971E41ECCFA860020B152 /* MessagesFetcherProtocol.h */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		01C971E61ECCFBFB0020B152 /* Fetchers */ = {
+			isa = PBXGroup;
+			children = (
+				013469D01EBBE81900272BEB /* InboxMessagesFetcher.h */,
+				013469D11EBBE81900272BEB /* InboxMessagesFetcher.m */,
+				011CBF1C1EC64469005759D1 /* SendMessagesFetcher.h */,
+				011CBF1D1EC64469005759D1 /* SendMessagesFetcher.m */,
+				01C971E11ECCF90A0020B152 /* AllMessagesFetcher.h */,
+				01C971E21ECCF90A0020B152 /* AllMessagesFetcher.m */,
+			);
+			name = Fetchers;
 			sourceTree = "<group>";
 		};
 		6B1217AD7CC786834742CB89 /* Frameworks */ = {
@@ -447,6 +480,7 @@
 				018080D71EB3F75200288280 /* GmailIOSCourses.xcdatamodeld in Sources */,
 				018080CE1EB3F75200288280 /* AppDelegate.m in Sources */,
 				01B11FFD1EB6108600EC80F6 /* MainViewController.m in Sources */,
+				01C971DA1ECCE2E00020B152 /* SearchViewController.m in Sources */,
 				018080CB1EB3F75200288280 /* main.m in Sources */,
 				012B592F1EC11CA400577F8A /* DetailViewController.m in Sources */,
 				019106051EC7A0A400591EE5 /* DetailViewControllerForHtml.m in Sources */,
@@ -454,9 +488,11 @@
 				011CBF181EC5FDC6005759D1 /* BodyOFMessage.m in Sources */,
 				013469D31EBBE81900272BEB /* InboxMessagesFetcher.m in Sources */,
 				01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */,
+				01C971E01ECCEFE20020B152 /* SettingsTableViewController.m in Sources */,
 				01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */,
+				01C971E31ECCF90A0020B152 /* AllMessagesFetcher.m in Sources */,
 				013469D21EBBE81900272BEB /* Coordinator.m in Sources */,
-				011CBF1E1EC64469005759D1 /* SendMessageFetcher.m in Sources */,
+				011CBF1E1EC64469005759D1 /* SendMessagesFetcher.m in Sources */,
 				011CBF121EC5FA4C005759D1 /* LabelIds.m in Sources */,
 				01A8BE921EC25E10008D187B /* SendViewController.m in Sources */,
 			);
