@@ -15,7 +15,7 @@
 #import "DetailViewControllerForHtml.h"
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
-@property(nonatomic,strong)NSArray* listOfMessages;
+@property(nonatomic,strong)NSMutableArray* listOfMessages;
 @property(nonatomic,strong)NSMutableDictionary *messages;
 @property(nonatomic,strong)Message *message;
 @property(nonatomic,strong)NSDictionary* tableDictionary;
@@ -26,9 +26,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+    self.listOfMessages=[[NSMutableArray alloc]init];
     self.messages=[NSMutableDictionary new];
-    
+    self.myTableView.allowsMultipleSelectionDuringEditing = NO;
    
     
    
@@ -37,7 +37,7 @@
     // Do any additional setup after loading the view.
 }
 -(void)updateListOfMessages{
-    [self.coordinator readListOfMessages:^(NSArray* listOfMessages){
+    [self.coordinator readListOfMessages:^(NSMutableArray* listOfMessages){
         dispatch_async(dispatch_get_main_queue(), ^{
             self.listOfMessages=listOfMessages;
             [self.myTableView reloadData];
@@ -67,16 +67,18 @@
     CustomTableCell *cell=(CustomTableCell *)[tableView dequeueReusableCellWithIdentifier:myId forIndexPath:indexPath];
     self.tableDictionary =[self.listOfMessages objectAtIndex:indexPath.row];
     
-    [self.coordinator getMessage:[self.tableDictionary objectForKey:@"id"] callback:^(NSDictionary* listOfMessages){
+    [self.coordinator getMessage:[self.tableDictionary objectForKey:@"id"] callback:^(Message* message){
+        self.message=message;
+        NSString *indexPathForDictionary=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
+        self.messages[indexPathForDictionary]=self.message;
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.message=[self.coordinator createMessage:listOfMessages];
-            NSString *indexPathForDictionary=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-            self.messages[indexPathForDictionary]=self.message;
-            [cell customCellData:self.message];
+            
+                [cell customCellData:self.message];
         });
-    }];
+    } ];
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *indexPathForDictionary=[NSString stringWithFormat:@"%ld",(long)indexPath.row];

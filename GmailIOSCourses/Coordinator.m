@@ -20,20 +20,17 @@
     return self;
 }
 
--(void)readListOfMessages:(void(^)(NSArray*))callback{
+-(void)readListOfMessages:(void(^)(NSMutableArray*))callback{
     self.serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/%@/messages?fields=messages(id,threadId),nextPageToken&maxResults=%d",self.userID,20];
     
     [self.imf readListOfMessages:self.serverAddressForReadMessages callback:callback];
     
 }
--(void)getMessage:(NSString *)messageID callback:(void(^)(NSDictionary*))callback{
+-(void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback{
     self.serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/%@/messages/%@?field=raw",self.userID,messageID];
     [self.imf getMessage:self.serverAddressForReadMessages callback:callback];
 }
--(Message *)createMessage:(NSDictionary *)message{
-    Message *msg=[[Message alloc]initWithData:message];
-    return msg;
-}
+
 -(void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body{
     [self.smf send:self.userID to:to subject:subject body:body];
     

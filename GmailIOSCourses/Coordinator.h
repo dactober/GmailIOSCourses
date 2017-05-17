@@ -18,9 +18,9 @@
 @property (strong)NSString *userID;
 @property (strong)NSString *accessToken;
 @property(strong,nonatomic)InboxMessagesFetcher *imf;
--(void)readListOfMessages:(void(^)(NSArray*))callback;
--(void)getMessage:(NSString *)messageID callback:(void(^)(NSDictionary*))callback;
--(Message *)createMessage:(NSDictionary *)message;
+-(void)readListOfMessages:(void(^)(NSMutableArray*))callback;
+-(void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback;
+
 -(void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body;
 @property(nonatomic,strong)SendMessageFetcher* smf;
 @end

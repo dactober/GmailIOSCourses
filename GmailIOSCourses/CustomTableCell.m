@@ -9,7 +9,7 @@
 #import "CustomTableCell.h"
 
 @implementation CustomTableCell
-
+const NSString* destination=@"/Users/alekseydrachyov/Documents/work/GmailIOSCourses/GmailIOSCourses/GmailIOSCourses/non_existing_id.png";
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -35,7 +35,7 @@
         }
     }
     self.body.text=message.snippet;
-   
+   self.image.image=[[UIImage alloc]initWithContentsOfFile: destination];
     
     
 }

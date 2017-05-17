@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Message.h"
 @interface CustomTableCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UILabel *subject;
 @property (weak, nonatomic) IBOutlet UILabel *body;
