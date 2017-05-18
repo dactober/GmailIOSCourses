@@ -23,7 +23,18 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     self.subject.text=self.message.subject;
-    self.from.text=self.message.from;
+    if([self.message.from containsString:@" <"]){
+        
+        NSRange range = [self.message.from rangeOfString:@" <"];
+        NSString *shortString = [self.message.from substringToIndex:range.location];
+        
+        self.from.text=shortString;
+        
+        
+    }else{
+        self.from.text=self.message.from;
+    }
+    
     self.body.text=[self.message decodedMessage];
 }
 -(void)setData:(Message *)message coordinator:(Coordinator*)coordinator{

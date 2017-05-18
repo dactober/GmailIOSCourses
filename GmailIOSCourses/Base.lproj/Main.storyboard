@@ -49,7 +49,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7AH-TV-6kz">
-                                            <rect key="frame" x="309" y="8" width="97" height="4"/>
+                                            <rect key="frame" x="309" y="8" width="58" height="4"/>
                                             <state key="normal" title="refresh"/>
                                             <connections>
                                                 <action selector="refresh:" destination="o2K-HX-myK" eventType="touchUpInside" id="Nyn-FL-tyd"/>
@@ -209,8 +209,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y57-MW-xFE">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="y57-MW-xFE">
                                 <rect key="frame" x="95" y="87" width="256" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="256" id="zJO-wL-72U"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
@@ -298,7 +301,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <webView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ko4-Lt-ajt">
-                                <rect key="frame" x="32" y="187" width="311" height="370"/>
+                                <rect key="frame" x="16" y="187" width="343" height="370"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                             </webView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ngT-Vk-B0u">
@@ -342,8 +345,8 @@
                             <constraint firstItem="B0v-S1-sag" firstAttribute="leading" secondItem="cDz-Q1-J1n" secondAttribute="leadingMargin" constant="161" id="FRe-zD-LIH"/>
                             <constraint firstItem="b0p-ld-iCK" firstAttribute="top" secondItem="ipM-mY-S5l" secondAttribute="bottom" constant="41" id="M3a-Sa-rOc"/>
                             <constraint firstAttribute="trailing" secondItem="ngT-Vk-B0u" secondAttribute="trailing" id="NPh-LR-h3f"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ko4-Lt-ajt" secondAttribute="trailing" constant="16" id="Qgd-bb-hGa"/>
-                            <constraint firstItem="ko4-Lt-ajt" firstAttribute="leading" secondItem="cDz-Q1-J1n" secondAttribute="leadingMargin" constant="16" id="UMM-QO-Uvy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ko4-Lt-ajt" secondAttribute="trailing" id="Qgd-bb-hGa"/>
+                            <constraint firstItem="ko4-Lt-ajt" firstAttribute="leading" secondItem="cDz-Q1-J1n" secondAttribute="leadingMargin" id="UMM-QO-Uvy"/>
                             <constraint firstItem="b0p-ld-iCK" firstAttribute="leading" secondItem="cDz-Q1-J1n" secondAttribute="leadingMargin" constant="8" id="WSe-8l-tKL"/>
                             <constraint firstItem="zXT-Ye-HXr" firstAttribute="top" secondItem="B0v-S1-sag" secondAttribute="bottom" constant="285" id="Yue-ga-lq5"/>
                             <constraint firstItem="ko4-Lt-ajt" firstAttribute="top" secondItem="pei-ZX-fpc" secondAttribute="bottom" constant="50" id="fDI-mx-dZf"/>

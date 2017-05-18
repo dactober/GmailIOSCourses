@@ -31,7 +31,17 @@
     [super viewWillAppear:YES];
     
     self.subject.text=self.message.subject;
-    self.from.text=self.message.from;
+    if([self.message.from containsString:@" <"]){
+        
+        NSRange range = [self.message.from rangeOfString:@" <"];
+        NSString *shortString = [self.message.from substringToIndex:range.location];
+        
+        self.from.text=shortString;
+        
+        
+    }else{
+        self.from.text=self.message.from;
+    }
     self.activity.hidden=NO;
     self.activity.startAnimating;
     NSString *body = [NSString stringWithFormat:@"%@",[self.message decodedMessage]];

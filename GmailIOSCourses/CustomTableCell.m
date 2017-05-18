@@ -19,9 +19,20 @@ const NSString* destination=@"/Users/alekseydrachyov/Documents/work/GmailIOSCour
     
     self.subject.text=message.subject;
     self.body.text=message.snippet;
-    self.title.text=message.from;
+    if([message.from containsString:@" <"]){
+        
+        NSRange range = [message.from rangeOfString:@" <"];
+        NSString *shortString = [message.from substringToIndex:range.location];
+        
+        self.title.text=shortString;
+        
+        
+    }else{
+      self.title.text=message.from;
+    }
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"E d MMM yyyy HH:mm:ss Z"];
+    [dateFormatter setDateFormat:@"E, d MMM yyyy HH:mm:ss"];
     NSString *stringDate = [dateFormatter stringFromDate:message.date];
     self.date.text=stringDate;
    self.image.image=[[UIImage alloc]initWithContentsOfFile: destination];

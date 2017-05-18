@@ -76,7 +76,7 @@
         self.messages[indexPathForDictionary]=self.message;
         dispatch_async(dispatch_get_main_queue(), ^{
             
-                [cell customCellData:self.message];
+            [cell customCellData:message];
         });
     } ];
     return cell;

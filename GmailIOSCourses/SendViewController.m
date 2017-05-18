@@ -25,7 +25,16 @@ bool boolean;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     if(boolean){
-        self.to.text=self.message.from;
+        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
+        NSRegularExpression *regex = nil;
+        regex = [NSRegularExpression regularExpressionWithPattern:emailRegex
+                                                          options:NSRegularExpressionCaseInsensitive
+                                                            error:nil];
+        NSTextCheckingResult *match = [regex firstMatchInString:self.message.from options:0 range:NSMakeRange(0, [self.message.from length])];
+        if(match!=nil){
+            self.to.text= [self.message.from substringWithRange:[match rangeAtIndex:0]];
+        }
+        
         self.subject.text=[NSString stringWithFormat:@"Re: %@",self.message.subject];
     }
 }
