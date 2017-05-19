@@ -10,6 +10,7 @@
 #import "Coordinator.h"
 #import "Message.h"
 #import "SendViewController.h"
+#import "Inbox+CoreDataClass.h"
 @interface DetailViewControllerForHtml ()
 @property (weak, nonatomic) IBOutlet UILabel *subject;
 @property (weak, nonatomic) IBOutlet UILabel *from;
@@ -30,31 +31,30 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    self.subject.text=self.message.subject;
-    if([self.message.from containsString:@" <"]){
+    self.subject.text=self.inboxMessage.subject;
+    if([self.inboxMessage.from containsString:@" <"]){
         
-        NSRange range = [self.message.from rangeOfString:@" <"];
-        NSString *shortString = [self.message.from substringToIndex:range.location];
+        NSRange range = [self.inboxMessage.from rangeOfString:@" <"];
+        NSString *shortString = [self.inboxMessage.from substringToIndex:range.location];
         
         self.from.text=shortString;
         
         
     }else{
-        self.from.text=self.message.from;
+        self.from.text=self.inboxMessage.from;
     }
     self.activity.hidden=NO;
-    self.activity.startAnimating;
-    NSString *body = [NSString stringWithFormat:@"%@",[self.message decodedMessage]];
-    body = [body stringByReplacingOccurrencesOfString:@"http"
-                                           withString:@"https"];
-    [self.body loadHTMLString:body baseURL:nil];
+    [self.activity startAnimating];
+    
+    [self.body loadHTMLString:self.inboxMessage.body baseURL:nil];
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
-    self.activity.stopAnimating;
+    [self.activity stopAnimating];
   self.activity.hidden=YES;
 }
--(void)setData:(Message *)message coordinator:(Coordinator*)coordinator{
+-(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator message:(Message *)message{
     self.coordinator=coordinator;
+    self.inboxMessage=inboxMessage;
     self.message=message;
 }
 - (IBAction)send:(id)sender {

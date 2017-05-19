@@ -18,17 +18,24 @@
     self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     bool sub=false;
     bool fr=false;
-    bool d=false;
     if(self){
         self.sizeEstimate=[message objectForKey:@"sizeEstimate"];
         self.labelIDs=[[LabelIds alloc]initWithData:[message objectForKey:@"labelIds"]];
         self.ID=[message objectForKey:@"id"];
         self.snippet=[message objectForKey:@"snippet"];
-        self.internalDate=[message objectForKey:@"internalDate"];
+        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+        f.numberStyle = NSNumberFormatterDecimalStyle;
+        self.internalDate=[message objectForKey:@"internalDate"] ;
+        NSNumber *number = [f numberFromString:self.internalDate];
+        double myDub = [number doubleValue];
+        NSTimeInterval time=myDub/1000;
+        self.date=[NSDate dateWithTimeIntervalSince1970:time];
+        
         self.historyID=[message objectForKey:@"historyId"];
         self.payload=[[Payload alloc]initWithData:[message objectForKey:@"payload"]];
+        
         for(int i=0;i<self.payload.headers.count;i++){
-            if(sub && fr && d){
+            if(sub && fr ){
                 break;
             }
             if([[self.payload.headers[i] objectForKey:@"name"] isEqual:@"Subject"]){
@@ -40,42 +47,13 @@
                     
                     self.from=[self.payload.headers[i]objectForKey:@"value"];
                     fr=true;
-                }else{
-                    if([[self.payload.headers[i] objectForKey:@"name"] isEqual:@"Date"]){
-                        
-                        NSDateFormatter *df=[NSDateFormatter new];
-                        [df setDateFormat:@"E, d MMM yyyy HH:mm:ss"];
-                        NSMutableString* date=[NSMutableString stringWithString:[self.payload.headers[i]objectForKey:@"value" ]];
-                        if(![date containsString:@","]){
-                            [date insertString:@"," atIndex:3];
-                        }
-                       
-                        if([date containsString:@" +"]){
-                            
-                            NSRange range = [date rangeOfString:@" +"];
-                            NSString *shortString = [date substringToIndex:range.location];
-                            
-                            self.date=[df dateFromString:shortString];
-                            
-                        
-                        }else{
-                            if([date containsString:@" -"]){
-                                NSRange range = [date rangeOfString:@" -"];
-                                NSString *shortString = [date substringToIndex:range.location];
-                                
-                                self.date=[df dateFromString:shortString];
-                            }
-                            
-                                                    
-                        }
                 }
-                    d=true;
             }
         }
         
         self.threadId=[message objectForKey:@"threadId"];
     }
-    }
+
     return self;
 }
 -(NSString *)decodedMessage{
@@ -93,7 +71,7 @@
                                                    withString:@"/"];
             NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:data options:0];
             decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
-            NSLog(@"decoded string - %@",decodedString);
+           // NSLog(@"decoded string - %@",decodedString);
             
         }else{
             self.payload.headers=payload.headers;
@@ -105,7 +83,7 @@
                                                    withString:@"/"];
             NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:data options:0];
             decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
-            NSLog(@"decoded string - %@",decodedString);
+            //NSLog(@"decoded string - %@",decodedString);
             
             
         }
@@ -121,7 +99,7 @@
                                                    withString:@"/"];
             NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:data options:0];
             decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
-            NSLog(@"decoded string - %@",decodedString);
+            //NSLog(@"decoded string - %@",decodedString);
             
         }else{
             BodyOFMessage* body=[self.payload body];
@@ -132,7 +110,7 @@
                                                    withString:@"/"];
             NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:data options:0];
             decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
-            NSLog(@"decoded string - %@",decodedString);
+           // NSLog(@"decoded string - %@",decodedString);
             
         }
     }

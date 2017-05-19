@@ -19,7 +19,6 @@
 		018080CE1EB3F75200288280 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 018080CD1EB3F75200288280 /* AppDelegate.m */; };
 		018080D11EB3F75200288280 /* AuthorizationViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 018080D01EB3F75200288280 /* AuthorizationViewContoller.m */; };
 		018080D41EB3F75200288280 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018080D21EB3F75200288280 /* Main.storyboard */; };
-		018080D71EB3F75200288280 /* GmailIOSCourses.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 018080D51EB3F75200288280 /* GmailIOSCourses.xcdatamodeld */; };
 		018080D91EB3F75200288280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 018080D81EB3F75200288280 /* Assets.xcassets */; };
 		018080DC1EB3F75200288280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018080DA1EB3F75200288280 /* LaunchScreen.storyboard */; };
 		018080E71EB3F75300288280 /* GmailIOSCoursesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 018080E61EB3F75300288280 /* GmailIOSCoursesTests.m */; };
@@ -31,6 +30,8 @@
 		01C971DA1ECCE2E00020B152 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C971D91ECCE2E00020B152 /* SearchViewController.m */; };
 		01C971E01ECCEFE20020B152 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C971DF1ECCEFE20020B152 /* SettingsTableViewController.m */; };
 		01C971E31ECCF90A0020B152 /* AllMessagesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C971E21ECCF90A0020B152 /* AllMessagesFetcher.m */; };
+		01DAC1691ECFA4990002C4A0 /* InboxMessagesList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01DAC1671ECFA4990002C4A0 /* InboxMessagesList.xcdatamodeld */; };
+		01DAC16C1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01DAC16A1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodeld */; };
 		01F1ADC31ECB3DBC007839EE /* non_existing_id.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F1ADC21ECB3DBC007839EE /* non_existing_id.png */; };
 		01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5A1061EBE5F9B00A1A268 /* Message.m */; };
 		80119999D826E07FED376295 /* libPods-GmailIOSCourses.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */; };
@@ -77,7 +78,6 @@
 		018080CF1EB3F75200288280 /* AuthorizationViewContoller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthorizationViewContoller.h; sourceTree = "<group>"; };
 		018080D01EB3F75200288280 /* AuthorizationViewContoller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthorizationViewContoller.m; sourceTree = "<group>"; };
 		018080D31EB3F75200288280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		018080D61EB3F75200288280 /* GmailIOSCourses.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GmailIOSCourses.xcdatamodel; sourceTree = "<group>"; };
 		018080D81EB3F75200288280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		018080DB1EB3F75200288280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		018080DD1EB3F75200288280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +101,8 @@
 		01C971E11ECCF90A0020B152 /* AllMessagesFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMessagesFetcher.h; sourceTree = "<group>"; };
 		01C971E21ECCF90A0020B152 /* AllMessagesFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMessagesFetcher.m; sourceTree = "<group>"; };
 		01C971E41ECCFA860020B152 /* MessagesFetcherProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesFetcherProtocol.h; sourceTree = "<group>"; };
+		01DAC1681ECFA4990002C4A0 /* InboxMessagesList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InboxMessagesList.xcdatamodel; sourceTree = "<group>"; };
+		01DAC16B1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InboxMessageModel.xcdatamodel; sourceTree = "<group>"; };
 		01F1ADC21ECB3DBC007839EE /* non_existing_id.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = non_existing_id.png; sourceTree = "<group>"; };
 		01F5A1051EBE5F9B00A1A268 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		01F5A1061EBE5F9B00A1A268 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		018080C81EB3F75200288280 /* GmailIOSCourses */ = {
 			isa = PBXGroup;
 			children = (
+				01DAC16D1ECFA5C60002C4A0 /* CoreData */,
 				01244E741EB6A10500DA93E7 /* Delegates */,
 				01B11FFA1EB604DE00EC80F6 /* ViewControllers */,
 				01244E731EB6A0EB00DA93E7 /* Model */,
@@ -198,7 +201,6 @@
 				018080DA1EB3F75200288280 /* LaunchScreen.storyboard */,
 				01B11FFE1EB61C4900EC80F6 /* GoogleService-Info.plist */,
 				018080DD1EB3F75200288280 /* Info.plist */,
-				018080D51EB3F75200288280 /* GmailIOSCourses.xcdatamodeld */,
 				018080C91EB3F75200288280 /* Supporting Files */,
 			);
 			path = GmailIOSCourses;
@@ -271,6 +273,15 @@
 				01C971E21ECCF90A0020B152 /* AllMessagesFetcher.m */,
 			);
 			name = Fetchers;
+			sourceTree = "<group>";
+		};
+		01DAC16D1ECFA5C60002C4A0 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				01DAC16A1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodeld */,
+				01DAC1671ECFA4990002C4A0 /* InboxMessagesList.xcdatamodeld */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 		6B1217AD7CC786834742CB89 /* Frameworks */ = {
@@ -477,7 +488,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				018080D11EB3F75200288280 /* AuthorizationViewContoller.m in Sources */,
-				018080D71EB3F75200288280 /* GmailIOSCourses.xcdatamodeld in Sources */,
 				018080CE1EB3F75200288280 /* AppDelegate.m in Sources */,
 				01B11FFD1EB6108600EC80F6 /* MainViewController.m in Sources */,
 				01C971DA1ECCE2E00020B152 /* SearchViewController.m in Sources */,
@@ -487,11 +497,13 @@
 				011CDB891EC5064E00C8CE4C /* Payload.m in Sources */,
 				011CBF181EC5FDC6005759D1 /* BodyOFMessage.m in Sources */,
 				013469D31EBBE81900272BEB /* InboxMessagesFetcher.m in Sources */,
+				01DAC1691ECFA4990002C4A0 /* InboxMessagesList.xcdatamodeld in Sources */,
 				01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */,
 				01C971E01ECCEFE20020B152 /* SettingsTableViewController.m in Sources */,
 				01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */,
 				01C971E31ECCF90A0020B152 /* AllMessagesFetcher.m in Sources */,
 				013469D21EBBE81900272BEB /* Coordinator.m in Sources */,
+				01DAC16C1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodeld in Sources */,
 				011CBF1E1EC64469005759D1 /* SendMessagesFetcher.m in Sources */,
 				011CBF121EC5FA4C005759D1 /* LabelIds.m in Sources */,
 				01A8BE921EC25E10008D187B /* SendViewController.m in Sources */,
@@ -751,13 +763,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		018080D51EB3F75200288280 /* GmailIOSCourses.xcdatamodeld */ = {
+		01DAC1671ECFA4990002C4A0 /* InboxMessagesList.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				018080D61EB3F75200288280 /* GmailIOSCourses.xcdatamodel */,
+				01DAC1681ECFA4990002C4A0 /* InboxMessagesList.xcdatamodel */,
 			);
-			currentVersion = 018080D61EB3F75200288280 /* GmailIOSCourses.xcdatamodel */;
-			path = GmailIOSCourses.xcdatamodeld;
+			path = InboxMessagesList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		01DAC16A1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				01DAC16B1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodel */,
+			);
+			currentVersion = 01DAC16B1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodel */;
+			path = InboxMessageModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

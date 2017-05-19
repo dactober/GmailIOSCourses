@@ -14,7 +14,7 @@
     self=[super init];
     if(self){
         self.data=[body objectForKey:@"data"];
-        self.size=[[NSNumber alloc]initWithLong:[body objectForKey:@"size"]];
+        self.size=[body objectForKey:@"size"];
     }
     return self;
 }

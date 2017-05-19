@@ -56,21 +56,21 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     UINavigationController* nav2 = [[UINavigationController alloc] initWithRootViewController:self.searchViewController];
     NSMutableArray *tabViewControllers = [[NSMutableArray alloc] init];
     [tabViewControllers addObject:nav];
-    [tabViewControllers addObject:nav1];
     [tabViewControllers addObject:nav2];
+    [tabViewControllers addObject:nav1];
     UITabBarController *tabController = [[UITabBarController alloc]init];
     [tabController setViewControllers:tabViewControllers];
     nav.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"AllMail"
-                                  image:[UIImage imageNamed:@"AllMail"]
+    [[UITabBarItem alloc] initWithTitle:@"Inbox"
+                                  image:[UIImage imageNamed:@""]
                                     tag:1];
     nav1.tabBarItem =
     [[UITabBarItem alloc] initWithTitle:@"Settings"
                                   image:[UIImage imageNamed:@"Settings"]
                                     tag:2];
     nav2.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Search"
-                                  image:[UIImage imageNamed:@"Search"]
+    [[UITabBarItem alloc] initWithTitle:@"Sent"
+                                  image:[UIImage imageNamed:@""]
                                     tag:3];
     
    

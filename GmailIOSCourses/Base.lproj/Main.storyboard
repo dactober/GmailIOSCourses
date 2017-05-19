@@ -103,10 +103,10 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="F9f-a4-zI9" secondAttribute="trailing" id="2gH-2s-D7d"/>
                                                 <constraint firstAttribute="trailing" secondItem="ch8-KY-nS8" secondAttribute="trailing" id="45G-J8-F3G"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="7iW-kK-47S" secondAttribute="bottom" constant="8" id="55f-bx-27k"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="7iW-kK-47S" secondAttribute="bottom" constant="9" id="55f-bx-27k"/>
                                                 <constraint firstItem="F9f-a4-zI9" firstAttribute="top" secondItem="N4e-SV-fsL" secondAttribute="top" id="8Xu-4I-kRv"/>
                                                 <constraint firstItem="3Tb-Q1-0yW" firstAttribute="leading" secondItem="N4e-SV-fsL" secondAttribute="leading" constant="100" id="98t-8j-nXR"/>
-                                                <constraint firstAttribute="bottom" secondItem="3Tb-Q1-0yW" secondAttribute="bottom" id="GEw-dd-QBy"/>
+                                                <constraint firstAttribute="bottom" secondItem="3Tb-Q1-0yW" secondAttribute="bottom" constant="1" id="GEw-dd-QBy"/>
                                                 <constraint firstItem="3Tb-Q1-0yW" firstAttribute="top" secondItem="Eiw-7a-zlT" secondAttribute="bottom" constant="2" id="HNj-ze-cv8"/>
                                                 <constraint firstItem="Eiw-7a-zlT" firstAttribute="leading" secondItem="N4e-SV-fsL" secondAttribute="leading" constant="92" id="VFZ-0o-jjW"/>
                                                 <constraint firstAttribute="trailing" secondItem="Eiw-7a-zlT" secondAttribute="trailing" constant="8" id="Ynh-0j-jl7"/>
@@ -134,23 +134,26 @@
                                 </connections>
                             </tableView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="PzO-eT-YP7">
-                                <rect key="frame" x="298" y="544" width="52" height="46"/>
+                                <rect key="frame" x="266" y="566" width="84" height="57"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJ0-0q-mSn">
-                                        <rect key="frame" x="8" y="8" width="36" height="30"/>
-                                        <state key="normal" title="Send"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJ0-0q-mSn">
+                                        <rect key="frame" x="-5" y="-7" width="95" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="Gwa-dw-vdW"/>
+                                            <constraint firstAttribute="width" constant="95" id="y83-Te-A7q"/>
+                                        </constraints>
+                                        <state key="normal" image="send"/>
                                         <connections>
                                             <action selector="send:" destination="o2K-HX-myK" eventType="touchUpInside" id="b4q-9y-7rJ"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.049586463259999998" blue="0.081416205229999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="FJ0-0q-mSn" firstAttribute="top" secondItem="PzO-eT-YP7" secondAttribute="top" constant="8" id="ksw-8r-POA"/>
-                                    <constraint firstAttribute="trailing" secondItem="FJ0-0q-mSn" secondAttribute="trailing" constant="8" id="tiH-4u-u0P"/>
-                                    <constraint firstAttribute="bottom" secondItem="FJ0-0q-mSn" secondAttribute="bottom" constant="8" id="w8z-nB-NMS"/>
-                                    <constraint firstItem="FJ0-0q-mSn" firstAttribute="leading" secondItem="PzO-eT-YP7" secondAttribute="leading" constant="8" id="yjf-hP-Ry2"/>
+                                    <constraint firstItem="FJ0-0q-mSn" firstAttribute="top" secondItem="PzO-eT-YP7" secondAttribute="top" constant="-7" id="ksw-8r-POA"/>
+                                    <constraint firstAttribute="trailing" secondItem="FJ0-0q-mSn" secondAttribute="trailing" constant="-6" id="tiH-4u-u0P"/>
+                                    <constraint firstAttribute="bottom" secondItem="FJ0-0q-mSn" secondAttribute="bottom" constant="-6" id="w8z-nB-NMS"/>
+                                    <constraint firstItem="FJ0-0q-mSn" firstAttribute="leading" secondItem="PzO-eT-YP7" secondAttribute="leading" constant="-5" id="yjf-hP-Ry2"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -158,7 +161,7 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="PzO-eT-YP7" secondAttribute="trailing" constant="9" id="BLV-QA-Iob"/>
                             <constraint firstItem="lgF-RM-TSQ" firstAttribute="leading" secondItem="gr4-M2-sDA" secondAttribute="leading" id="Db7-Vw-H8E"/>
-                            <constraint firstItem="Mk5-58-tYq" firstAttribute="top" secondItem="PzO-eT-YP7" secondAttribute="bottom" constant="77" id="iYY-PI-bLI"/>
+                            <constraint firstItem="Mk5-58-tYq" firstAttribute="top" secondItem="PzO-eT-YP7" secondAttribute="bottom" constant="44" id="iYY-PI-bLI"/>
                             <constraint firstItem="lgF-RM-TSQ" firstAttribute="top" secondItem="uuQ-IG-7He" secondAttribute="bottom" constant="8" id="iud-I1-r8p"/>
                             <constraint firstItem="Mk5-58-tYq" firstAttribute="top" secondItem="lgF-RM-TSQ" secondAttribute="bottom" id="k3s-4v-F7f"/>
                             <constraint firstAttribute="trailing" secondItem="lgF-RM-TSQ" secondAttribute="trailing" id="vbQ-bM-wqN"/>
@@ -167,11 +170,12 @@
                     <navigationItem key="navigationItem" title="Mail" id="OuF-53-MdA"/>
                     <connections>
                         <outlet property="myTableView" destination="lgF-RM-TSQ" id="zbx-J7-nzH"/>
+                        <outlet property="send" destination="FJ0-0q-mSn" id="mdq-Ot-g68"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ese-va-9yu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1734" y="131"/>
+            <point key="canvasLocation" x="1733.5999999999999" y="130.88455772113943"/>
         </scene>
         <!--Send View Controller-->
         <scene sceneID="rCz-9u-ogL">
@@ -612,4 +616,7 @@
             <point key="canvasLocation" x="3467" y="125"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="send" width="100" height="100"/>
+    </resources>
 </document>

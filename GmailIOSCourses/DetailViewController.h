@@ -6,14 +6,16 @@
 //  Copyright © 2017 Aleksey Drachyov. All rights reserved.
 //
 @class Coordinator;
+@class Inbox;
 #import <UIKit/UIKit.h>
 #import "CustomTableCell.h"
-#import "Message.h"
+@class Message;
 @interface DetailViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *subject;
 @property (weak, nonatomic) IBOutlet UILabel *from;
 @property (weak, nonatomic) IBOutlet UILabel *body;
+@property (strong,nonatomic)Inbox *inboxMessage;
 @property (strong,nonatomic)Message *message;
--(void)setData:(Message *)message coordinator:(Coordinator*)coordinator;
+-(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator message:(Message*)message;
 
 @end

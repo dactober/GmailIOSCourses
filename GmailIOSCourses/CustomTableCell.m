@@ -7,14 +7,14 @@
 //
 
 #import "CustomTableCell.h"
-
+#import "Inbox+CoreDataClass.h"
 @implementation CustomTableCell
-const NSString* destination=@"/Users/alekseydrachyov/Documents/work/GmailIOSCourses/GmailIOSCourses/GmailIOSCourses/non_existing_id.png";
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
--(void)customCellData:(Message *)message{
+-(void)customCellData:(Inbox *)message{
     
     
     self.subject.text=message.subject;
@@ -31,11 +31,11 @@ const NSString* destination=@"/Users/alekseydrachyov/Documents/work/GmailIOSCour
       self.title.text=message.from;
     }
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"E, d MMM yyyy HH:mm:ss"];
+    NSDateFormatter *dateFormatter=[NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyy-MM-dd HH:mm"];
     NSString *stringDate = [dateFormatter stringFromDate:message.date];
     self.date.text=stringDate;
-   self.image.image=[[UIImage alloc]initWithContentsOfFile: destination];
+   self.image.image=[UIImage imageNamed:@"non_existing_id"];
     
     
 }

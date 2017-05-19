@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Message.h"
+
+@class Inbox;
 @interface CustomTableCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *date;
 @property (weak, nonatomic) IBOutlet UIImageView *image;
@@ -17,5 +18,5 @@
 @property(strong,nonatomic)NSDictionary *subjectOfMessage;
 @property (strong,nonatomic)NSDictionary *from;
 
--(void)customCellData:(Message *)message;
+-(void)customCellData:(Inbox *)message;
 @end

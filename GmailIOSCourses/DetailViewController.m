@@ -9,6 +9,8 @@
 #import "DetailViewController.h"
 #import "Coordinator.h"
 #import "SendViewController.h"
+#import "Inbox+CoreDataClass.h"
+#import "Message.h"
 @interface DetailViewController ()
 @property(nonatomic,strong)Coordinator *coordinator;
 @end
@@ -22,24 +24,25 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    self.subject.text=self.message.subject;
-    if([self.message.from containsString:@" <"]){
+    self.subject.text=self.inboxMessage.subject;
+    if([self.inboxMessage.from containsString:@" <"]){
         
-        NSRange range = [self.message.from rangeOfString:@" <"];
-        NSString *shortString = [self.message.from substringToIndex:range.location];
+        NSRange range = [self.inboxMessage.from rangeOfString:@" <"];
+        NSString *shortString = [self.inboxMessage.from substringToIndex:range.location];
         
         self.from.text=shortString;
         
         
     }else{
-        self.from.text=self.message.from;
+        self.from.text=self.inboxMessage.from;
     }
     
-    self.body.text=[self.message decodedMessage];
+    self.body.text=self.inboxMessage.body;
 }
--(void)setData:(Message *)message coordinator:(Coordinator*)coordinator{
+-(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator message:(Message *)message{
     self.coordinator=coordinator;
-        self.message=message;
+        self.inboxMessage=inboxMessage;
+    self.message=message;
 }
 - (IBAction)send:(id)sender {
     SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];

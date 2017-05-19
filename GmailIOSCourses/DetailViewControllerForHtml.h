@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 @class Message;
 @class Coordinator;
+@class Inbox;
 @interface DetailViewControllerForHtml : UIViewController <UIWebViewDelegate>
--(void)setData:(Message *)message coordinator:(Coordinator*)coordinator;
+-(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator message:(Message*)message;
+@property (strong,nonatomic)Inbox *inboxMessage;
 @end
