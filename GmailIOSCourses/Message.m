@@ -160,8 +160,9 @@
                    // Handle response
                }] resume];
 }
--(void)deleteMessage:(Coordinator*)coordinator callback:(void(^)(void))callback{
-    NSString* serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/%@/messages/%@",coordinator.userID,self.ID];
++(void)deleteMessage:(Coordinator*)coordinator messageID:(NSString*)messageID callback:(void(^)(void))callback{
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSString* serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/%@/messages/%@",coordinator.userID,messageID];
     NSURL *url = [NSURL URLWithString:serverAddressForReadMessages];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@",coordinator.accessToken];
@@ -170,7 +171,7 @@
     
     
     
-    [[self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         callback();
         
     }] resume];

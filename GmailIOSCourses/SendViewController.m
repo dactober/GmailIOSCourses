@@ -8,11 +8,12 @@
 
 #import "SendViewController.h"
 #import "Message.h"
+#import "Inbox+CoreDataClass.h"
 @interface SendViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *to;
 @property (weak, nonatomic) IBOutlet UITextField *subject;
 @property (weak, nonatomic) IBOutlet UITextView *body;
-@property(strong,nonatomic)Message* message;
+@property(strong,nonatomic)Inbox* message;
 
 @end
 
@@ -38,7 +39,7 @@ bool boolean;
         self.subject.text=[NSString stringWithFormat:@"Re: %@",self.message.subject];
     }
 }
--(void)setData:(Coordinator*)coordinator flag:(bool)flag message:(Message*)message{
+-(void)setData:(Coordinator*)coordinator flag:(bool)flag message:(Inbox*)message{
     self.coordinator=coordinator;
     self.message=message;
     boolean=flag;

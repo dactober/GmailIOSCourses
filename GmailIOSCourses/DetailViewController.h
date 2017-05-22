@@ -9,6 +9,7 @@
 @class Inbox;
 #import <UIKit/UIKit.h>
 #import "CustomTableCell.h"
+#import "CoreData/CoreData.h"
 @class Message;
 @interface DetailViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *subject;
@@ -16,6 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *body;
 @property (strong,nonatomic)Inbox *inboxMessage;
 @property (strong,nonatomic)Message *message;
--(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator message:(Message*)message;
+-(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context;
 
 @end

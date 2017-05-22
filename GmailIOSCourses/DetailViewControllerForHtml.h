@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Message;
+#import "CoreData/CoreData.h"
 @class Coordinator;
 @class Inbox;
 @interface DetailViewControllerForHtml : UIViewController <UIWebViewDelegate>
--(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator message:(Message*)message;
+-(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context;
 @property (strong,nonatomic)Inbox *inboxMessage;
 @end

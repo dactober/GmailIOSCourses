@@ -16,7 +16,7 @@
 @property (strong)NSString *userID;
 @property (strong)NSString *accessToken;
 @property(strong,nonatomic)AllMessagesFetcher *amf;
--(void)readListOfMessages:(void(^)(NSMutableArray*))callback;
+-(void)readListOfMessages:(void(^)(NSArray*))callback;
 -(void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback;
 
 -(void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body;

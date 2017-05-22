@@ -21,7 +21,7 @@
     }
     return self;
 }
--(void)readListOfMessages:(NSString*)serverAddressForReadMessages callback:(void(^)(NSMutableArray*))callback{
+-(void)readListOfMessages:(NSString*)serverAddressForReadMessages callback:(void(^)(NSArray*))callback{
     
     NSURL *url = [NSURL URLWithString:serverAddressForReadMessages];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];

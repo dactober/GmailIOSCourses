@@ -14,7 +14,6 @@
 #import "SearchViewController.h"
 @interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>
 @property(nonatomic,strong)NSFetchedResultsController *fetchedResultsController;
-@property(nonatomic,strong)NSFetchedResultsController *fetchedResultsControllerForList;
 @property(nonatomic,strong)SettingsTableViewController* settingsViewController;
 @property(nonatomic,strong)SearchViewController *searchViewController;
 @property (strong,nonatomic)Coordinator *coordinator;

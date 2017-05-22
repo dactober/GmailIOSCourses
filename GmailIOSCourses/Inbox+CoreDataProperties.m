@@ -19,5 +19,6 @@
 @dynamic subject;
 @dynamic from;
 @dynamic snippet;
-
+@dynamic messageID;
+@dynamic mimeType;
 @end

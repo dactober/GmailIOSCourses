@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *subject;
 @property (nullable, nonatomic, copy) NSString *from;
 @property (nullable, nonatomic, copy) NSString *snippet;
-
+@property (nullable, nonatomic, copy) NSString *messageID;
+@property (nullable, nonatomic, copy) NSString *mimeType;
 @end
 
 NS_ASSUME_NONNULL_END

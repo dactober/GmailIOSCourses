@@ -13,7 +13,7 @@
 @interface AllMessagesFetcher : NSObject <MessagesFetcherProtocol>
 
 
-@property (strong,nonatomic)NSMutableArray *messageArray;
+@property (strong,nonatomic)NSArray *messageArray;
 @property(strong,nonatomic)NSString *accessToken;
 
 -(Message *)createMessage:(NSDictionary *)message;

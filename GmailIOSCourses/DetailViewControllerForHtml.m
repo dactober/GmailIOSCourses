@@ -8,16 +8,16 @@
 
 #import "DetailViewControllerForHtml.h"
 #import "Coordinator.h"
-#import "Message.h"
 #import "SendViewController.h"
 #import "Inbox+CoreDataClass.h"
+#import "Message.h"
 @interface DetailViewControllerForHtml ()
 @property (weak, nonatomic) IBOutlet UILabel *subject;
 @property (weak, nonatomic) IBOutlet UILabel *from;
 @property (weak, nonatomic) IBOutlet UIWebView *body;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property(nonatomic,strong)Coordinator *coordinator;
-@property (strong,nonatomic)Message *message;
+@property(nonatomic,strong) NSManagedObjectContext *context;
 @end
 
 @implementation DetailViewControllerForHtml
@@ -52,18 +52,26 @@
     [self.activity stopAnimating];
   self.activity.hidden=YES;
 }
--(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator message:(Message *)message{
+-(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context{
     self.coordinator=coordinator;
     self.inboxMessage=inboxMessage;
-    self.message=message;
+    self.context=context;
 }
 - (IBAction)send:(id)sender {
     SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
-    [send setData:self.coordinator flag:true message:self.message];
+    [send setData:self.coordinator flag:true message:self.inboxMessage];
     [self.navigationController pushViewController:send animated:YES];
 }
 - (IBAction)delete:(id)sender {
-    [self.message deleteMessage:self.coordinator callback:^{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Inbox"];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", self.inboxMessage.messageID]];
+    NSError *error = nil;
+    NSArray *results = [self.context executeFetchRequest:request error:&error];
+    for (NSManagedObject *managedObject in results)
+    {
+        [self.context deleteObject:managedObject];
+    }
+    [Message deleteMessage:self.coordinator messageID:self.inboxMessage.messageID  callback:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];
         });
