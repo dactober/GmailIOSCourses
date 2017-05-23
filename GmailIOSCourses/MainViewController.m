@@ -16,86 +16,74 @@
 @interface MainViewController ()
 @property (nonatomic)NSUInteger number;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
-@property(nonatomic,strong) NSManagedObjectContext *context;
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property(nonatomic,strong)NSArray* listOfMessages;
 @property (weak, nonatomic) IBOutlet UIButton *send;
 @property(nonatomic,strong)Message *message;
+@property(nonatomic,strong)NSManagedObjectContext* context;
 
 @end
 @implementation MainViewController
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+   
+  
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(contextDidSave:)
+//                                                 name:NSManagedObjectContextDidSaveNotification
+//                                               object:self.context];
     
     
-    
-    
-    CreaterContextForInbox *contForInbox=[[CreaterContextForInbox alloc]init];
-    self.fetchedResultsController=[contForInbox fetchedResultsController];
-    self.context=[contForInbox context];
+    self.fetchedResultsController=[self.coordinator.contForInbox fetchedResultsController];
     self.fetchedResultsController.delegate=self;
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Inbox"];
     
-    NSError *error = nil;
-    NSArray *results = [self.context executeFetchRequest:request error:&error];
-    if (!results) {
-        [self updateListOfMessages:false];
-    }else{
-        [self updateListOfMessages:true];
-    }
+    [self updateListOfMessages];
+    
+    
     
     // Do any additional setup after loading the view.
 }
 
--(void)updateListOfMessages:(bool) flag{
+-(void)updateListOfMessages{
     [self.indicator startAnimating];
     [self.coordinator readListOfMessages:^(NSArray* listOfMessages){
-        dispatch_async(dispatch_get_main_queue(), ^{
             self.listOfMessages=listOfMessages;
-            for(int i=0;i<listOfMessages.count;i++){
-               
-                [self.coordinator getMessage:[listOfMessages[i] objectForKey:@"id"] callback:^(Message* message){
+        __block NSInteger counter=0;
+        self.context =[self.coordinator.contForInbox setupBackGroundManagedObjectContext];
+        void(^trySaveContext)(void)=^{
+            counter++;
+           
+            if(counter%20==0){
+                NSError *mocSaveError=nil;
+                if(![self.context save:&mocSaveError]){
+                    NSLog(@"Save did not complete successfully. Error: %@",[mocSaveError localizedDescription]);
+                }else{
                     
-                    if(!flag){
-                        
-                        Inbox *new=[NSEntityDescription insertNewObjectForEntityForName:@"Inbox" inManagedObjectContext:self.context];
-                        new.date=message.date;
-                        new.from=message.from;
-                        new.subject=message.subject;
-                        new.snippet=message.snippet;
-                        new.messageID=[listOfMessages[i] objectForKey:@"id"];
-                        new.body=[message decodedMessage];
-                        new.mimeType=message.payload.mimeType;
-                        
-                    }else{
-                        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Inbox"];
-                        [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", [listOfMessages[i] objectForKey:@"id"]]];
-                        NSError *error = nil;
-                        NSArray *results = [self.context executeFetchRequest:request error:&error];
-                        if(![results count]){
-                            self.message=message;
-                            Inbox *new=[NSEntityDescription insertNewObjectForEntityForName:@"Inbox" inManagedObjectContext:self.context];
-                            new.date=message.date;
-                            new.from=message.from;
-                            new.subject=message.subject;
-                            new.snippet=message.snippet;
-                            new.body=[message decodedMessage];
-                            new.mimeType=message.payload.mimeType;
-                            new.messageID=[listOfMessages[i] objectForKey:@"id"];
-                           
-                        }
-                    }
+                    [self.indicator stopAnimating];
+                    self.indicator.hidden=YES;
                     
-                
-                    
-                } ];
+                }
             }
             
-            [self.settingsViewController setMessages:listOfMessages];
-         
+        };
+      
+            for(int i=0;i<listOfMessages.count;i++){
+                
+               if([self.coordinator isHasObject:[listOfMessages[i]objectForKey:@"id"]]){
+               }else{
+                    [self.coordinator getMessage:[listOfMessages[i] objectForKey:@"id"] callback:^(Message* message){
+                        NSManagedObjectContext* context=[[NSManagedObjectContext alloc]initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+                        context.parentContext=self.context;
+                        [self.coordinator addObjectToInboxContext:message context:context];
+                        [context save:nil];
+                        trySaveContext();
+                } ];
+               }
             
-        });
+                
+            }
+        
     }];
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -124,10 +112,10 @@
     
     Inbox *inboxDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
+    
         
             [cell customCellData:inboxDataModel];
-        });
+    
     return cell;
 }
 
@@ -137,12 +125,12 @@
     
     if([inboxDataModel.mimeType isEqualToString:@"text/html"]){
         DetailViewControllerForHtml *dvcfHTML=[self.storyboard instantiateViewControllerWithIdentifier:@"html"];
-        [dvcfHTML setData:inboxDataModel coordinator:self.coordinator context:self.context];
+        [dvcfHTML setData:inboxDataModel coordinator:self.coordinator context:self.coordinator.contForInbox.context];
        
         [self.navigationController pushViewController:dvcfHTML animated:YES];
     }else{
         DetailViewController *dvc=[self.storyboard instantiateViewControllerWithIdentifier:@"Detail"];
-        [dvc setData:inboxDataModel coordinator:self.coordinator context:self.context];
+        [dvc setData:inboxDataModel coordinator:self.coordinator context:self.coordinator.contForInbox.context];
         
         [self.navigationController pushViewController:dvc animated:YES];
     }
@@ -181,10 +169,7 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
-    NSError *mocSaveError=nil;
-    if(![self.context save:&mocSaveError]){
-        NSLog(@"Save did not complete successfully. Error: %@",[mocSaveError localizedDescription]);
-    }
+    
     [self.myTableView endUpdates];
 }
 
@@ -194,7 +179,7 @@
             [self.navigationController pushViewController:send animated:YES];
 }
 - (IBAction)refresh:(id)sender {
-    [self updateListOfMessages:true];
+    [self updateListOfMessages];
 }
 
 @end

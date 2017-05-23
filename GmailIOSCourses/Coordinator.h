@@ -5,8 +5,9 @@
 //  Created by Aleksey Drachyov on 5/5/17.
 //  Copyright © 2017 Aleksey Drachyov. All rights reserved.
 //
-
+@class CreaterContextForInbox;
 #import <Foundation/Foundation.h>
+#import "CoreData/CoreData.h"
 @class AllMessagesFetcher;
 @class Message;
 
@@ -18,7 +19,8 @@
 @property(strong,nonatomic)AllMessagesFetcher *amf;
 -(void)readListOfMessages:(void(^)(NSArray*))callback;
 -(void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback;
-
+-(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context;
 -(void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body;
-
+@property(nonatomic,strong)CreaterContextForInbox* contForInbox;
+-(bool) isHasObject:(NSString*)ID;
 @end

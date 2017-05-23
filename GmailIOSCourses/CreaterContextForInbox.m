@@ -7,6 +7,8 @@
 //
 
 #import "CreaterContextForInbox.h"
+#import "Inbox+CoreDataClass.h"
+#import "Message.h"
 @interface CreaterContextForInbox()
 @property(nonatomic,retain) NSManagedObjectModel *model;
 @end
@@ -15,7 +17,7 @@
     self=[super init];
     if(self){
         NSError *error;
-       // [[NSFileManager defaultManager]removeItemAtPath:[self storeURL].path error:&error];
+        //[[NSFileManager defaultManager]removeItemAtPath:[self storeURL].path error:&error];
         [self managedObjectModel];
         [self setupManagedObjectContext];
         if(![[self fetchedResultsController]performFetch:&error]){
@@ -58,5 +60,20 @@
     }
     self.context.undoManager=[[NSUndoManager alloc]init];
 }
-
+-(NSManagedObjectContext*)setupBackGroundManagedObjectContext{
+    NSManagedObjectContext* context=[[NSManagedObjectContext alloc]initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    context.parentContext=self.context;
+    return context;
+}
+-(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context{
+    Inbox *new=[NSEntityDescription insertNewObjectForEntityForName:@"Inbox" inManagedObjectContext:context];
+    new.date=message.date;
+    new.from=message.from;
+    new.subject=message.subject;
+    new.snippet=message.snippet;
+    new.messageID=message.ID;
+    new.body=[message decodedMessage];
+    new.mimeType=message.payload.mimeType;
+    
+}
 @end
