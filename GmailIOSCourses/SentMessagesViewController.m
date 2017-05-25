@@ -23,7 +23,8 @@
 @property(nonatomic,strong)NSManagedObjectContext* context;
 @property(nonatomic,strong)NSString* nextPageToken;
 @end
-
+static NSString* const sent=@"Sent";
+static NSString *const text=@"text/html";
 @implementation SentMessagesViewController
 
 - (void)viewDidLoad {
@@ -40,47 +41,8 @@
 }
 -(void)updateListOfMessages{
     [self.indicator startAnimating];
-    [self.coordinator readListOfMessages:^(NSDictionary* listOfMessages){
-        self.listOfMessages=[listOfMessages objectForKey:@"messages"];
-        self.nextPageToken=[listOfMessages objectForKey:@"nextPageToken"];
-        
-        __block NSInteger counter=0;
-        self.context =[self.coordinator.contForSent setupBackGroundManagedObjectContext];
-        void(^trySaveContext)(void)=^{
-            counter++;
-            
-            if(counter%20==0){
-                NSError *mocSaveError=nil;
-                if(![self.context save:&mocSaveError]){
-                    NSLog(@"Save did not complete successfully. Error: %@",[mocSaveError localizedDescription]);
-                }else{
-                    [self.coordinator.contForSent.context save:nil];
-                    [self.indicator stopAnimating];
-                    self.indicator.hidden=YES;
-                    
-                }
-            }
-            
-        };
-        
-        for(int i=0;i<self.listOfMessages.count;i++){
-            
-            if([self.coordinator isHasObjectSent:[self.listOfMessages[i]objectForKey:@"id"]]){
-                trySaveContext();
-            }else{
-                [self.coordinator getMessage:[self.listOfMessages[i] objectForKey:@"id"] callback:^(Message* message){
-                    NSManagedObjectContext* context=[[NSManagedObjectContext alloc]initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-                    context.parentContext=self.context;
-                    [self.coordinator addObjectToSentContext:message context:context];
-                    [context save:nil];
-                    trySaveContext();
-                } ];
-            }
-            
-            
-        }
-        
-    } label:@"SENT"];
+    [self.coordinator getMessages:sent];
+   
 }
 
 
@@ -116,7 +78,7 @@
 {
     Sent *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
     
-    if([sentDataModel.mimeType isEqualToString:@"text/html"]){
+    if([sentDataModel.mimeType isEqualToString:text]){
         DetailViewControllerForHtml *dvcfHTML=[self.storyboard instantiateViewControllerWithIdentifier:@"html"];
         [dvcfHTML setDataForSent:sentDataModel coordinator:self.coordinator context:self.coordinator.contForSent.context];
         

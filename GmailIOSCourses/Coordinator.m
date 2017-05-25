@@ -14,6 +14,9 @@
 #import "CreaterContextForInbox.h"
 #import "CreaterContextForSentMessage.h"
 @implementation Coordinator
+static NSString* const sentEntity=@"Sent";
+static NSString* const inboxEntity=@"Inbox";
+static NSString* const inbox=@"INBOX";
 -(instancetype)initWithData:(NSString*)email accessToken:(NSString*)accessToken{
     self=[super init];
     if(self){
@@ -26,9 +29,52 @@
     }
     return self;
 }
-
+-(void)getMessages:(NSString*) label{
+    [self readListOfMessages:^(NSDictionary* listOfMessages) {
+        NSArray* arrayOfMessages=[listOfMessages objectForKey:@"messages"];
+        NSString* nextPageToken=[listOfMessages objectForKey:@"nextPageToken"];
+        
+        __block NSInteger counter=0;
+        NSManagedObjectContext *context=[self.contForInbox setupBackGroundManagedObjectContext];
+        
+        void(^trySaveContext)(void)=^{
+            counter++;
+            
+            if(counter%20==0){
+                NSError *mocSaveError=nil;
+                if(![context save:&mocSaveError]){
+                    NSLog(@"Save did not complete successfully. Error: %@",[mocSaveError localizedDescription]);
+                }else{
+                    
+                    [self.contForInbox.context save:nil];
+                    
+                }
+            }
+            
+        };
+        [context performBlock:^{
+            for(int i=0;i<arrayOfMessages.count;i++){
+                
+                if([self isHasObject:[arrayOfMessages[i]objectForKey:@"id"]]){
+                    trySaveContext();
+                }else{
+                    [self getMessage:[arrayOfMessages[i] objectForKey:@"id"] callback:^(Message* message){
+                        [self addObjectToInboxContext:message context:context];
+                        trySaveContext();
+                    } ];
+                }
+                
+                
+            }
+        }];
+        
+        
+        
+        
+    } label:label];
+}
 -(void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString *)labelId{
-    if([labelId isEqualToString:@"INBOX"]){
+    if([labelId isEqualToString:inbox]){
         
         [self.imf readListOfMessages:labelId callback:callback];
     }
@@ -58,7 +104,7 @@
 }
 -(bool) isHasObject:(NSString*)ID{
     
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Inbox"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:inboxEntity];
      NSError *error = nil;
     [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", ID]];
    

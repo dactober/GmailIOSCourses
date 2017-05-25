@@ -9,7 +9,6 @@
 #import "MainViewController.h"
 #import "CustomTableCell.h"
 #import "DetailViewController.h"
-#import "Message.h"
 #import "DetailViewControllerForHtml.h"
 #import "Inbox+CoreDataClass.h"
 #import "CreaterContextForInbox.h"
@@ -19,11 +18,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property(nonatomic,strong)NSArray* listOfMessages;
 @property (weak, nonatomic) IBOutlet UIButton *send;
-@property(nonatomic,strong)Message *message;
-@property(nonatomic,strong)NSManagedObjectContext* context;
-@property(nonatomic,strong)NSString* nextPageToken;
 @end
 static NSString *const text=@"text/html";
+static NSString* const inbox=@"INBOX";
 @implementation MainViewController
 - (void)viewDidLoad {
     
@@ -41,47 +38,8 @@ static NSString *const text=@"text/html";
 
 -(void)updateListOfMessages{
     [self.indicator startAnimating];
-    [self.coordinator readListOfMessages:^(NSDictionary* listOfMessages) {
-        self.listOfMessages=[listOfMessages objectForKey:@"messages"];
-        self.nextPageToken=[listOfMessages objectForKey:@"nextPageToken"];
-        
-        __block NSInteger counter=0;
-        self.context =[self.coordinator.contForInbox setupBackGroundManagedObjectContext];
-        void(^trySaveContext)(void)=^{
-            counter++;
-           
-            if(counter%20==0){
-                NSError *mocSaveError=nil;
-                if(![self.context save:&mocSaveError]){
-                    NSLog(@"Save did not complete successfully. Error: %@",[mocSaveError localizedDescription]);
-                }else{
-                    [self.coordinator.contForInbox.context save:nil];
-                    [self.indicator stopAnimating];
-                    self.indicator.hidden=YES;
-                    
-                }
-            }
-            
-        };
-      
-            for(int i=0;i<self.listOfMessages.count;i++){
-                
-               if([self.coordinator isHasObject:[self.listOfMessages[i]objectForKey:@"id"]]){
-                   trySaveContext();
-               }else{
-                    [self.coordinator getMessage:[self.listOfMessages[i] objectForKey:@"id"] callback:^(Message* message){
-                        NSManagedObjectContext* context=[[NSManagedObjectContext alloc]initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-                        context.parentContext=self.context;
-                        [self.coordinator addObjectToInboxContext:message context:context];
-                        [context save:nil];
-                        trySaveContext();
-                } ];
-               }
-            
-                
-            }
-        
-    } label:@"INBOX"];
+    [self.coordinator getMessages:inbox];
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];

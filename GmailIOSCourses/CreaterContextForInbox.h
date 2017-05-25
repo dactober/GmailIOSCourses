@@ -13,4 +13,5 @@
 @property(nonatomic,strong) NSManagedObjectContext *context;
 -(NSManagedObjectContext*)setupBackGroundManagedObjectContext;
 -(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context;
+@property(nonatomic,strong)NSPersistentContainer *container;
 @end

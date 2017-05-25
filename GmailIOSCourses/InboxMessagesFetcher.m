@@ -23,13 +23,10 @@ static int maxResults=20;
 -(void)readListOfMessages:(NSString*)labelId callback:(void(^)(NSDictionary*))callback{
     NSString* serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/me/messages?fields=messages(id,threadId),nextPageToken&maxResults=%d&labelIds=%@",maxResults,labelId];
     NSURL *url = [NSURL URLWithString:serverAddressForReadMessages];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@",self.accessToken];
-    [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];
-    [request setHTTPMethod:@"GET"];
     
     
-    [[self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    
+    [[self.session dataTaskWithRequest:[self getRequest:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         
         callback(json);
@@ -38,19 +35,21 @@ static int maxResults=20;
 }
 -(void )getMessage:(NSString *)serverAddressForReadMessages callback:(void(^)(Message*))callback{
     NSURL *url = [NSURL URLWithString:serverAddressForReadMessages];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@",self.accessToken];
-    [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];
-    [request setHTTPMethod:@"GET"];
     
-    
-    [[self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    [[self.session dataTaskWithRequest:[self getRequest:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         Message* message= [self createMessage:json];
         callback(message);
         ;
     }] resume];
     
+}
+-(NSMutableURLRequest*)getRequest:(NSURL*)url{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@",self.accessToken];
+    [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];
+    [request setHTTPMethod:@"GET"];
+    return request;
 }
 -(Message *)createMessage:(NSDictionary *)message{
     Message *msg=[[Message alloc]initWithData:message];

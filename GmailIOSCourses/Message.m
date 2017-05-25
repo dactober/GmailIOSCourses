@@ -14,6 +14,8 @@
 static NSString *const mimeTypeRelated = @"multipart/related";
 static NSString *const mimeTypeAlternative = @"multipart/alternative";
 static NSString *const mimeTypeMixed=@"multipart/mixed";
+static NSString *const mimeTypeApplicationPdf=@"application/pdf";
+static NSString *const notSupported=@"Contex isn't supported";
 @implementation Message
 
 -(instancetype)initWithData:(NSDictionary*) message{
@@ -65,6 +67,9 @@ static NSString *const mimeTypeMixed=@"multipart/mixed";
         Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
         if([ payload.mimeType isEqualToString:mimeTypeAlternative]){
             Payload *payload1=[[Payload alloc]initWithData:payload.parts[0]];
+            if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+                return notSupported;
+            }
             self.payload.headers=payload1.headers;
             BodyOFMessage* body=[payload1 body];
             NSString* data=body.data;
@@ -78,6 +83,9 @@ static NSString *const mimeTypeMixed=@"multipart/mixed";
             
         }else{
             self.payload.headers=payload.headers;
+            if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+                return notSupported;
+            }
             BodyOFMessage* body=[payload body];
             NSString* data=body.data;
             data = [data stringByReplacingOccurrencesOfString:@"-"
@@ -95,6 +103,9 @@ static NSString *const mimeTypeMixed=@"multipart/mixed";
             Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
             if([self.payload.mimeType  isEqualToString:mimeTypeMixed]){
                 Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
+                if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+                    return notSupported;
+                }
                 if([payload.mimeType isEqualToString:mimeTypeAlternative]){
                     Payload *payload1=[[Payload alloc]initWithData:payload.parts[0]];
                     self.payload.headers=payload1.headers;
@@ -108,6 +119,9 @@ static NSString *const mimeTypeMixed=@"multipart/mixed";
                     decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
                 }else{
                     self.payload.headers=payload.headers;
+                    if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+                        return notSupported;
+                    }
                     BodyOFMessage* body=[payload body];
                     NSString* data=body.data;
                     data = [data stringByReplacingOccurrencesOfString:@"-"
@@ -121,6 +135,9 @@ static NSString *const mimeTypeMixed=@"multipart/mixed";
                 
             }else{
                 self.payload.headers=payload.headers;
+                if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+                    return notSupported;
+                }
                 BodyOFMessage* body=[payload body];
                 NSString* data=body.data;
                 data = [data stringByReplacingOccurrencesOfString:@"-"
@@ -134,6 +151,9 @@ static NSString *const mimeTypeMixed=@"multipart/mixed";
             //NSLog(@"decoded string - %@",decodedString);
             
         }else{
+            if([self.payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+                return notSupported;
+            }
             BodyOFMessage* body=[self.payload body];
             NSString* data=body.data;
             data = [data stringByReplacingOccurrencesOfString:@"-"

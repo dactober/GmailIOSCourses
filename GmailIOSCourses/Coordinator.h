@@ -30,4 +30,5 @@
 -(bool) isHasObject:(NSString*)ID;
 -(bool) isHasObjectSent:(NSString*)ID;
 -(void)addObjectToSentContext:(Message*)message context:(NSManagedObjectContext*)context;
+-(void)getMessages:(NSString *)label;
 @end

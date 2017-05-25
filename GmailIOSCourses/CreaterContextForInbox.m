@@ -17,8 +17,9 @@
     self=[super init];
     if(self){
         NSError *error;
-       [[NSFileManager defaultManager]removeItemAtPath:[self storeURL].path error:&error];
+      // [[NSFileManager defaultManager]removeItemAtPath:[self storeURL].path error:&error];
         [self managedObjectModel];
+        self.container=[[NSPersistentContainer alloc]initWithName:@"Container" managedObjectModel:self.model];
         [self setupManagedObjectContext];
         if(![[self fetchedResultsController]performFetch:&error]){
             NSLog(@"Unresolved error %@,%@",error,[error userInfo]);
