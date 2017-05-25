@@ -11,7 +11,7 @@
 #import "SendViewController.h"
 #import "Inbox+CoreDataClass.h"
 #import "Message.h"
-#import "Sent+CoreDataClass.h"
+
 @interface DetailViewControllerForHtml ()
 @property (weak, nonatomic) IBOutlet UILabel *subject;
 @property (weak, nonatomic) IBOutlet UILabel *from;
@@ -58,69 +58,15 @@
     self.inboxMessage=inboxMessage;
     self.context=context;
 }
--(void)setDataForSent:(Sent *)sentMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext*)context{
-    self.coordinator=coordinator;
-    self.sentMessage=sentMessage;
-    
-    self.context=context;
-}
+
 - (IBAction)send:(id)sender {
     SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
-    if(self.inboxMessage!=nil){
         [send setData:self.coordinator flag:true message:self.inboxMessage];
-    }else{
-        [send setDataForSent:self.coordinator flag:true message:self.sentMessage];
-    }
+    
     
     [self.navigationController pushViewController:send animated:YES];
 }
 - (IBAction)delete:(id)sender {
-    
-    if(self.inboxMessage!=nil){
-        
-        [Message deleteMessage:self.coordinator messageID:self.inboxMessage.messageID  callback:^{
-            [self deleteFromContext];
-            [self.context save:nil];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        }];
-    }else{
-        
-        [Message deleteMessage:self.coordinator messageID:self.sentMessage.messageID  callback:^{
-            [self deleteFromContext];
-            [self.context save:nil];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        }];
-    }
-    
+    [self.coordinator deleteMessage:self.inboxMessage.messageID label:self.inboxMessage.label];
 }
--(void)deleteFromContext{
-    if(self.inboxMessage!=nil){
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Inbox"];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", self.inboxMessage.messageID]];
-        NSError *error = nil;
-        NSArray *results = [self.context executeFetchRequest:request error:&error];
-        
-            for (NSManagedObject *managedObject in results)
-            {
-                [self.context deleteObject:managedObject];
-            }
-        
-    }
-   else{
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Sent"];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", self.sentMessage.messageID]];
-        NSError *error = nil;
-        NSArray *results = [self.context executeFetchRequest:request error:&error];
-        for (NSManagedObject *managedObject in results)
-        {
-            [self.context deleteObject:managedObject];
-        }
-    }
-    
-}
-
 @end

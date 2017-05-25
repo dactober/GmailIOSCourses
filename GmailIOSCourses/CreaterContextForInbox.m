@@ -21,26 +21,21 @@
         [self managedObjectModel];
         self.container=[[NSPersistentContainer alloc]initWithName:@"Container" managedObjectModel:self.model];
         [self setupManagedObjectContext];
-        if(![[self fetchedResultsController]performFetch:&error]){
-            NSLog(@"Unresolved error %@,%@",error,[error userInfo]);
-            exit(-1);
-        }
+        
     }
     return self;
 }
--(NSFetchedResultsController *)fetchedResultsController{
-    if(_fetchedResultsController!=nil){
-        return _fetchedResultsController;
-    }
+-(NSFetchedResultsController *)getFetchedResultsController:(NSString*)label{
+    
     NSFetchRequest *fetchRequest=[[NSFetchRequest alloc]init];
-    NSEntityDescription *entity=[NSEntityDescription entityForName:@"Inbox" inManagedObjectContext:self.context];
+    NSEntityDescription *entity=[NSEntityDescription entityForName:label inManagedObjectContext:self.context];
     [fetchRequest setEntity:entity];
     NSSortDescriptor *sort=[[NSSortDescriptor alloc]initWithKey:@"date" ascending:NO];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     NSFetchedResultsController *theFethResultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
-    self.fetchedResultsController=theFethResultsController;
-    return _fetchedResultsController;
+    
+    return theFethResultsController;;
 }
 -(NSURL*)storeURL{
     NSURL *url=[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL];
@@ -66,8 +61,8 @@
     context.parentContext=self.context;
     return context;
 }
--(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context{
-    Inbox *new=[NSEntityDescription insertNewObjectForEntityForName:@"Inbox" inManagedObjectContext:context];
+-(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context label:(NSString*)label{
+    Inbox *new=[NSEntityDescription insertNewObjectForEntityForName:label inManagedObjectContext:context];
     new.date=message.date;
     new.from=message.from;
     new.subject=message.subject;
@@ -75,6 +70,6 @@
     new.messageID=message.ID;
     new.body=[message decodedMessage];
     new.mimeType=message.payload.mimeType;
-    
+    new.label=[label uppercaseString];
 }
 @end

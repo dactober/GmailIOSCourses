@@ -21,4 +21,5 @@
 @dynamic snippet;
 @dynamic messageID;
 @dynamic mimeType;
+@dynamic label;
 @end

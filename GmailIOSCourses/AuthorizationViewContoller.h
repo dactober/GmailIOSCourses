@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface AuthorizationViewContoller : UIViewController
-
+-(void)logOut:(NSURL*)url;
 @end
 

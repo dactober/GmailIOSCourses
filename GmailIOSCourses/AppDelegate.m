@@ -16,12 +16,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    AuthorizationViewContoller *auth=[[AuthorizationViewContoller alloc]init];
+    AuthorizationViewContoller* auth=[[AuthorizationViewContoller alloc]init];
+    
+
+    
     // Override point for customization after application launch.
     return YES;
 }
-	
-
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

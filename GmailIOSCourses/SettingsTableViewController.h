@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AuthorizationViewContoller.h"
+#import "Coordinator.h"
 @interface SettingsTableViewController : UITableViewController
-@property(nonatomic,strong)NSArray* messages;
+@property (strong,nonatomic)Coordinator *coordinator;
+@property (strong,nonatomic)AuthorizationViewContoller *auth;
 @end

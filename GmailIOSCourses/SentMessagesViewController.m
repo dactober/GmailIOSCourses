@@ -12,7 +12,8 @@
 #import "Message.h"
 #import "DetailViewControllerForHtml.h"
 #import "Sent+CoreDataClass.h"
-#import "CreaterContextForSentMessage.h"
+#import "CreaterContextForInbox.h"
+#import "Inbox+CoreDataClass.h"
 @interface SentMessagesViewController ()
 @property (nonatomic)NSUInteger number;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
@@ -23,15 +24,20 @@
 @property(nonatomic,strong)NSManagedObjectContext* context;
 @property(nonatomic,strong)NSString* nextPageToken;
 @end
-static NSString* const sent=@"Sent";
+static NSString* const sent=@"SENT";
 static NSString *const text=@"text/html";
+static NSString* const sentEntity=@"Sent";
 @implementation SentMessagesViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.fetchedResultsController=[self.coordinator.contForSent fetchedResultsController];
+    self.fetchedResultsController=[self.coordinator.contForInbox getFetchedResultsController:sentEntity];
     self.fetchedResultsController.delegate=self;
-    
+    NSError *error;
+    if(![self.fetchedResultsController performFetch:&error]){
+        NSLog(@"Unresolved error %@,%@",error,[error userInfo]);
+        exit(-1);
+    }
     
     // Do any additional setup after loading the view.
 }
@@ -65,27 +71,27 @@ static NSString *const text=@"text/html";
     [self.indicator stopAnimating];
     CustomTableCell *cell=(CustomTableCell *)[tableView dequeueReusableCellWithIdentifier:myIdForSent forIndexPath:indexPath];
     
-    Sent *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
+    Inbox *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
     
     
     
-    [cell customCellDataForSent:sentDataModel];
+    [cell customCellDataForInbox:sentDataModel];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Sent *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
+    Inbox *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
     
     if([sentDataModel.mimeType isEqualToString:text]){
         DetailViewControllerForHtml *dvcfHTML=[self.storyboard instantiateViewControllerWithIdentifier:@"html"];
-        [dvcfHTML setDataForSent:sentDataModel coordinator:self.coordinator context:self.coordinator.contForSent.context];
+        [dvcfHTML setData:sentDataModel coordinator:self.coordinator context:self.coordinator.contForInbox.context];
         
         [self.navigationController pushViewController:dvcfHTML animated:YES];
     }else{
         DetailViewController *dvc=[self.storyboard instantiateViewControllerWithIdentifier:@"Detail"];
-        [dvc setDataForSent:sentDataModel coordinator:self.coordinator context:self.coordinator.contForSent.context];
+        [dvc setData:sentDataModel coordinator:self.coordinator context:self.coordinator.contForInbox.context];
         
         [self.navigationController pushViewController:dvc animated:YES];
     }

@@ -21,16 +21,20 @@
 @end
 static NSString *const text=@"text/html";
 static NSString* const inbox=@"INBOX";
+static NSString* const inboxEntity=@"Inbox";
 @implementation MainViewController
 - (void)viewDidLoad {
     
     [super viewDidLoad];
  
     
-    self.fetchedResultsController=[self.coordinator.contForInbox fetchedResultsController];
+    self.fetchedResultsController=[self.coordinator.contForInbox getFetchedResultsController:inboxEntity];
     self.fetchedResultsController.delegate=self;
-    
-    
+    NSError *error;
+    if(![self.fetchedResultsController performFetch:&error]){
+        NSLog(@"Unresolved error %@,%@",error,[error userInfo]);
+        exit(-1);
+    }
     
     
     // Do any additional setup after loading the view.

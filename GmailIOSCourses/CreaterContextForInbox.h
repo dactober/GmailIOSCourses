@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "CoreData/CoreData.h"
 @interface CreaterContextForInbox : NSObject
-@property(nonatomic,strong)NSFetchedResultsController *fetchedResultsController;
+-(NSFetchedResultsController*)getFetchedResultsController:(NSString*)label;
 @property(nonatomic,strong) NSManagedObjectContext *context;
 -(NSManagedObjectContext*)setupBackGroundManagedObjectContext;
--(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context;
+-(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context label:(NSString*)label;
 @property(nonatomic,strong)NSPersistentContainer *container;
+-(NSURL*)storeURL;
 @end

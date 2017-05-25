@@ -9,7 +9,7 @@
 #import "Message.h"
 #import "Coordinator.h"
 @interface Message ()
-@property(strong,nonatomic)NSURLSession *session;
+
 @end
 static NSString *const mimeTypeRelated = @"multipart/related";
 static NSString *const mimeTypeAlternative = @"multipart/alternative";
@@ -20,7 +20,6 @@ static NSString *const notSupported=@"Contex isn't supported";
 
 -(instancetype)initWithData:(NSDictionary*) message{
     self=[super init];
-    self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     bool sub=false;
     bool fr=false;
     if(self){
@@ -183,47 +182,5 @@ static NSString *const notSupported=@"Contex isn't supported";
     NSLog(@"%@", encoded);
     
     return encoded;
-}
-+(void)send:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body accessToken:(NSString*)accessToken{
-    NSString *server=[NSString stringWithFormat:@"https://content.googleapis.com/gmail/v1/users/%@/messages/send?alt=json",from];
-    NSURL *userinfoEndpoint = [NSURL URLWithString:server];
-    NSString *currentAccessToken = accessToken;
-    
-    NSDictionary *dict=@{@"raw":[Message encodedMessage:from to:to subject:subject body:body]};
-    
-    NSData *messageData = [NSJSONSerialization dataWithJSONObject:dict
-                                                          options:NSJSONWritingPrettyPrinted error:nil];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:userinfoEndpoint];
-    NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@", currentAccessToken];
-    [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    [request setHTTPBody:messageData ];
-    // performs HTTP request
-    NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    [[session dataTaskWithRequest:request
-               completionHandler:^(NSData *_Nullable data,
-                                   NSURLResponse *_Nullable response,
-                                   NSError *_Nullable error) {
-                   // Handle response
-               }] resume];
-}
-+(void)deleteMessage:(Coordinator*)coordinator messageID:(NSString*)messageID callback:(void(^)(void))callback{
-    NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    NSString* serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/%@/messages/%@",coordinator.userID,messageID];
-    NSURL *url = [NSURL URLWithString:serverAddressForReadMessages];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@",coordinator.accessToken];
-    [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];
-    [request setHTTPMethod:@"DELETE"];
-    
-    
-    
-    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        callback();
-        
-    }] resume];
 }
 @end

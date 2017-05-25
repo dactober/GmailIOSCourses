@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 @class Message;
 @protocol MessagesFetcherProtocol <NSObject>
--(instancetype)initWithData:(NSString*)accessToken;
+
 -(void)readListOfMessages:(NSString*)serverAddressForReadMessages callback:(void(^)(NSDictionary*))callback;
 -(void)getMessage:(NSString*)serverAddressForReadMessages  callback:(void(^)(Message*))callback ;
+-(NSMutableURLRequest*)getRequest:(NSURL*)url;
 @end

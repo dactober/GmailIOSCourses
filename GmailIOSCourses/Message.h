@@ -22,8 +22,6 @@
 @property(nonatomic,strong)NSString* subject;
 @property(nonatomic,strong)NSString *from;
 @property(nonatomic,strong)NSDate *date;
-+(void)send:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body accessToken:(NSString*)accessToken;
-+(void)deleteMessage:(Coordinator* )coordinator messageID:(NSString*)messageID callback:(void(^)(void))callback;
 -(instancetype)initWithData:(NSDictionary*) message;
 -(NSString *)decodedMessage;
 + (NSString *)encodedMessage:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body;

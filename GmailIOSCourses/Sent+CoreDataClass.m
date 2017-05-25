@@ -2,7 +2,7 @@
 //  Sent+CoreDataClass.m
 //  GmailIOSCourses
 //
-//  Created by Aleksey Drachyov on 5/24/17.
+//  Created by Aleksey Drachyov on 5/25/17.
 //  Copyright © 2017 Aleksey Drachyov. All rights reserved.
 //
 

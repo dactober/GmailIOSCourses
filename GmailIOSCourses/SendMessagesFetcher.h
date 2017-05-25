@@ -13,6 +13,6 @@
 @property(strong,nonatomic)NSString *accessToken;
 
 -(Message *)createMessage:(NSDictionary *)message;
-
+-(instancetype)initWithData:(NSString*)accessToken;
 
 @end

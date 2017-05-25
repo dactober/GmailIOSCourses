@@ -2,7 +2,7 @@
 //  Sent+CoreDataProperties.m
 //  GmailIOSCourses
 //
-//  Created by Aleksey Drachyov on 5/24/17.
+//  Created by Aleksey Drachyov on 5/25/17.
 //  Copyright © 2017 Aleksey Drachyov. All rights reserved.
 //
 
@@ -15,11 +15,11 @@
 }
 
 @dynamic body;
-@dynamic snippet;
-@dynamic subject;
-@dynamic from;
 @dynamic date;
-@dynamic messageID;
+@dynamic from;
+@dynamic subject;
+@dynamic snippet;
 @dynamic mimeType;
-
+@dynamic messageID;
+@dynamic label;
 @end

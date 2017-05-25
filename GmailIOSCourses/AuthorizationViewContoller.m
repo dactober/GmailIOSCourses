@@ -26,8 +26,7 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 
 @implementation AuthorizationViewContoller
 
-// When the view loads, create necessary subviews, and initialize the Gmail API service.
-
+// When the view loads, create necessary subviews, and initialize the Gmail AP
 - (void)viewDidLoad {
     [super viewDidLoad];
     //[ GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
@@ -53,6 +52,8 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     [self.mainViewController setCoordinator:coordinator];
     [self.mainViewController setSettingsViewController:self.settingsViewController];
     [self.mainViewController setSentMessagesViewController:self.sentViewController];
+    [self.settingsViewController setCoordinator:coordinator];
+    [self.settingsViewController setAuth:self];
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
     
     UINavigationController* nav1 = [[UINavigationController alloc] initWithRootViewController:self.sentViewController];
@@ -154,8 +155,10 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     [self presentViewController:alert animated:YES completion:nil];
     
 }
--(void)logOut{
+-(void)logOut:(NSURL*)url{
+    NSError* error;
     [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
+    [[NSFileManager defaultManager]removeItemAtPath:url.path error:&error];
 }
 
 @end
