@@ -1,9 +1,9 @@
 //
-//  MainViewController.h
-//  GmailIOSCourses
+//  SearchViewController.h
+//  
 //
-//  Created by Aleksey Drachyov on 4/30/17.
-//  Copyright © 2017 Aleksey Drachyov. All rights reserved.
+//  Created by Aleksey Drachyov on 5/17/17.
+//
 //
 
 #import <UIKit/UIKit.h>
@@ -12,10 +12,10 @@
 #import "SendViewController.h"
 #import "SettingsTableViewController.h"
 #import "SentMessagesViewController.h"
-@interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>
+@interface SentMessagesViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>
 @property(nonatomic,strong)NSFetchedResultsController *fetchedResultsController;
 @property(nonatomic,strong)SettingsTableViewController* settingsViewController;
 @property(nonatomic,strong)SentMessagesViewController *sentMessagesViewController;
 @property (strong,nonatomic)Coordinator *coordinator;
 @end
-static NSString *myIdForInbox=@"Id";
+static NSString *myIdForSent=@"SentId";

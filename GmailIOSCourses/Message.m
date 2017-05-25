@@ -11,8 +11,11 @@
 @interface Message ()
 @property(strong,nonatomic)NSURLSession *session;
 @end
-
+static NSString *const mimeTypeRelated = @"multipart/related";
+static NSString *const mimeTypeAlternative = @"multipart/alternative";
+static NSString *const mimeTypeMixed=@"multipart/mixed";
 @implementation Message
+
 -(instancetype)initWithData:(NSDictionary*) message{
     self=[super init];
     self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -58,9 +61,9 @@
 }
 -(NSString *)decodedMessage{
     NSString *decodedString;
-   if([self.payload.mimeType isEqualToString:@"multipart/related"]){
+   if([self.payload.mimeType isEqualToString:mimeTypeRelated]){
         Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
-        if([ payload.mimeType isEqualToString:@"multipart/alternative"]){
+        if([ payload.mimeType isEqualToString:mimeTypeAlternative]){
             Payload *payload1=[[Payload alloc]initWithData:payload.parts[0]];
             self.payload.headers=payload1.headers;
             BodyOFMessage* body=[payload1 body];
@@ -88,17 +91,46 @@
             
         }
     }else{
-        if([self.payload.mimeType isEqualToString:@"multipart/alternative"]||[self.payload.mimeType  isEqualToString:@"multipart/mixed"]){
+        if([self.payload.mimeType isEqualToString:mimeTypeAlternative]||[self.payload.mimeType  isEqualToString:mimeTypeMixed]){
             Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
-            self.payload.headers=payload.headers;
-            BodyOFMessage* body=[payload body];
-            NSString* data=body.data;
-            data = [data stringByReplacingOccurrencesOfString:@"-"
-                                                   withString:@"+"];
-            data = [data stringByReplacingOccurrencesOfString:@"_"
-                                                   withString:@"/"];
-            NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:data options:0];
-            decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+            if([self.payload.mimeType  isEqualToString:mimeTypeMixed]){
+                Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
+                if([payload.mimeType isEqualToString:mimeTypeAlternative]){
+                    Payload *payload1=[[Payload alloc]initWithData:payload.parts[0]];
+                    self.payload.headers=payload1.headers;
+                    BodyOFMessage* body=[payload1 body];
+                    NSString* data=body.data;
+                    data = [data stringByReplacingOccurrencesOfString:@"-"
+                                                           withString:@"+"];
+                    data = [data stringByReplacingOccurrencesOfString:@"_"
+                                                           withString:@"/"];
+                    NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:data options:0];
+                    decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+                }else{
+                    self.payload.headers=payload.headers;
+                    BodyOFMessage* body=[payload body];
+                    NSString* data=body.data;
+                    data = [data stringByReplacingOccurrencesOfString:@"-"
+                                                           withString:@"+"];
+                    data = [data stringByReplacingOccurrencesOfString:@"_"
+                                                           withString:@"/"];
+                    NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:data options:0];
+                    decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+                }
+                
+                
+            }else{
+                self.payload.headers=payload.headers;
+                BodyOFMessage* body=[payload body];
+                NSString* data=body.data;
+                data = [data stringByReplacingOccurrencesOfString:@"-"
+                                                       withString:@"+"];
+                data = [data stringByReplacingOccurrencesOfString:@"_"
+                                                       withString:@"/"];
+                NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:data options:0];
+                decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+            }
+            
             //NSLog(@"decoded string - %@",decodedString);
             
         }else{
@@ -142,8 +174,6 @@
     NSData *messageData = [NSJSONSerialization dataWithJSONObject:dict
                                                           options:NSJSONWritingPrettyPrinted error:nil];
     
-    // NSLog(@"%@", message);
-    // creates request to the userinfo endpoint, with access token in the Authorization header
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:userinfoEndpoint];
     NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@", currentAccessToken];
     [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];

@@ -7,6 +7,7 @@
 //
 @class Coordinator;
 @class Inbox;
+@class Sent;
 #import <UIKit/UIKit.h>
 #import "CustomTableCell.h"
 #import "CoreData/CoreData.h"
@@ -16,7 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *from;
 @property (weak, nonatomic) IBOutlet UILabel *body;
 @property (strong,nonatomic)Inbox *inboxMessage;
+@property (strong,nonatomic)Sent *sentMessage;
 @property (strong,nonatomic)Message *message;
 -(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context;
-
+-(void)setDataForSent:(Sent *)sentMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context;
 @end

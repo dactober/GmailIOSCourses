@@ -8,7 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "MessagesFetcherProtocol.h"
+@class Coordinator;
+@class Message;
 @interface InboxMessagesFetcher:NSObject<MessagesFetcherProtocol>
+@property (strong,nonatomic)NSArray *messageArray;
+@property(strong,nonatomic)NSString *accessToken;
 
+-(Message *)createMessage:(NSDictionary *)message;
 @end
 

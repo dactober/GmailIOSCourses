@@ -12,11 +12,11 @@
 #import "GTLRGmail.h"
 #import "Coordinator.h"
 #import "SettingsTableViewController.h"
-#import "SearchViewController.h"
+#import "SentMessagesViewController.h"
 @interface AuthorizationViewContoller()
 @property (nonatomic, strong) GTLRGmailService *service;
 @property(nonatomic,strong)SettingsTableViewController* settingsViewController;
-@property(nonatomic,strong)SearchViewController *searchViewController;
+@property(nonatomic,strong)SentMessagesViewController *sentViewController;
 @property(nonatomic,strong)MainViewController *mainViewController;
 @end
 
@@ -27,6 +27,7 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 @implementation AuthorizationViewContoller
 
 // When the view loads, create necessary subviews, and initialize the Gmail API service.
+
 - (void)viewDidLoad {
     [super viewDidLoad];
    // [ GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
@@ -44,34 +45,29 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     
 }
 -(void)createMainViewController{
-    self.mainViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"Main"];
+    self.mainViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"Inbox"];
     Coordinator *coordinator=[[Coordinator alloc] initWithData:self.service.authorizer.userEmail accessToken:accessToken];
     self.settingsViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
-    self.searchViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"Search"];
+    self.sentViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"Sent"];
+    [self.sentViewController setCoordinator:coordinator];
     [self.mainViewController setCoordinator:coordinator];
     [self.mainViewController setSettingsViewController:self.settingsViewController];
-    [self.mainViewController setSearchViewController:self.searchViewController];
+    [self.mainViewController setSentMessagesViewController:self.sentViewController];
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
-    UINavigationController* nav1 = [[UINavigationController alloc] initWithRootViewController:self.settingsViewController];
-    UINavigationController* nav2 = [[UINavigationController alloc] initWithRootViewController:self.searchViewController];
-    NSMutableArray *tabViewControllers = [[NSMutableArray alloc] init];
-    [tabViewControllers addObject:nav];
-    [tabViewControllers addObject:nav2];
-    [tabViewControllers addObject:nav1];
-    UITabBarController *tabController = [[UITabBarController alloc]init];
+    
+    UINavigationController* nav1 = [[UINavigationController alloc] initWithRootViewController:self.sentViewController];
+   
+    UINavigationController* nav2 = [[UINavigationController alloc] initWithRootViewController:self.settingsViewController];
+    NSArray *tabViewControllers=@[nav,nav1,nav2];
+        UITabBarController *tabController = [[UITabBarController alloc]init];
     [tabController setViewControllers:tabViewControllers];
     nav.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Inbox"
-                                  image:[UIImage imageNamed:@""]
-                                    tag:1];
+    [[UITabBarItem alloc] initWithTitle:@"Inbox" image:nil tag:1];
     nav1.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Settings"
-                                  image:[UIImage imageNamed:@"Settings"]
-                                    tag:2];
+    [[UITabBarItem alloc] initWithTitle:@"Sent" image:nil tag:2];
     nav2.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Sent"
-                                  image:[UIImage imageNamed:@""]
-                                    tag:3];
+    [[UITabBarItem alloc] initWithTitle:@"Settings" image:nil tag:3];
+    
     
    
     [self presentViewController:tabController animated:YES completion:nil];

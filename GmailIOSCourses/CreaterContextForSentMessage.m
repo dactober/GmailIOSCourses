@@ -1,23 +1,23 @@
 //
-//  CreaterContextForInbox.m
+//  CreaterContextForSentMessage.m
 //  GmailIOSCourses
 //
-//  Created by Aleksey Drachyov on 5/22/17.
+//  Created by Aleksey Drachyov on 5/24/17.
 //  Copyright © 2017 Aleksey Drachyov. All rights reserved.
 //
 
-#import "CreaterContextForInbox.h"
-#import "Inbox+CoreDataClass.h"
+#import "CreaterContextForSentMessage.h"
+#import "Sent+CoreDataClass.h"
 #import "Message.h"
-@interface CreaterContextForInbox()
+@interface CreaterContextForSentMessage()
 @property(nonatomic,retain) NSManagedObjectModel *model;
 @end
-@implementation CreaterContextForInbox
+@implementation CreaterContextForSentMessage
 -(instancetype)init{
     self=[super init];
     if(self){
         NSError *error;
-       //[[NSFileManager defaultManager]removeItemAtPath:[self storeURL].path error:&error];
+      //  [[NSFileManager defaultManager]removeItemAtPath:[self storeURL].path error:&error];
         [self managedObjectModel];
         [self setupManagedObjectContext];
         if(![[self fetchedResultsController]performFetch:&error]){
@@ -32,7 +32,7 @@
         return _fetchedResultsController;
     }
     NSFetchRequest *fetchRequest=[[NSFetchRequest alloc]init];
-    NSEntityDescription *entity=[NSEntityDescription entityForName:@"Inbox" inManagedObjectContext:self.context];
+    NSEntityDescription *entity=[NSEntityDescription entityForName:@"Sent" inManagedObjectContext:self.context];
     [fetchRequest setEntity:entity];
     NSSortDescriptor *sort=[[NSSortDescriptor alloc]initWithKey:@"date" ascending:NO];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
@@ -43,10 +43,10 @@
 }
 -(NSURL*)storeURL{
     NSURL *url=[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL];
-    return [url URLByAppendingPathComponent:@"storeInbox.sqlite"];
+    return [url URLByAppendingPathComponent:@"storeSent.sqlite"];
 }
 -(void)managedObjectModel{
-    NSURL *momdURL=[[NSBundle mainBundle]URLForResource:@"InboxMessageModel" withExtension:@"momd"];
+    NSURL *momdURL=[[NSBundle mainBundle]URLForResource:@"SentMessageModel" withExtension:@"momd"];
     self.model=[[NSManagedObjectModel alloc]initWithContentsOfURL:momdURL];
 }
 -(void)setupManagedObjectContext{
@@ -65,8 +65,8 @@
     context.parentContext=self.context;
     return context;
 }
--(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context{
-    Inbox *new=[NSEntityDescription insertNewObjectForEntityForName:@"Inbox" inManagedObjectContext:context];
+-(void)addObjectToSentContext:(Message*)message context:(NSManagedObjectContext*)context{
+    Sent *new=[NSEntityDescription insertNewObjectForEntityForName:@"Sent" inManagedObjectContext:context];
     new.date=message.date;
     new.from=message.from;
     new.subject=message.subject;

@@ -16,7 +16,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    AuthorizationViewContoller *auth=[AuthorizationViewContoller new];
+    AuthorizationViewContoller *auth=[[AuthorizationViewContoller alloc]init];
     // Override point for customization after application launch.
     return YES;
 }

@@ -8,31 +8,42 @@
 
 #import "Coordinator.h"
 #import "Message.h"
-#import "AllMessagesFetcher.h"
+#import "SendMessagesFetcher.h"
+#import "InboxMessagesFetcher.h"
 #import "Inbox+CoreDataClass.h"
 #import "CreaterContextForInbox.h"
+#import "CreaterContextForSentMessage.h"
 @implementation Coordinator
 -(instancetype)initWithData:(NSString*)email accessToken:(NSString*)accessToken{
     self=[super init];
     if(self){
         self.userID=email;
         self.accessToken=accessToken;
-        self.amf=[[AllMessagesFetcher alloc]initWithData:self.accessToken];
+        self.imf=[[InboxMessagesFetcher alloc]initWithData:self.accessToken];
+        self.smf=[[SendMessagesFetcher alloc]initWithData:accessToken];
         self.contForInbox=[[CreaterContextForInbox alloc]init];
-        
+        self.contForSent=[[CreaterContextForSentMessage alloc]init];
     }
     return self;
 }
 
--(void)readListOfMessages:(void(^)(NSArray*))callback{
-    self.serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/%@/messages?fields=messages(id,threadId),nextPageToken&maxResults=%d",self.userID,20];
+-(void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString *)labelId{
+    if([labelId isEqualToString:@"INBOX"]){
+        
+        [self.imf readListOfMessages:labelId callback:callback];
+    }
+    else{
+        
+        [self.smf readListOfMessages:labelId callback:callback];
+    }
     
-    [self.amf readListOfMessages:self.serverAddressForReadMessages callback:callback];
+    
     
 }
 -(void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback{
-    self.serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/%@/messages/%@?field=raw",self.userID,messageID];
-    [self.amf getMessage:self.serverAddressForReadMessages callback:callback];
+    
+     
+    [self.smf getMessage:messageID callback:callback];
 }
 
 -(void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body{
@@ -42,11 +53,13 @@
 -(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context{
     [self.contForInbox addObjectToInboxContext:message context:context];
 }
+-(void)addObjectToSentContext:(Message*)message context:(NSManagedObjectContext*)context{
+    [self.contForSent addObjectToSentContext:message context:context];
+}
 -(bool) isHasObject:(NSString*)ID{
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Inbox"];
      NSError *error = nil;
-    NSArray *results1 = [self.contForInbox.context executeFetchRequest:request error:&error];
     [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", ID]];
    
     NSArray *results = [self.contForInbox.context executeFetchRequest:request error:&error];
@@ -56,5 +69,19 @@
     else{
         return false;
     }
+}
+-(bool) isHasObjectSent:(NSString*)ID{
+        
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Sent"];
+        NSError *error = nil;
+        [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", ID]];
+        
+        NSArray *results = [self.contForSent.context executeFetchRequest:request error:&error];
+        if([results count]){
+            return true;
+        }
+        else{
+            return false;
+        }
 }
 @end

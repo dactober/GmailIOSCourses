@@ -10,6 +10,6 @@
 @class Message;
 @protocol MessagesFetcherProtocol <NSObject>
 -(instancetype)initWithData:(NSString*)accessToken;
--(void)readListOfMessages:(NSString*)serverAddressForReadMessages callback:(void(^)(NSArray*))callback;
+-(void)readListOfMessages:(NSString*)serverAddressForReadMessages callback:(void(^)(NSDictionary*))callback;
 -(void)getMessage:(NSString*)serverAddressForReadMessages  callback:(void(^)(Message*))callback ;
 @end

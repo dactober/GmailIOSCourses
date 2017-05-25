@@ -1,19 +1,19 @@
 //
-//  MainViewController.m
-//  GmailIOSCourses
+//  SearchViewController.m
+//  
 //
-//  Created by Aleksey Drachyov on 4/30/17.
-//  Copyright © 2017 Aleksey Drachyov. All rights reserved.
+//  Created by Aleksey Drachyov on 5/17/17.
+//
 //
 
-#import "MainViewController.h"
+#import "SentMessagesViewController.h"
 #import "CustomTableCell.h"
 #import "DetailViewController.h"
 #import "Message.h"
 #import "DetailViewControllerForHtml.h"
-#import "Inbox+CoreDataClass.h"
-#import "CreaterContextForInbox.h"
-@interface MainViewController ()
+#import "Sent+CoreDataClass.h"
+#import "CreaterContextForSentMessage.h"
+@interface SentMessagesViewController ()
 @property (nonatomic)NSUInteger number;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
@@ -23,38 +23,38 @@
 @property(nonatomic,strong)NSManagedObjectContext* context;
 @property(nonatomic,strong)NSString* nextPageToken;
 @end
-@implementation MainViewController
+
+@implementation SentMessagesViewController
+
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
- 
-    
-    self.fetchedResultsController=[self.coordinator.contForInbox fetchedResultsController];
+    self.fetchedResultsController=[self.coordinator.contForSent fetchedResultsController];
     self.fetchedResultsController.delegate=self;
-    
-    
     
     
     // Do any additional setup after loading the view.
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self updateListOfMessages];
+}
 -(void)updateListOfMessages{
     [self.indicator startAnimating];
-    [self.coordinator readListOfMessages:^(NSDictionary* listOfMessages) {
+    [self.coordinator readListOfMessages:^(NSDictionary* listOfMessages){
         self.listOfMessages=[listOfMessages objectForKey:@"messages"];
         self.nextPageToken=[listOfMessages objectForKey:@"nextPageToken"];
         
         __block NSInteger counter=0;
-        self.context =[self.coordinator.contForInbox setupBackGroundManagedObjectContext];
+        self.context =[self.coordinator.contForSent setupBackGroundManagedObjectContext];
         void(^trySaveContext)(void)=^{
             counter++;
-           
+            
             if(counter%20==0){
                 NSError *mocSaveError=nil;
                 if(![self.context save:&mocSaveError]){
                     NSLog(@"Save did not complete successfully. Error: %@",[mocSaveError localizedDescription]);
                 }else{
-                    [self.coordinator.contForInbox.context save:nil];
+                    [self.coordinator.contForSent.context save:nil];
                     [self.indicator stopAnimating];
                     self.indicator.hidden=YES;
                     
@@ -62,30 +62,27 @@
             }
             
         };
-      
-            for(int i=0;i<self.listOfMessages.count;i++){
-                
-               if([self.coordinator isHasObject:[self.listOfMessages[i]objectForKey:@"id"]]){
-                   trySaveContext();
-               }else{
-                    [self.coordinator getMessage:[self.listOfMessages[i] objectForKey:@"id"] callback:^(Message* message){
-                        NSManagedObjectContext* context=[[NSManagedObjectContext alloc]initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-                        context.parentContext=self.context;
-                        [self.coordinator addObjectToInboxContext:message context:context];
-                        [context save:nil];
-                        trySaveContext();
-                } ];
-               }
-            
-                
-            }
         
-    } label:@"INBOX"];
+        for(int i=0;i<self.listOfMessages.count;i++){
+            
+            if([self.coordinator isHasObjectSent:[self.listOfMessages[i]objectForKey:@"id"]]){
+                trySaveContext();
+            }else{
+                [self.coordinator getMessage:[self.listOfMessages[i] objectForKey:@"id"] callback:^(Message* message){
+                    NSManagedObjectContext* context=[[NSManagedObjectContext alloc]initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+                    context.parentContext=self.context;
+                    [self.coordinator addObjectToSentContext:message context:context];
+                    [context save:nil];
+                    trySaveContext();
+                } ];
+            }
+            
+            
+        }
+        
+    } label:@"SENT"];
 }
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    [self updateListOfMessages];
-}
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return [[[self fetchedResultsController]sections]count];
@@ -98,35 +95,35 @@
     id sectionInfo=[[_fetchedResultsController sections]objectAtIndex:section];
     self.number =[sectionInfo numberOfObjects];
     return self.number;
-
+    
 }
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.indicator stopAnimating];
-    CustomTableCell *cell=(CustomTableCell *)[tableView dequeueReusableCellWithIdentifier:myIdForInbox forIndexPath:indexPath];
+    CustomTableCell *cell=(CustomTableCell *)[tableView dequeueReusableCellWithIdentifier:myIdForSent forIndexPath:indexPath];
     
-    Inbox *inboxDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
-
+    Sent *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
     
-        
-            [cell customCellDataForInbox:inboxDataModel];
+    
+    
+    [cell customCellDataForSent:sentDataModel];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Inbox *inboxDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
+    Sent *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
     
-    if([inboxDataModel.mimeType isEqualToString:@"text/html"]){
+    if([sentDataModel.mimeType isEqualToString:@"text/html"]){
         DetailViewControllerForHtml *dvcfHTML=[self.storyboard instantiateViewControllerWithIdentifier:@"html"];
-        [dvcfHTML setData:inboxDataModel coordinator:self.coordinator context:self.coordinator.contForInbox.context];
-       
+        [dvcfHTML setDataForSent:sentDataModel coordinator:self.coordinator context:self.coordinator.contForSent.context];
+        
         [self.navigationController pushViewController:dvcfHTML animated:YES];
     }else{
         DetailViewController *dvc=[self.storyboard instantiateViewControllerWithIdentifier:@"Detail"];
-        [dvc setData:inboxDataModel coordinator:self.coordinator context:self.coordinator.contForInbox.context];
+        [dvc setDataForSent:sentDataModel coordinator:self.coordinator context:self.coordinator.contForSent.context];
         
         [self.navigationController pushViewController:dvc animated:YES];
     }
@@ -172,10 +169,11 @@
 - (IBAction)send:(id)sender {
     SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
     [send setData:self.coordinator flag:false message:nil];
-            [self.navigationController pushViewController:send animated:YES];
+    [self.navigationController pushViewController:send animated:YES];
 }
 - (IBAction)refresh:(id)sender {
     [self updateListOfMessages];
 }
+
 
 @end
