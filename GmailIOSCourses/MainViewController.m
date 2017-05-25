@@ -23,6 +23,7 @@
 @property(nonatomic,strong)NSManagedObjectContext* context;
 @property(nonatomic,strong)NSString* nextPageToken;
 @end
+static NSString *const text=@"text/html";
 @implementation MainViewController
 - (void)viewDidLoad {
     
@@ -119,7 +120,7 @@
 {
     Inbox *inboxDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
     
-    if([inboxDataModel.mimeType isEqualToString:@"text/html"]){
+    if([inboxDataModel.mimeType isEqualToString:text]){
         DetailViewControllerForHtml *dvcfHTML=[self.storyboard instantiateViewControllerWithIdentifier:@"html"];
         [dvcfHTML setData:inboxDataModel coordinator:self.coordinator context:self.coordinator.contForInbox.context];
        
@@ -151,7 +152,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            //[self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+           
             break;
             
         case NSFetchedResultsChangeMove:

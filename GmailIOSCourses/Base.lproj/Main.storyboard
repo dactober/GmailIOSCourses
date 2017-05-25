@@ -411,14 +411,17 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEq-Y0-YSK">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEq-Y0-YSK">
                                                 <rect key="frame" x="40" y="106" width="295" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="CyU-a8-Am5"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noW-vl-gFW">
-                                                <rect key="frame" x="8" y="142" width="327" height="15"/>
+                                                <rect key="frame" x="8" y="142" width="327" height="517"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -462,6 +465,7 @@
                                             <constraint firstAttribute="trailing" secondItem="cEq-Y0-YSK" secondAttribute="trailing" constant="8" id="Cqn-db-SDp"/>
                                             <constraint firstAttribute="trailing" secondItem="JGB-kI-MOa" secondAttribute="trailing" constant="8" id="S18-xr-oQn"/>
                                             <constraint firstItem="cEq-Y0-YSK" firstAttribute="leading" secondItem="YAd-qg-Urx" secondAttribute="leading" constant="40" id="U87-wa-chZ"/>
+                                            <constraint firstAttribute="bottom" secondItem="noW-vl-gFW" secondAttribute="bottom" constant="8" id="Ydg-ZZ-7h4"/>
                                             <constraint firstItem="jx3-f7-CKr" firstAttribute="leading" secondItem="YAd-qg-Urx" secondAttribute="leading" constant="176" id="ZPu-hE-WJP"/>
                                             <constraint firstItem="jx3-f7-CKr" firstAttribute="top" secondItem="YAd-qg-Urx" secondAttribute="top" constant="18" id="i7N-Ha-By2"/>
                                             <constraint firstItem="JGB-kI-MOa" firstAttribute="top" secondItem="YAd-qg-Urx" secondAttribute="top" constant="50" id="mfp-ln-esj"/>

@@ -30,7 +30,7 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   // [ GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
+    //[ GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36", @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     // Initialize the Gmail API service & load existing credentials from the keychain if available.
@@ -40,7 +40,7 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
                                                           clientID:kClientID
                                                       clientSecret:nil];
     
-    
+   
     
     
 }
@@ -74,8 +74,9 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 }
 // When the view appears, ensure that the Gmail API service is authorized, and perform API calls.
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
     if (!self.service.authorizer.canAuthorize) {
-        // Not yet authorized, request authorization by pushing the login UI onto the UI stack.
+        
         [self presentViewController:[self createAuthController] animated:YES completion:nil];
         
     } else {
@@ -129,7 +130,9 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     else {
         self.service.authorizer = authResult;
         accessToken=authResult.accessToken;
-        [self createMainViewController];
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self createMainViewController];
+        }];
         
     }
 }
@@ -151,6 +154,8 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     [self presentViewController:alert animated:YES completion:nil];
     
 }
-
+-(void)logOut{
+    [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
+}
 
 @end
