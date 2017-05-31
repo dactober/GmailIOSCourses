@@ -29,7 +29,7 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 // When the view loads, create necessary subviews, and initialize the Gmail AP
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[ GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
+   // [ GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36", @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     // Initialize the Gmail API service & load existing credentials from the keychain if available.

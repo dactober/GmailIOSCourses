@@ -10,7 +10,7 @@
 @class Message;
 @protocol MessagesFetcherProtocol <NSObject>
 
--(void)readListOfMessages:(NSString*)serverAddressForReadMessages callback:(void(^)(NSDictionary*))callback;
+-(void)readListOfMessages:(NSString*)serverAddressForReadMessages callback:(void(^)(NSDictionary*))callback nextPage:(NSString*)nextPageToken;
 -(void)getMessage:(NSString*)serverAddressForReadMessages  callback:(void(^)(Message*))callback ;
 -(NSMutableURLRequest*)getRequest:(NSURL*)url;
 @end

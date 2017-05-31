@@ -22,7 +22,7 @@
 @property(strong,nonatomic)InboxMessagesFetcher *imf;
 @property(strong,nonatomic)SendMessagesFetcher *smf;
 @property(nonatomic,strong)Sender* sender;
--(void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString*)labelId;
+-(void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString*)labelId nextPageToken:(NSString *)nextPage;
 -(void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback;
 -(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context label:(NSString *)label;
 -(void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body;

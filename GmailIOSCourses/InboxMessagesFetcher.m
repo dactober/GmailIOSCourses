@@ -20,8 +20,14 @@ static int maxResults=20;
     }
     return self;
 }
--(void)readListOfMessages:(NSString*)labelId callback:(void(^)(NSDictionary*))callback{
-    NSString* serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/me/messages?fields=messages(id,threadId),nextPageToken&maxResults=%d&labelIds=%@",maxResults,labelId];
+-(void)readListOfMessages:(NSString*)labelId callback:(void(^)(NSDictionary*))callback nextPage:(NSString *)nextPageToken{
+    NSString* serverAddressForReadMessages;
+    if(nextPageToken!=nil){
+        serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/me/messages?nextPageToken=%@&maxResults=%d&labelIds=%@",nextPageToken,maxResults,labelId];
+    }else{
+        serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/me/messages?maxResults=%d&labelIds=%@",maxResults,labelId];
+    }
+    
     NSURL *url = [NSURL URLWithString:serverAddressForReadMessages];
     
     

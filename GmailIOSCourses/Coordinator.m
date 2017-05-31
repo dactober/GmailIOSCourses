@@ -13,6 +13,9 @@
 #import "Inbox+CoreDataClass.h"
 #import "CreaterContextForInbox.h"
 #import "Sender.h"
+@interface Coordinator()
+@property(nonatomic,strong) NSString* nextPageToken;
+@end
 @implementation Coordinator
 static NSString* const sentEntity=@"Sent";
 static NSString* const inboxEntity=@"Inbox";
@@ -32,7 +35,7 @@ static NSString* const inbox=@"INBOX";
 -(void)getMessages:(NSString*) label{
     [self readListOfMessages:^(NSDictionary* listOfMessages) {
         NSArray* arrayOfMessages=[listOfMessages objectForKey:@"messages"];
-        NSString* nextPageToken=[listOfMessages objectForKey:@"nextPageToken"];
+       self.nextPageToken =[listOfMessages objectForKey:@"nextPageToken"];
         
         __block NSInteger counter=0;
         NSManagedObjectContext *context=[self.contForInbox setupBackGroundManagedObjectContext];
@@ -76,16 +79,16 @@ static NSString* const inbox=@"INBOX";
         
         
         
-    } label:label];
+    } label:label nextPageToken:self.nextPageToken];
 }
--(void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString *)labelId{
+-(void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString *)labelId nextPageToken:(NSString *)nextPage{
     if([labelId isEqualToString:inbox]){
         
-        [self.imf readListOfMessages:labelId callback:callback];
+        [self.imf readListOfMessages:labelId callback:callback nextPage:nextPage];
     }
     else{
         
-        [self.smf readListOfMessages:labelId callback:callback];
+        [self.smf readListOfMessages:labelId callback:callback nextPage:nextPage];
     }
     
     

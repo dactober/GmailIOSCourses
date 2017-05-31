@@ -70,6 +70,7 @@ static NSString *const notSupported=@"Contex isn't supported";
                 return notSupported;
             }
             self.payload.headers=payload1.headers;
+            self.payload.mimeType=payload1.mimeType;
             BodyOFMessage* body=[payload1 body];
             NSString* data=body.data;
             data = [data stringByReplacingOccurrencesOfString:@"-"
@@ -82,6 +83,7 @@ static NSString *const notSupported=@"Contex isn't supported";
             
         }else{
             self.payload.headers=payload.headers;
+            self.payload.mimeType=payload.mimeType;
             if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
                 return notSupported;
             }
@@ -108,6 +110,7 @@ static NSString *const notSupported=@"Contex isn't supported";
                 if([payload.mimeType isEqualToString:mimeTypeAlternative]){
                     Payload *payload1=[[Payload alloc]initWithData:payload.parts[0]];
                     self.payload.headers=payload1.headers;
+                    self.payload.mimeType=payload1.mimeType;
                     BodyOFMessage* body=[payload1 body];
                     NSString* data=body.data;
                     data = [data stringByReplacingOccurrencesOfString:@"-"
@@ -118,6 +121,7 @@ static NSString *const notSupported=@"Contex isn't supported";
                     decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
                 }else{
                     self.payload.headers=payload.headers;
+                    self.payload.mimeType=payload.mimeType;
                     if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
                         return notSupported;
                     }
@@ -134,6 +138,7 @@ static NSString *const notSupported=@"Contex isn't supported";
                 
             }else{
                 self.payload.headers=payload.headers;
+                self.payload.mimeType=payload.mimeType;
                 if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
                     return notSupported;
                 }
