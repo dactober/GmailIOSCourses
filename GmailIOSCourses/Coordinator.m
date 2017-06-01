@@ -14,7 +14,8 @@
 #import "CreaterContextForInbox.h"
 #import "Sender.h"
 @interface Coordinator()
-@property(nonatomic,strong) NSString* nextPageToken;
+@property(nonatomic,strong) NSString* nextPageTokenForInbox;
+@property(nonatomic,strong) NSString* nextPageTokenForSent;
 @end
 @implementation Coordinator
 static NSString* const sentEntity=@"Sent";
@@ -35,7 +36,12 @@ static NSString* const inbox=@"INBOX";
 -(void)getMessages:(NSString*) label{
     [self readListOfMessages:^(NSDictionary* listOfMessages) {
         NSArray* arrayOfMessages=[listOfMessages objectForKey:@"messages"];
-       self.nextPageToken =[listOfMessages objectForKey:@"nextPageToken"];
+        if([label isEqualToString:inbox]){
+            self.nextPageTokenForInbox=[listOfMessages objectForKey:@"nextPageToken"];
+        }else{
+            self.nextPageTokenForSent =[listOfMessages objectForKey:@"nextPageToken"];
+        }
+       
         
         __block NSInteger counter=0;
         NSManagedObjectContext *context=[self.contForInbox setupBackGroundManagedObjectContext];
@@ -43,7 +49,7 @@ static NSString* const inbox=@"INBOX";
         void(^trySaveContext)(void)=^{
             counter++;
             
-            if(counter%20==0){
+            if(counter%[arrayOfMessages count]==0){
                 NSError *mocSaveError=nil;
                 if(![context save:&mocSaveError]){
                     NSLog(@"Save did not complete successfully. Error: %@",[mocSaveError localizedDescription]);
@@ -79,16 +85,16 @@ static NSString* const inbox=@"INBOX";
         
         
         
-    } label:label nextPageToken:self.nextPageToken];
+    } label:label];
 }
--(void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString *)labelId nextPageToken:(NSString *)nextPage{
+-(void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString *)labelId{
     if([labelId isEqualToString:inbox]){
         
-        [self.imf readListOfMessages:labelId callback:callback nextPage:nextPage];
+        [self.imf readListOfMessages:labelId callback:callback nextPage:self.nextPageTokenForInbox];
     }
     else{
         
-        [self.smf readListOfMessages:labelId callback:callback nextPage:nextPage];
+        [self.smf readListOfMessages:labelId callback:callback nextPage:self.nextPageTokenForSent];
     }
     
     

@@ -96,9 +96,12 @@ static NSString* const inboxEntity=@"Inbox";
     
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row == 19){
-        [self.coordinator getMessages:inbox];
-    }
+    
+        if(self.number-1-indexPath.row == 0 ){
+            [self.coordinator getMessages:inbox];
+        }
+    
+    
 }
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.

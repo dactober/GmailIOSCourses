@@ -97,6 +97,14 @@ static NSString* const sentEntity=@"Sent";
     }
     
 }
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+        if(self.number-1-indexPath.row == 0){
+            [self.coordinator getMessages:sent];
+        }
+    
+    
+}
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
     [self.myTableView beginUpdates];
