@@ -8,11 +8,11 @@
 @class Message;
 #import <Foundation/Foundation.h>
 #import "CoreData/CoreData.h"
-@interface CreaterContextForInbox : NSObject
+@interface CreaterContextForMessages : NSObject
 -(NSFetchedResultsController*)getFetchedResultsController:(NSString*)label;
 @property(nonatomic,strong) NSManagedObjectContext *context;
 -(NSManagedObjectContext*)setupBackGroundManagedObjectContext;
--(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context label:(NSString*)label;
-@property(nonatomic,strong)NSPersistentContainer *container;
+-(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context;
 -(NSURL*)storeURL;
+-(void)deleteFromContext:(NSString*)ID;
 @end

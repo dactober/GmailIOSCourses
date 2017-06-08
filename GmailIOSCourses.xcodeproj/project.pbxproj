@@ -29,8 +29,8 @@
 		01B11FFF1EB61C4900EC80F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01B11FFE1EB61C4900EC80F6 /* GoogleService-Info.plist */; };
 		01BA9EDB1ED75F080095253E /* Sender.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BA9EDA1ED75F080095253E /* Sender.m */; };
 		01C971E01ECCEFE20020B152 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C971DF1ECCEFE20020B152 /* SettingsTableViewController.m */; };
-		01CC30101ED307040017FA6A /* CreaterContextForInbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CC300F1ED307040017FA6A /* CreaterContextForInbox.m */; };
-		01DAC16C1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01DAC16A1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodeld */; };
+		01EDC6F11EE9ED2000D9523E /* CreaterContextForMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EDC6F01EE9ED2000D9523E /* CreaterContextForMessages.m */; };
+		01EDC6F41EE9ED5C00D9523E /* MessageModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01EDC6F21EE9ED5C00D9523E /* MessageModel.xcdatamodeld */; };
 		01F1ADC31ECB3DBC007839EE /* non_existing_id.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F1ADC21ECB3DBC007839EE /* non_existing_id.png */; };
 		01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5A1061EBE5F9B00A1A268 /* Message.m */; };
 		01FC563C1ED62E530001398E /* SentMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FC563B1ED62E530001398E /* SentMessagesViewController.m */; };
@@ -99,9 +99,9 @@
 		01C971DE1ECCEFE20020B152 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		01C971DF1ECCEFE20020B152 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		01C971E41ECCFA860020B152 /* MessagesFetcherProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesFetcherProtocol.h; sourceTree = "<group>"; };
-		01CC300E1ED307030017FA6A /* CreaterContextForInbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreaterContextForInbox.h; sourceTree = "<group>"; };
-		01CC300F1ED307040017FA6A /* CreaterContextForInbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreaterContextForInbox.m; sourceTree = "<group>"; };
-		01DAC16B1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InboxMessageModel.xcdatamodel; sourceTree = "<group>"; };
+		01EDC6EF1EE9ED2000D9523E /* CreaterContextForMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreaterContextForMessages.h; sourceTree = "<group>"; };
+		01EDC6F01EE9ED2000D9523E /* CreaterContextForMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreaterContextForMessages.m; sourceTree = "<group>"; };
+		01EDC6F31EE9ED5C00D9523E /* MessageModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MessageModel.xcdatamodel; sourceTree = "<group>"; };
 		01F1ADC21ECB3DBC007839EE /* non_existing_id.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = non_existing_id.png; sourceTree = "<group>"; };
 		01F5A1051EBE5F9B00A1A268 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		01F5A1061EBE5F9B00A1A268 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
@@ -279,9 +279,9 @@
 		01DAC16D1ECFA5C60002C4A0 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				01DAC16A1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodeld */,
-				01CC300E1ED307030017FA6A /* CreaterContextForInbox.h */,
-				01CC300F1ED307040017FA6A /* CreaterContextForInbox.m */,
+				01EDC6F21EE9ED5C00D9523E /* MessageModel.xcdatamodeld */,
+				01EDC6EF1EE9ED2000D9523E /* CreaterContextForMessages.h */,
+				01EDC6F01EE9ED2000D9523E /* CreaterContextForMessages.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -499,13 +499,13 @@
 				011CDB891EC5064E00C8CE4C /* Payload.m in Sources */,
 				011CBF181EC5FDC6005759D1 /* BodyOFMessage.m in Sources */,
 				013469D31EBBE81900272BEB /* InboxMessagesFetcher.m in Sources */,
+				01EDC6F41EE9ED5C00D9523E /* MessageModel.xcdatamodeld in Sources */,
 				01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */,
 				01C971E01ECCEFE20020B152 /* SettingsTableViewController.m in Sources */,
 				01FC563C1ED62E530001398E /* SentMessagesViewController.m in Sources */,
 				01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */,
 				013469D21EBBE81900272BEB /* Coordinator.m in Sources */,
-				01CC30101ED307040017FA6A /* CreaterContextForInbox.m in Sources */,
-				01DAC16C1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodeld in Sources */,
+				01EDC6F11EE9ED2000D9523E /* CreaterContextForMessages.m in Sources */,
 				011CBF1E1EC64469005759D1 /* SendMessagesFetcher.m in Sources */,
 				011CBF121EC5FA4C005759D1 /* LabelIds.m in Sources */,
 				01A8BE921EC25E10008D187B /* SendViewController.m in Sources */,
@@ -765,13 +765,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		01DAC16A1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodeld */ = {
+		01EDC6F21EE9ED5C00D9523E /* MessageModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				01DAC16B1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodel */,
+				01EDC6F31EE9ED5C00D9523E /* MessageModel.xcdatamodel */,
 			);
-			currentVersion = 01DAC16B1ECFA5460002C4A0 /* InboxMessageModel.xcdatamodel */;
-			path = InboxMessageModel.xcdatamodeld;
+			currentVersion = 01EDC6F31EE9ED5C00D9523E /* MessageModel.xcdatamodel */;
+			path = MessageModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

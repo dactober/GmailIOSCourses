@@ -6,20 +6,17 @@
 //  Copyright © 2017 Aleksey Drachyov. All rights reserved.
 //
 
-#import "CreaterContextForInbox.h"
-#import "Inbox+CoreDataClass.h"
+#import "CreaterContextForMessages.h"
+#import "MessageEntity+CoreDataClass.h"
 #import "Message.h"
-@interface CreaterContextForInbox()
+@interface CreaterContextForMessages()
 @property(nonatomic,retain) NSManagedObjectModel *model;
 @end
-@implementation CreaterContextForInbox
+@implementation CreaterContextForMessages
 -(instancetype)init{
     self=[super init];
     if(self){
-        NSError *error;
-       [[NSFileManager defaultManager]removeItemAtPath:[self storeURL].path error:&error];
         [self managedObjectModel];
-        self.container=[[NSPersistentContainer alloc]initWithName:@"Container" managedObjectModel:self.model];
         [self setupManagedObjectContext];
         
     }
@@ -28,8 +25,9 @@
 -(NSFetchedResultsController *)getFetchedResultsController:(NSString*)label{
     
     NSFetchRequest *fetchRequest=[[NSFetchRequest alloc]init];
-    NSEntityDescription *entity=[NSEntityDescription entityForName:label inManagedObjectContext:self.context];
+    NSEntityDescription *entity=[NSEntityDescription entityForName:@"MessageEntity" inManagedObjectContext:self.context];
     [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"label == %@", label]];
     NSSortDescriptor *sort=[[NSSortDescriptor alloc]initWithKey:@"date" ascending:NO];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
@@ -39,10 +37,10 @@
 }
 -(NSURL*)storeURL{
     NSURL *url=[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL];
-    return [url URLByAppendingPathComponent:@"storeInbox.sqlite"];
+    return [url URLByAppendingPathComponent:@"storeMessages.sqlite"];
 }
 -(void)managedObjectModel{
-    NSURL *momdURL=[[NSBundle mainBundle]URLForResource:@"InboxMessageModel" withExtension:@"momd"];
+    NSURL *momdURL=[[NSBundle mainBundle]URLForResource:@"MessageModel" withExtension:@"momd"];
     self.model=[[NSManagedObjectModel alloc]initWithContentsOfURL:momdURL];
 }
 -(void)setupManagedObjectContext{
@@ -61,8 +59,8 @@
     context.parentContext=self.context;
     return context;
 }
--(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context label:(NSString*)label{
-    Inbox *new=[NSEntityDescription insertNewObjectForEntityForName:label inManagedObjectContext:context];
+-(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context{
+    MessageEntity *new=[NSEntityDescription insertNewObjectForEntityForName:@"MessageEntity" inManagedObjectContext:context];
     new.date=message.date;
     new.from=message.from;
     new.subject=message.subject;
@@ -70,6 +68,17 @@
     new.messageID=message.ID;
     new.body=[message decodedMessage];
     new.mimeType=message.payload.mimeType;
-    new.label=[label uppercaseString];
+    new.label= message.labelIDs.list;
+}
+-(void)deleteFromContext:(NSString*)ID{
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"MessageEntity"];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", ID]];
+    NSError *error = nil;
+    NSArray *results = [self.context executeFetchRequest:request error:&error];
+    for (NSManagedObject *managedObject in results)
+    {
+        [self.context deleteObject:managedObject];
+    }
 }
 @end

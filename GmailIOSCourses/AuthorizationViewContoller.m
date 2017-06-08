@@ -18,6 +18,8 @@
 @property(nonatomic,strong)SettingsTableViewController* settingsViewController;
 @property(nonatomic,strong)SentMessagesViewController *sentViewController;
 @property(nonatomic,strong)MainViewController *mainViewController;
+@property(nonatomic,strong)UIStoryboard *storyboard;
+@property (strong, nonatomic) UIWindow *window;
 @end
 
 static NSString *accessToken;
@@ -27,19 +29,24 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 @implementation AuthorizationViewContoller
 
 // When the view loads, create necessary subviews, and initialize the Gmail AP
-- (void)viewDidLoad {
-    [super viewDidLoad];
-   // [ GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36", @"UserAgent", nil];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-    // Initialize the Gmail API service & load existing credentials from the keychain if available.
-    self.service = [[GTLRGmailService alloc] init];
-    self.service.authorizer =
-    [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
-                                                          clientID:kClientID
-                                                      clientSecret:nil];
+- (instancetype)initWithData:(UIWindow *)window{
+    self=[super init];
+    if(self){
+        // [ GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
+        self.window=window;
+        self.storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36", @"UserAgent", nil];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+        // Initialize the Gmail API service & load existing credentials from the keychain if available.
+        self.service = [[GTLRGmailService alloc] init];
+        self.service.authorizer =
+        [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
+                                                              clientID:kClientID
+                                                          clientSecret:nil];
+    }
+  
     
-   
+    return self;
     
     
 }
@@ -71,14 +78,16 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     
     
    
-    [self presentViewController:tabController animated:YES completion:nil];
+    [self.window setRootViewController:tabController];
+    [self.window makeKeyAndVisible];
 }
 // When the view appears, ensure that the Gmail API service is authorized, and perform API calls.
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
+- (void)createViewController{
+    
     if (!self.service.authorizer.canAuthorize) {
         
-        [self presentViewController:[self createAuthController] animated:YES completion:nil];
+        [self.window setRootViewController:[self createAuthController]];
+        [self.window makeKeyAndVisible];
         
     } else {
         
@@ -125,40 +134,27 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
       finishedWithAuth:(GTMOAuth2Authentication *)authResult
                  error:(NSError *)error {
     if (error != nil) {
-        [self showAlert:@"Authentication Error" message:error.localizedDescription];
+        
         self.service.authorizer = nil;
     }
     else {
         self.service.authorizer = authResult;
         accessToken=authResult.accessToken;
-        [self dismissViewControllerAnimated:YES completion:^{
+        
             [self createMainViewController];
-        }];
+        
         
     }
 }
 
 // Helper for showing an alert
-- (void)showAlert:(NSString *)title message:(NSString *)message {
-    UIAlertController *alert =
-    [UIAlertController alertControllerWithTitle:title
-                                        message:message
-                                 preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *ok =
-    [UIAlertAction actionWithTitle:@"OK"
-                             style:UIAlertActionStyleDefault
-                           handler:^(UIAlertAction * action)
-     {
-         [alert dismissViewControllerAnimated:YES completion:nil];
-     }];
-    [alert addAction:ok];
-    [self presentViewController:alert animated:YES completion:nil];
-    
-}
+
 -(void)logOut:(NSURL*)url{
     NSError* error;
     [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
     [[NSFileManager defaultManager]removeItemAtPath:url.path error:&error];
+    [self.window setRootViewController:[self createAuthController]];
+    [self.window makeKeyAndVisible];
 }
 
 @end

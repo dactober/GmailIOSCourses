@@ -6,7 +6,7 @@
 //  Copyright © 2017 Aleksey Drachyov. All rights reserved.
 //
 @class Coordinator;
-@class Inbox;
+@class MessageEntity;
 
 #import <UIKit/UIKit.h>
 #import "CustomTableCell.h"
@@ -16,9 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *subject;
 @property (weak, nonatomic) IBOutlet UILabel *from;
 @property (weak, nonatomic) IBOutlet UILabel *body;
-@property (strong,nonatomic)Inbox *inboxMessage;
-@property (strong,nonatomic)Sent *sentMessage;
+@property (strong,nonatomic)MessageEntity *messageModel;
 @property (strong,nonatomic)Message *message;
--(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context;
+-(void)setData:(MessageEntity *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context;
 
 @end

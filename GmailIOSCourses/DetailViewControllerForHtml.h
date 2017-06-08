@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "CoreData/CoreData.h"
 @class Coordinator;
-@class Inbox;
+@class MessageEntity;
 
 @interface DetailViewControllerForHtml : UIViewController <UIWebViewDelegate>
--(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context;
+-(void)setData:(MessageEntity *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context;
 
-@property (strong,nonatomic)Inbox *inboxMessage;
+@property (strong,nonatomic)MessageEntity *message;
 
 @end

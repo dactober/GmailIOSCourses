@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Coordinator.h"
-@class Inbox;
-@class Sent;
+@class MessageEntity;
 @interface SendViewController : UIViewController
--(void)setData:(Coordinator*)coordinator flag:(bool)flag message:(Inbox*)message;
--(void)setDataForSent:(Coordinator*)coordinator flag:(bool)flag message:(Sent*)message;
+-(void)setData:(Coordinator*)coordinator flag:(bool)flag message:(MessageEntity *)message;
 @property(nonatomic,strong)Coordinator* coordinator;
 @end

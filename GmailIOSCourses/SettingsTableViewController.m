@@ -8,7 +8,7 @@
 
 #import "SettingsTableViewController.h"
 #import "AuthorizationViewContoller.h"
-#import "CreaterContextForInbox.h"
+#import "CreaterContextForMessages.h"
 @interface SettingsTableViewController ()
 
 @end
@@ -28,7 +28,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.row==1){
-        [self.auth logOut:[self.coordinator.contForInbox storeURL]];
+        [self.auth logOut:[self.coordinator.contForMessages storeURL]];
     }
     
 }

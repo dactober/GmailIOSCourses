@@ -10,16 +10,19 @@
 #import "Message.h"
 #import "SendMessagesFetcher.h"
 #import "InboxMessagesFetcher.h"
-#import "Inbox+CoreDataClass.h"
-#import "CreaterContextForInbox.h"
+#import "MessageEntity+CoreDataClass.h"
+#import "CreaterContextForMessages.h"
 #import "Sender.h"
 @interface Coordinator()
 @property(nonatomic,strong) NSString* nextPageTokenForInbox;
 @property(nonatomic,strong) NSString* nextPageTokenForSent;
+@property(strong,nonatomic)InboxMessagesFetcher *imf;
+@property(nonatomic,strong)NSString *serverAddressForReadMessages;
+@property (strong)NSString *userID;
+@property(nonatomic,strong)Sender* sender;
+-(bool) isHasObject:(NSString*)ID label:(NSString*)label;
 @end
 @implementation Coordinator
-static NSString* const sentEntity=@"Sent";
-static NSString* const inboxEntity=@"Inbox";
 static NSString* const inbox=@"INBOX";
 -(instancetype)initWithData:(NSString*)email accessToken:(NSString*)accessToken{
     self=[super init];
@@ -27,24 +30,21 @@ static NSString* const inbox=@"INBOX";
         self.userID=email;
         self.accessToken=accessToken;
         self.imf=[[InboxMessagesFetcher alloc]initWithData:self.accessToken];
-        self.smf=[[SendMessagesFetcher alloc]initWithData:accessToken];
-        self.contForInbox=[[CreaterContextForInbox alloc]init];
+        self.contForMessages=[[CreaterContextForMessages alloc]init];
         self.sender=[[Sender alloc]initWithData:[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]]];
     }
     return self;
 }
 -(void)getMessages:(NSString*) label{
-    [self readListOfMessages:^(NSDictionary* listOfMessages) {
+    [self.imf readListOfMessages:^(NSDictionary* listOfMessages) {
         NSArray* arrayOfMessages=[listOfMessages objectForKey:@"messages"];
         if([label isEqualToString:inbox]){
             self.nextPageTokenForInbox=[listOfMessages objectForKey:@"nextPageToken"];
         }else{
             self.nextPageTokenForSent =[listOfMessages objectForKey:@"nextPageToken"];
         }
-       
-        
         __block NSInteger counter=0;
-        NSManagedObjectContext *context=[self.contForInbox setupBackGroundManagedObjectContext];
+        NSManagedObjectContext *context=[self.contForMessages setupBackGroundManagedObjectContext];
         
         void(^trySaveContext)(void)=^{
             counter++;
@@ -55,7 +55,7 @@ static NSString* const inbox=@"INBOX";
                     NSLog(@"Save did not complete successfully. Error: %@",[mocSaveError localizedDescription]);
                 }else{
                     
-                    [self.contForInbox.context save:nil];
+                    [self.contForMessages.context save:nil];
                     
                 }
             }
@@ -67,12 +67,10 @@ static NSString* const inbox=@"INBOX";
                 if([self isHasObject:[arrayOfMessages[i]objectForKey:@"id"] label:label]){
                     trySaveContext();
                 }else{
-                    [self getMessage:[arrayOfMessages[i] objectForKey:@"id"] callback:^(Message* message){
-                        if([label isEqualToString:inbox]){
-                            [self addObjectToInboxContext:message context:context label:inboxEntity];
-                        }else{
-                            [self addObjectToInboxContext:message context:context label:sentEntity];
-                        }
+                    [self.imf getMessage:[arrayOfMessages[i] objectForKey:@"id"] callback:^(Message* message){
+                        
+                            [self.contForMessages addObjectToInboxContext:message context:context];
+                        
                         
                         trySaveContext();
                     } ];
@@ -81,29 +79,7 @@ static NSString* const inbox=@"INBOX";
                 
             }
         }];
-        
-        
-        
-        
-    } label:label];
-}
--(void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString *)labelId{
-    if([labelId isEqualToString:inbox]){
-        
-        [self.imf readListOfMessages:labelId callback:callback nextPage:self.nextPageTokenForInbox];
-    }
-    else{
-        
-        [self.smf readListOfMessages:labelId callback:callback nextPage:self.nextPageTokenForSent];
-    }
-    
-    
-    
-}
--(void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback{
-    
-     
-    [self.smf getMessage:messageID callback:callback];
+    } label:label nextPage:self.nextPageTokenForInbox];
 }
 
 -(void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body{
@@ -111,63 +87,19 @@ static NSString* const inbox=@"INBOX";
     
 }
 -(void)deleteMessage:(NSString*)ID label:(NSString*)label{
-    if([label isEqualToString:inbox]){
-        [self.sender deleteMessage:self messageID:ID callback:^{
-            [self deleteFromContext:ID label:label];
-            [self.contForInbox.context save:nil];
-            
-        }];
-    }else{
-        
-        [self.sender deleteMessage:self messageID:ID callback:^{
-            [self deleteFromContext:ID label:label];
-            [self.contForInbox.context save:nil];
-            
-        }];
-    }
-
-}
--(void)deleteFromContext:(NSString*)ID label:(NSString*)label{
-    if([label isEqualToString:inbox]) {
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:inboxEntity];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", ID]];
-        NSError *error = nil;
-        NSArray *results = [self.contForInbox.context executeFetchRequest:request error:&error];
-        for (NSManagedObject *managedObject in results)
-        {
-            [self.contForInbox.context deleteObject:managedObject];
-        }
-        
-    }
-    else{
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Sent"];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", ID]];
-        NSError *error = nil;
-        NSArray *results = [self.contForInbox.context executeFetchRequest:request error:&error];
-        for (NSManagedObject *managedObject in results)
-        {
-            [self.contForInbox.context deleteObject:managedObject];
-        }
-        
-    }
     
-}
-
--(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context label:(NSString *)label{
-    [self.contForInbox addObjectToInboxContext:message context:context label:label];
+        [self.sender deleteMessage:self messageID:ID callback:^{
+            [self.contForMessages deleteFromContext:ID ];
+            [self.contForMessages.context save:nil];
+            
+        }];
+    
 }
 -(bool) isHasObject:(NSString*)ID label:(NSString*)label{
-    NSFetchRequest *request;
-    if([label isEqualToString:inbox]){
-       request = [NSFetchRequest fetchRequestWithEntityName:inboxEntity];
-    }else{
-        request = [NSFetchRequest fetchRequestWithEntityName:sentEntity];
-    }
-    
+     NSFetchRequest *request  = [NSFetchRequest fetchRequestWithEntityName:@"MessageEntity"];
      NSError *error = nil;
     [request setPredicate:[NSPredicate predicateWithFormat:@"messageID == %@", ID]];
-   
-    NSArray *results = [self.contForInbox.context executeFetchRequest:request error:&error];
+    NSArray *results = [self.contForMessages.context executeFetchRequest:request error:&error];
     if([results count]){
         return true;
     }

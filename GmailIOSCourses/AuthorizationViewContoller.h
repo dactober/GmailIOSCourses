@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AuthorizationViewContoller : UIViewController
+@interface AuthorizationViewContoller : NSObject
 -(void)logOut:(NSURL*)url;
+- (instancetype)initWithData:(UIWindow *)window;
+
+- (void)createViewController;
 @end
 

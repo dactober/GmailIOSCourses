@@ -7,15 +7,14 @@
 //
 
 #import "CustomTableCell.h"
-#import "Inbox+CoreDataClass.h"
-#import "Sent+CoreDataClass.h"
+#import "MessageEntity+CoreDataClass.h"
 @implementation CustomTableCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
--(void)customCellDataForInbox:(Inbox *)message{
+-(void)customCellDataForInbox:(MessageEntity *)message{
     
     
     self.subject.text=message.subject;
@@ -37,31 +36,6 @@
     NSString *stringDate = [dateFormatter stringFromDate:message.date];
     self.date.text=stringDate;
    self.image.image=[UIImage imageNamed:@"non_existing_id"];
-    
-    
-}
--(void)customCellDataForSent:(Sent *)message{
-    
-    
-    self.subject.text=message.subject;
-    self.body.text=message.snippet;
-    if([message.from containsString:@" <"]){
-        
-        NSRange range = [message.from rangeOfString:@" <"];
-        NSString *shortString = [message.from substringToIndex:range.location];
-        
-        self.title.text=shortString;
-        
-        
-    }else{
-        self.title.text=message.from;
-    }
-    
-    NSDateFormatter *dateFormatter=[NSDateFormatter new];
-    [dateFormatter setDateFormat:@"yyy-MM-dd HH:mm"];
-    NSString *stringDate = [dateFormatter stringFromDate:message.date];
-    self.date.text=stringDate;
-    self.image.image=[UIImage imageNamed:@"non_existing_id"];
     
     
 }

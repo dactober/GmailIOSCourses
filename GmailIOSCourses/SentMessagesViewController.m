@@ -11,9 +11,8 @@
 #import "DetailViewController.h"
 #import "Message.h"
 #import "DetailViewControllerForHtml.h"
-#import "Sent+CoreDataClass.h"
-#import "CreaterContextForInbox.h"
-#import "Inbox+CoreDataClass.h"
+#import "MessageEntity+CoreDataClass.h"
+#import "CreaterContextForMessages.h"
 @interface SentMessagesViewController ()
 @property (nonatomic)NSUInteger number;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
@@ -31,7 +30,7 @@ static NSString* const sentEntity=@"Sent";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.fetchedResultsController=[self.coordinator.contForInbox getFetchedResultsController:sentEntity];
+    self.fetchedResultsController=[self.coordinator.contForMessages getFetchedResultsController:sent];
     self.fetchedResultsController.delegate=self;
     NSError *error;
     if(![self.fetchedResultsController performFetch:&error]){
@@ -71,7 +70,7 @@ static NSString* const sentEntity=@"Sent";
     [self.indicator stopAnimating];
     CustomTableCell *cell=(CustomTableCell *)[tableView dequeueReusableCellWithIdentifier:myIdForSent forIndexPath:indexPath];
     
-    Inbox *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
+    MessageEntity *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
     
     
     
@@ -82,16 +81,16 @@ static NSString* const sentEntity=@"Sent";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Inbox *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
+    MessageEntity *sentDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
     
     if([sentDataModel.mimeType isEqualToString:text]){
         DetailViewControllerForHtml *dvcfHTML=[self.storyboard instantiateViewControllerWithIdentifier:@"html"];
-        [dvcfHTML setData:sentDataModel coordinator:self.coordinator context:self.coordinator.contForInbox.context];
+        [dvcfHTML setData:sentDataModel coordinator:self.coordinator context:self.coordinator.contForMessages.context];
         
         [self.navigationController pushViewController:dvcfHTML animated:YES];
     }else{
         DetailViewController *dvc=[self.storyboard instantiateViewControllerWithIdentifier:@"Detail"];
-        [dvc setData:sentDataModel coordinator:self.coordinator context:self.coordinator.contForInbox.context];
+        [dvc setData:sentDataModel coordinator:self.coordinator context:self.coordinator.contForMessages.context];
         
         [self.navigationController pushViewController:dvc animated:YES];
     }

@@ -14,7 +14,6 @@
 static NSString *const mimeTypeRelated = @"multipart/related";
 static NSString *const mimeTypeAlternative = @"multipart/alternative";
 static NSString *const mimeTypeMixed=@"multipart/mixed";
-static NSString *const mimeTypeApplicationPdf=@"application/pdf";
 static NSString *const notSupported=@"Contex isn't supported";
 @implementation Message
 
@@ -66,7 +65,7 @@ static NSString *const notSupported=@"Contex isn't supported";
         Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
         if([ payload.mimeType isEqualToString:mimeTypeAlternative]){
             Payload *payload1=[[Payload alloc]initWithData:payload.parts[0]];
-            if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+            if(![self.payload.mimeType isEqualToString:mimeTypeRelated] || ![self.payload.mimeType isEqualToString:mimeTypeAlternative] || ![self.payload.mimeType isEqualToString:mimeTypeMixed]){
                 return notSupported;
             }
             self.payload.headers=payload1.headers;
@@ -84,7 +83,7 @@ static NSString *const notSupported=@"Contex isn't supported";
         }else{
             self.payload.headers=payload.headers;
             self.payload.mimeType=payload.mimeType;
-            if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+            if(![self.payload.mimeType isEqualToString:mimeTypeRelated] || ![self.payload.mimeType isEqualToString:mimeTypeAlternative] || ![self.payload.mimeType isEqualToString:mimeTypeMixed]){
                 return notSupported;
             }
             BodyOFMessage* body=[payload body];
@@ -104,7 +103,7 @@ static NSString *const notSupported=@"Contex isn't supported";
             Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
             if([self.payload.mimeType  isEqualToString:mimeTypeMixed]){
                 Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
-                if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+                if(![self.payload.mimeType isEqualToString:mimeTypeRelated] || ![self.payload.mimeType isEqualToString:mimeTypeAlternative] || ![self.payload.mimeType isEqualToString:mimeTypeMixed]){
                     return notSupported;
                 }
                 if([payload.mimeType isEqualToString:mimeTypeAlternative]){
@@ -122,7 +121,7 @@ static NSString *const notSupported=@"Contex isn't supported";
                 }else{
                     self.payload.headers=payload.headers;
                     self.payload.mimeType=payload.mimeType;
-                    if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+                    if(![self.payload.mimeType isEqualToString:mimeTypeRelated] || ![self.payload.mimeType isEqualToString:mimeTypeAlternative] || ![self.payload.mimeType isEqualToString:mimeTypeMixed]){
                         return notSupported;
                     }
                     BodyOFMessage* body=[payload body];
@@ -139,7 +138,7 @@ static NSString *const notSupported=@"Contex isn't supported";
             }else{
                 self.payload.headers=payload.headers;
                 self.payload.mimeType=payload.mimeType;
-                if([payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+                if(![self.payload.mimeType isEqualToString:mimeTypeRelated] || ![self.payload.mimeType isEqualToString:mimeTypeAlternative] || ![self.payload.mimeType isEqualToString:mimeTypeMixed]){
                     return notSupported;
                 }
                 BodyOFMessage* body=[payload body];
@@ -155,7 +154,7 @@ static NSString *const notSupported=@"Contex isn't supported";
             //NSLog(@"decoded string - %@",decodedString);
             
         }else{
-            if([self.payload.mimeType isEqualToString:mimeTypeApplicationPdf]){
+            if(![self.payload.mimeType isEqualToString:mimeTypeRelated] || ![self.payload.mimeType isEqualToString:mimeTypeAlternative] || ![self.payload.mimeType isEqualToString:mimeTypeMixed]){
                 return notSupported;
             }
             BodyOFMessage* body=[self.payload body];

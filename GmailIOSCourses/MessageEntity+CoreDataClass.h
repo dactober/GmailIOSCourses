@@ -1,8 +1,8 @@
 //
-//  Sent+CoreDataClass.h
+//  MessageEntity+CoreDataClass.h
 //  GmailIOSCourses
 //
-//  Created by Aleksey Drachyov on 5/25/17.
+//  Created by Aleksey Drachyov on 6/8/17.
 //  Copyright © 2017 Aleksey Drachyov. All rights reserved.
 //
 
@@ -11,10 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Sent : NSManagedObject
+@interface MessageEntity : NSManagedObject
 
 @end
 
 NS_ASSUME_NONNULL_END
 
-#import "Sent+CoreDataProperties.h"
+#import "MessageEntity+CoreDataProperties.h"

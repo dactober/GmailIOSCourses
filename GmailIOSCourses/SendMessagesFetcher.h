@@ -11,7 +11,6 @@
 @interface SendMessagesFetcher : NSObject<MessagesFetcherProtocol>
 @property (strong,nonatomic)NSArray *messageArray;
 @property(strong,nonatomic)NSString *accessToken;
-
 -(Message *)createMessage:(NSDictionary *)message;
 -(instancetype)initWithData:(NSString*)accessToken;
 

@@ -9,7 +9,7 @@
 #import "DetailViewControllerForHtml.h"
 #import "Coordinator.h"
 #import "SendViewController.h"
-#import "Inbox+CoreDataClass.h"
+#import "MessageEntity+CoreDataClass.h"
 #import "Message.h"
 
 @interface DetailViewControllerForHtml ()
@@ -32,41 +32,41 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    self.subject.text=self.inboxMessage.subject;
-    if([self.inboxMessage.from containsString:@" <"]){
+    self.subject.text=self.message.subject;
+    if([self.message.from containsString:@" <"]){
         
-        NSRange range = [self.inboxMessage.from rangeOfString:@" <"];
-        NSString *shortString = [self.inboxMessage.from substringToIndex:range.location];
+        NSRange range = [self.message.from rangeOfString:@" <"];
+        NSString *shortString = [self.message.from substringToIndex:range.location];
         
         self.from.text=shortString;
         
         
     }else{
-        self.from.text=self.inboxMessage.from;
+        self.from.text=self.message.from;
     }
     self.activity.hidden=NO;
     [self.activity startAnimating];
     
-    [self.body loadHTMLString:self.inboxMessage.body baseURL:nil];
+    [self.body loadHTMLString:self.message.body baseURL:nil];
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     [self.activity stopAnimating];
   self.activity.hidden=YES;
 }
--(void)setData:(Inbox *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context{
+-(void)setData:(MessageEntity *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context{
     self.coordinator=coordinator;
-    self.inboxMessage=inboxMessage;
+    self.message=inboxMessage;
     self.context=context;
 }
 
 - (IBAction)send:(id)sender {
     SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
-        [send setData:self.coordinator flag:true message:self.inboxMessage];
+        [send setData:self.coordinator flag:true message:self.message];
     
     
     [self.navigationController pushViewController:send animated:YES];
 }
 - (IBAction)delete:(id)sender {
-    [self.coordinator deleteMessage:self.inboxMessage.messageID label:self.inboxMessage.label];
+    [self.coordinator deleteMessage:self.message.messageID label:self.message.label];
 }
 @end
