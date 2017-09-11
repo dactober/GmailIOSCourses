@@ -16,6 +16,7 @@
 -(instancetype)init{
     self=[super init];
     if(self){
+        
         [self managedObjectModel];
         [self setupManagedObjectContext];
         

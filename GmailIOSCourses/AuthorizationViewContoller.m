@@ -154,7 +154,7 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
     [[NSFileManager defaultManager]removeItemAtPath:url.path error:&error];
     [self.window setRootViewController:[self createAuthController]];
-    [self.window makeKeyAndVisible];
+    
 }
 
 @end
