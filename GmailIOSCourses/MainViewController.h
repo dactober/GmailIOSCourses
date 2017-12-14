@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GTMOAuth2ViewControllerTouch.h"
-#import "GTLRGmail.h"
+#import "CoreData/CoreData.h"
 #import "Coordinator.h"
 #import "SendViewController.h"
-@interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
-
+#import "SettingsTableViewController.h"
+#import "SentMessagesViewController.h"
+@interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>
+@property(nonatomic,strong)NSFetchedResultsController *fetchedResultsController;
+@property(nonatomic,strong)SettingsTableViewController* settingsViewController;
+@property(nonatomic,strong)SentMessagesViewController *sentMessagesViewController;
 @property (strong,nonatomic)Coordinator *coordinator;
 @end
-static NSString *myId=@"Id";
+static NSString *myIdForInbox=@"Id";

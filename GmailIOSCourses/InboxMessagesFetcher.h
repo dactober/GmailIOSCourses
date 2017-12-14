@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface InboxMessagesFetcher:NSObject
--(void)readListOfMessages:(NSString*)serverAddressForReadMessages callback:(void(^)(NSArray*))callback;
--(void)getMessage:(NSString*)serverAddressForReadMessages callback:(void(^)(NSDictionary*))callback;
--(instancetype)initWithData:(NSString*)accessToken;
+#import "MessagesFetcherProtocol.h"
+@class Coordinator;
+@class Message;
+@interface InboxMessagesFetcher:NSObject<MessagesFetcherProtocol>
 @property (strong,nonatomic)NSArray *messageArray;
 @property(strong,nonatomic)NSString *accessToken;
-@property(strong,nonatomic)NSURLSession *session;
+-(instancetype)initWithData:(NSString*)accessToken;
+-(Message *)createMessage:(NSDictionary *)message;
 @end
 

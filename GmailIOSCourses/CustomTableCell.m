@@ -7,40 +7,32 @@
 //
 
 #import "CustomTableCell.h"
-
+#import "MessageEntity+CoreDataClass.h"
 @implementation CustomTableCell
-static bool sub=false;
-static bool fr=false;
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
--(void)customCellData:(Message *)message{
-    sub=false;
-    fr=false;
-    self.headers=[message.payload objectForKey:@"headers"];
-    for(int i=0;i<self.headers.count;i++){
-        if(sub && fr){
-            break;
-        }
-        if([[self.headers[i] objectForKey:@"name"] isEqual:@"Subject"]){
-            self.subject.text=[self.headers[i] objectForKey:@"value"];
-            sub=true;
-        }else{
-            if([[self.headers[i] objectForKey:@"name"] isEqual:@"From"]){
-                self.title.text=[self.headers[i] objectForKey:@"value"];
-                fr=true;
-            }
-        }
-    }
+- (void)customCellDataForInbox:(MessageEntity *)message {
+    self.subject.text=message.subject;
     self.body.text=message.snippet;
-   
-    
-    
+    if([message.from containsString:@" <"]) {
+        NSRange range = [message.from rangeOfString:@" <"];
+        NSString *shortString = [message.from substringToIndex:range.location];
+        self.title.text=shortString;
+    } else {
+        self.title.text=message.from;
+    }
+    NSDateFormatter *dateFormatter=[NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyy-MM-dd HH:mm"];
+    NSString *stringDate = [dateFormatter stringFromDate:message.date];
+    self.date.text=stringDate;
+    self.image.image=[UIImage imageNamed:@"non_existing_id"];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

@@ -7,15 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GTMOAuth2ViewControllerTouch.h"
-#import "AppDelegate.h"
-#import "MainViewController.h"
-#import "GTLRGmail.h"
-#import "Coordinator.h"
-@interface AuthorizationViewContoller : UIViewController
-@property (nonatomic, strong) GTLRGmailService *service;
 
+@interface AuthorizationViewContoller : NSObject
+-(void)logOut:(NSURL*)url;
+- (instancetype)initWithData:(UIWindow *)window;
 
-@property(nonatomic,strong)MainViewController *mainViewController;
+- (void)createViewController;
 @end
 

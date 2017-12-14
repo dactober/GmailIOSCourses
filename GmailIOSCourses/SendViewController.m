@@ -7,31 +7,47 @@
 //
 
 #import "SendViewController.h"
-
+#import "Message.h"
+#import "MessageEntity+CoreDataClass.h"
 @interface SendViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *to;
+@property (weak, nonatomic) IBOutlet UITextField *subject;
+@property (weak, nonatomic) IBOutlet UITextView *body;
+@property(strong,nonatomic)MessageEntity* message;
 
 @end
 
 @implementation SendViewController
-
+bool boolean;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    if(boolean) {
+        if(self.message!=nil) {
+            NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
+            NSRegularExpression *regex = nil;
+            regex = [NSRegularExpression regularExpressionWithPattern:emailRegex options:NSRegularExpressionCaseInsensitive error:nil];
+            NSTextCheckingResult *match = [regex firstMatchInString:self.message.from options:0 range:NSMakeRange(0, [self.message.from length])];
+            if(match!=nil){
+                self.to.text= [self.message.from substringWithRange:[match rangeAtIndex:0]];
+            }
+            self.subject.text=[NSString stringWithFormat:@"Re: %@",self.message.subject];
+        }
+    }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)setData:(Coordinator*)coordinator flag:(bool)flag message:(MessageEntity*)message {
+    self.coordinator=coordinator;
+    self.message=message;
+    boolean=flag;
 }
-*/
+
+- (IBAction)sendMessage:(id)sender {
+    [self.coordinator sendMessage:self.to.text subject:self.subject.text body:self.body.text];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Message.h"
+
+@class MessageEntity;
 @interface CustomTableCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *date;
+@property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UILabel *subject;
 @property (weak, nonatomic) IBOutlet UILabel *body;
 @property(strong,nonatomic)NSDictionary *subjectOfMessage;
 @property (strong,nonatomic)NSDictionary *from;
-@property(strong,nonatomic)NSArray *headers;
--(void)customCellData:(Message *)message;
+-(void)customCellDataForInbox:(MessageEntity *)message;
 @end
