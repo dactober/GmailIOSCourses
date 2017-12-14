@@ -9,15 +9,19 @@
 #import "Message.h"
 #import "Coordinator.h"
 @interface Message ()
-
+@property (nonatomic, strong)NSDictionary *mimeTypeMapping;
 @end
 
-static NSString *const mimeTypeRelated = @"multipart/related";
-static NSString *const mimeTypeAlternative = @"multipart/alternative";
-static NSString *const mimeTypeMixed = @"multipart/mixed";
-static NSString *const mimeTypeTextPlain = @"text/plain";
-static NSString *const mimeTypeHTMLPlain = @"text/html";
-static NSString *const notSupported = @"Contex isn't supported";
+typedef NS_ENUM (NSInteger, MimeType) {
+    mimeTypeRelated,
+    mimeTypeAlternative,
+    mimeTypeMixed,
+    mimeTypeTextPlain,
+    mimeTypeHTMLPlain,
+    
+    notSupported
+};
+
 @implementation Message
 
 - (instancetype)initWithData:(NSDictionary*) message {
@@ -57,84 +61,109 @@ static NSString *const notSupported = @"Contex isn't supported";
     return self;
 }
 
+- (NSDictionary *)mimeTypeMapping {
+    if (_mimeTypeMapping == nil) {
+        _mimeTypeMapping =  @{@(mimeTypeRelated) : @"multipart/related",
+                              @(mimeTypeAlternative) : @"multipart/alternative",
+                              @(mimeTypeMixed) : @"multipart/mixed",
+                              @(mimeTypeTextPlain) : @"text/plain",
+                              @(mimeTypeHTMLPlain) : @"text/html",
+                              @(notSupported) : @"Contex isn't supported"
+                              };
+    }
+    return _mimeTypeMapping;
+}
+
+- (NSString *)decodedMessage {
+    NSString *decodedString;
+    MimeType mimeType = [self mimeTypeContent:self.payload];
+    if (mimeType == notSupported) {
+        return self.mimeTypeMapping[@(notSupported)];
+    }
+    switch (mimeType) {
+        case mimeTypeRelated:{
+            Payload *payload=[self anotherPayloadFromPayload:self.payload.parts[0]];
+            if ([self mimeTypeContent:payload] == notSupported) {
+                return self.mimeTypeMapping[@(notSupported)];
+            }
+            if([payload.mimeType isEqualToString:self.mimeTypeMapping[@(mimeTypeAlternative)]]) {
+               Payload *payload1 = [self anotherPayloadFromPayload:payload.parts[0]];
+                if ([self mimeTypeContent:payload1] == notSupported) {
+                    return self.mimeTypeMapping[@(notSupported)];
+                }
+               decodedString = [self decodedStringWithPayload:payload1];
+            } else {
+               decodedString = [self decodedStringWithPayload:payload];
+                //NSLog(@"decoded string - %@",decodedString);
+            }
+            break;
+        }
+        case mimeTypeAlternative: {
+           Payload *payload=[self anotherPayloadFromPayload:self.payload.parts[0]];
+            if ([self mimeTypeContent:payload] == notSupported) {
+                return self.mimeTypeMapping[@(notSupported)];
+            }
+           decodedString = [self decodedStringWithPayload:payload];
+            break;
+        }
+        case mimeTypeMixed: {
+            Payload *payload=[self anotherPayloadFromPayload:self.payload.parts[0]];
+            Payload *payload1=[self anotherPayloadFromPayload:payload.parts[0]];
+            if ([self mimeTypeContent:payload1] == notSupported) {
+                return self.mimeTypeMapping[@(notSupported)];
+            }
+           decodedString = [self decodedStringWithPayload:payload1];
+            break;
+        }
+        default: {
+          decodedString = [self decodedStringWithPayload:self.payload];
+            // NSLog(@"decoded string - %@",decodedString);
+            break;
+        }
+    }
+    return decodedString;
+}
+
+- (Payload *)anotherPayloadFromPayload:(Payload *)payload {
+    Payload *anotherPayload=[[Payload alloc]initWithData:payload.parts[0]];
+    return anotherPayload;
+}
+
+-(NSString *)decodedStringWithPayload:(Payload *)payload {
+    NSString *decodedString;
+    BodyOFMessage *body=[payload body];
+    decodedString = [self decodeMessage:body];
+    return decodedString;
+}
+
+- (MimeType)mimeTypeContent:(Payload *)payload {
+    MimeType mimeType;
+    for (NSNumber* key in self.mimeTypeMapping) {
+        if ([self.mimeTypeMapping[key] isEqual:payload.mimeType]) {
+            mimeType = [key integerValue];
+            return mimeType;
+        }
+    }
+    return notSupported;
+}
+
+- (NSString *)stringPayloadContent:(Payload *)payload {
+    NSString *stringContent = nil;
+    for (NSNumber* key in self.mimeTypeMapping) {
+        if ([self.mimeTypeMapping[key] isEqual:payload.mimeType]) {
+            stringContent = self.mimeTypeMapping[key];
+            return stringContent;
+        }
+    }
+    return self.mimeTypeMapping[@(notSupported)];
+}
+
 - (NSString *)decodeMessage:(BodyOFMessage *)body {
     NSString* data=body.data;
     data = [data stringByReplacingOccurrencesOfString:@"-" withString:@"+"];
     data = [data stringByReplacingOccurrencesOfString:@"_" withString:@"/"];
     NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:data options:0];
     return [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
-}
-
-- (NSString *)decodedMessage {
-    NSString *decodedString;
-    
-    if([self.payload.mimeType isEqualToString:mimeTypeRelated]) {
-        Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
-        if([ payload.mimeType isEqualToString:mimeTypeAlternative]) {
-            Payload *payload1=[[Payload alloc]initWithData:payload.parts[0]];
-            if(![self.payload.mimeType isEqualToString:mimeTypeRelated] && ![self.payload.mimeType isEqualToString:mimeTypeAlternative] && ![self.payload.mimeType isEqualToString:mimeTypeMixed] && ![self.payload.mimeType isEqualToString:mimeTypeTextPlain] && ![self.payload.mimeType isEqualToString:mimeTypeHTMLPlain]) {
-                return notSupported;
-            }
-            self.payload.headers=payload1.headers;
-            self.payload.mimeType=payload1.mimeType;
-            BodyOFMessage* body=[payload1 body];
-            decodedString = [self decodeMessage:body];
-        } else {
-            self.payload.headers=payload.headers;
-            self.payload.mimeType=payload.mimeType;
-            if(![self.payload.mimeType isEqualToString:mimeTypeRelated] && ![self.payload.mimeType isEqualToString:mimeTypeAlternative] && ![self.payload.mimeType isEqualToString:mimeTypeMixed] && ![self.payload.mimeType isEqualToString:mimeTypeTextPlain] && ![self.payload.mimeType isEqualToString:mimeTypeHTMLPlain]) {
-                return notSupported;
-            }
-            BodyOFMessage* body=[payload body];
-            decodedString = [self decodeMessage:body];
-            //NSLog(@"decoded string - %@",decodedString);
-        }
-    } else {
-        if([self.payload.mimeType isEqualToString:mimeTypeAlternative]||[self.payload.mimeType  isEqualToString:mimeTypeMixed]){
-            Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
-            if([self.payload.mimeType  isEqualToString:mimeTypeMixed]){
-                Payload *payload=[[Payload alloc]initWithData:self.payload.parts[0]];
-                if(![self.payload.mimeType isEqualToString:mimeTypeRelated] && ![self.payload.mimeType isEqualToString:mimeTypeAlternative] && ![self.payload.mimeType isEqualToString:mimeTypeMixed] && ![self.payload.mimeType isEqualToString:mimeTypeTextPlain] && ![self.payload.mimeType isEqualToString:mimeTypeHTMLPlain]){
-                    return notSupported;
-                }
-                if([payload.mimeType isEqualToString:mimeTypeAlternative]) {
-                    Payload *payload1=[[Payload alloc]initWithData:payload.parts[0]];
-                    self.payload.headers=payload1.headers;
-                    self.payload.mimeType=payload1.mimeType;
-                    BodyOFMessage* body=[payload1 body];
-                    decodedString = [self decodeMessage:body];
-                } else {
-                    self.payload.headers=payload.headers;
-                    self.payload.mimeType=payload.mimeType;
-                    if(![self.payload.mimeType isEqualToString:mimeTypeRelated] && ![self.payload.mimeType isEqualToString:mimeTypeAlternative] && ![self.payload.mimeType isEqualToString:mimeTypeMixed] && ![self.payload.mimeType isEqualToString:mimeTypeTextPlain] && ![self.payload.mimeType isEqualToString:mimeTypeHTMLPlain]) {
-                        return notSupported;
-                    }
-                    Payload *payload1=[[Payload alloc]initWithData:payload.parts[0]];
-                    self.payload.headers=payload1.headers;
-                    self.payload.mimeType=payload1.mimeType;
-                    BodyOFMessage* body=[payload1 body];
-                    decodedString = [self decodeMessage:body];
-                }
-            } else {
-                self.payload.headers=payload.headers;
-                self.payload.mimeType=payload.mimeType;
-                if(![self.payload.mimeType isEqualToString:mimeTypeRelated] && ![self.payload.mimeType isEqualToString:mimeTypeAlternative] && ![self.payload.mimeType isEqualToString:mimeTypeMixed] && ![self.payload.mimeType isEqualToString:mimeTypeTextPlain] && ![self.payload.mimeType isEqualToString:mimeTypeHTMLPlain]){
-                    return notSupported;
-                }
-                BodyOFMessage* body=[payload body];
-                decodedString = [self decodeMessage:body];
-            }
-            //NSLog(@"decoded string - %@",decodedString);
-        } else {
-            if(![self.payload.mimeType isEqualToString:mimeTypeRelated] && ![self.payload.mimeType isEqualToString:mimeTypeAlternative] && ![self.payload.mimeType isEqualToString:mimeTypeMixed] && ![self.payload.mimeType isEqualToString:mimeTypeTextPlain] && ![self.payload.mimeType isEqualToString:mimeTypeHTMLPlain]) {
-                return notSupported;
-            }
-            BodyOFMessage* body=[self.payload body];
-            decodedString = [self decodeMessage:body];
-            // NSLog(@"decoded string - %@",decodedString);
-        }
-    }
-    return decodedString;
 }
 
 + (NSString *)encodedMessage:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body {
@@ -146,4 +175,5 @@ static NSString *const notSupported = @"Contex isn't supported";
     NSLog(@"%@", encoded);
     return encoded;
 }
+
 @end
