@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AuthorizationViewContoller.h"
 #import "Coordinator.h"
+
+@protocol SettingsTableViewControllerDelegate
+- (void)logOut;
+@end
+
 @interface SettingsTableViewController : UITableViewController
+@property (nonatomic,strong) id <SettingsTableViewControllerDelegate> delegate;
 @property (strong,nonatomic)Coordinator *coordinator;
-@property (strong,nonatomic)AuthorizationViewContoller *auth;
 @end

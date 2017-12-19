@@ -10,7 +10,7 @@
 #import "MessageEntity+CoreDataClass.h"
 #import "Message.h"
 @interface CreaterContextForMessages()
-@property(nonatomic,retain) NSManagedObjectModel *model;
+@property(nonatomic, strong) NSManagedObjectModel *model;
 @end
 
 @implementation CreaterContextForMessages
@@ -35,7 +35,7 @@
     return theFethResultsController;;
 }
 
-- (NSURL*)storeURL {
+- (NSURL *)storeURL {
     NSURL *url=[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL];
     return [url URLByAppendingPathComponent:@"storeMessages.sqlite"];
 }

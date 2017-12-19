@@ -36,7 +36,7 @@ static int maxResults=20;
     }] resume];
 }
 
-- (void )getMessage:(NSString *)messageID callback:(void(^)(Message*))callback {
+- (void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback {
     NSString* serverAddressForMessage=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/me/messages/%@?field=raw",messageID];
     NSURL *url = [NSURL URLWithString:serverAddressForMessage];
     [[self.session dataTaskWithRequest:[self getRequest:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface AuthorizationViewContoller : NSObject
--(void)logOut:(NSURL*)url;
-- (instancetype)initWithData:(UIWindow *)window;
-
-- (void)createViewController;
+#import "SettingsTableViewController.h"
+@interface AuthorizationViewContoller : NSObject <SettingsTableViewControllerDelegate>
+- (instancetype)initWithWindow:(UIWindow *)window;
+- (void)addAuthorizationViewController;
 @end
 

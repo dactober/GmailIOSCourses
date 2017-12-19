@@ -11,11 +11,10 @@
 #import "SendMessagesFetcher.h"
 #import "InboxMessagesFetcher.h"
 #import "MessageEntity+CoreDataClass.h"
-#import "CreaterContextForMessages.h"
 #import "Sender.h"
 
 @interface Coordinator()
--(bool) isHasObject:(NSString*)ID label:(NSString*)label;
+- (bool)isHasObject:(NSString*)ID label:(NSString*)label;
 @property(nonatomic,strong) NSString* nextPageTokenForInbox;
 @property(nonatomic,strong) NSString* nextPageTokenForSent;
 @property(strong,nonatomic)InboxMessagesFetcher *imf;
@@ -28,17 +27,17 @@
 static NSString* const inbox=@"INBOX";
 - (instancetype)initWithData:(NSString*)email accessToken:(NSString*)accessToken {
     self=[super init];
-    if(self){
+    if(self) {
         self.userID=email;
         self.accessToken=accessToken;
         self.imf=[[InboxMessagesFetcher alloc]initWithData:self.accessToken];
         self.contForMessages=[[CreaterContextForMessages alloc]init];
-        self.sender=[[Sender alloc]initWithData:[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]]];
+        self.sender=[[Sender alloc]initWithSession:[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]]];
     }
     return self;
 }
 
-- (void)getMessages:(NSString*) label {
+- (void)getMessages:(NSString*)label {
     [self.imf readListOfMessages:^(NSDictionary* listOfMessages) {
         NSArray* arrayOfMessages=[listOfMessages objectForKey:@"messages"];
         if([label isEqualToString:inbox]) {

@@ -15,5 +15,5 @@
 @property(nonatomic,strong)NSArray* headers;
 @property(nonatomic,strong)BodyOFMessage* body;
 @property(nonatomic,strong)NSArray *parts;
--(instancetype)initWithData:(NSDictionary *)payload;
+- (instancetype)initWithData:(NSDictionary *)payload;
 @end

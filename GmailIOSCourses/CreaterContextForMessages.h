@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "CoreData/CoreData.h"
 @interface CreaterContextForMessages : NSObject
--(NSFetchedResultsController*)getFetchedResultsController:(NSString*)label;
-@property(nonatomic,strong) NSManagedObjectContext *context;
--(NSManagedObjectContext*)setupBackGroundManagedObjectContext;
--(void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context;
--(NSURL*)storeURL;
--(void)deleteFromContext:(NSString*)ID;
+- (NSFetchedResultsController*)getFetchedResultsController:(NSString*)label;
+- (NSManagedObjectContext*)setupBackGroundManagedObjectContext;
+- (void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context;
+- (NSURL*)storeURL;
+- (void)deleteFromContext:(NSString*)ID;
+@property(nonatomic, strong) NSManagedObjectContext *context;
 @end

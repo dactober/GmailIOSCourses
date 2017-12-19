@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -28,10 +27,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.row == 1){
-        [self.auth logOut:[self.coordinator.contForMessages storeURL]];
+        [self.delegate logOut];
     }
-    
 }
+
 
 #pragma mark - Table view data source
 

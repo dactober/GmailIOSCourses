@@ -7,9 +7,9 @@
 @end
 static int maxResults=20;
 @implementation InboxMessagesFetcher
-- (instancetype)initWithData:(NSString*)accessToken{
+- (instancetype)initWithData:(NSString*)accessToken {
     self=[super init];
-    if(self){
+    if(self) {
         self.accessToken=accessToken;
         self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     }
@@ -18,9 +18,9 @@ static int maxResults=20;
 
 - (void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString *)labelId nextPage:(NSString *)nextPageToken {
     NSString* serverAddressForReadMessages;
-    if(nextPageToken!=nil){
+    if(nextPageToken!=nil) {
         serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/me/messages?pageToken=%@&maxResults=%d&labelIds=%@",nextPageToken,maxResults,labelId];
-    }else{
+    } else {
         serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/me/messages?maxResults=%d&labelIds=%@",maxResults,labelId];
     }
     NSURL *url = [NSURL URLWithString:serverAddressForReadMessages];
@@ -30,7 +30,7 @@ static int maxResults=20;
     }] resume];
 }
 
-- (void )getMessage:(NSString *)messageID callback:(void(^)(Message*))callback {
+- (void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback {
     NSString* serverAddressForMessage=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/me/messages/%@?field=raw",messageID];
     NSURL *url = [NSURL URLWithString:serverAddressForMessage];
     [[self.session dataTaskWithRequest:[self getRequest:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

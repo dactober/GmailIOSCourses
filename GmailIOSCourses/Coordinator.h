@@ -5,11 +5,12 @@
 //  Created by Aleksey Drachyov on 5/5/17.
 //  Copyright © 2017 Aleksey Drachyov. All rights reserved.
 //
-@class CreaterContextForMessages;
+
 #import <Foundation/Foundation.h>
 #import "CoreData/CoreData.h"
+#import "CreaterContextForMessages.h"
 @interface Coordinator : NSObject
-@property(nonatomic,strong)CreaterContextForMessages* contForMessages;
+@property(nonatomic,strong)CreaterContextForMessages *contForMessages;
 @property (strong)NSString *accessToken;
 -(instancetype)initWithData:(NSString*)email accessToken:(NSString*)accessToken;
 -(void)getMessages:(NSString *)label;

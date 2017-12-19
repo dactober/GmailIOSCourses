@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 @class Message;
 @protocol MessagesFetcherProtocol <NSObject>
-
 -(void)readListOfMessages:(void(^)(NSDictionary*))callback label:(NSString*)labelId nextPage:(NSString*)nextPageToken;
 -(void)getMessage:(NSString*)serverAddressForReadMessages  callback:(void(^)(Message*))callback ;
 -(NSMutableURLRequest*)getRequest:(NSURL*)url;

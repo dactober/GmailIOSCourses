@@ -16,7 +16,6 @@
 
 @interface SentMessagesViewController ()
 @property (nonatomic)NSUInteger number;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (nonatomic, strong)NSArray* listOfMessages;
 @property (weak, nonatomic) IBOutlet UIButton *send;
@@ -46,7 +45,6 @@ static NSString* const sentEntity=@"Sent";
 }
 
 - (void)updateListOfMessages {
-    [self.indicator startAnimating];
     [self.coordinator getMessages:sent];
 }
 
@@ -61,7 +59,6 @@ static NSString* const sentEntity=@"Sent";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.indicator stopAnimating];
     CustomTableCell *cell = (CustomTableCell *)[tableView dequeueReusableCellWithIdentifier:myIdForSent forIndexPath:indexPath];
     MessageEntity *sentDataModel = [_fetchedResultsController objectAtIndexPath:indexPath];
     [cell customCellDataForInbox:sentDataModel];

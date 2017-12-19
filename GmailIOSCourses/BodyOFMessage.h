@@ -11,5 +11,5 @@
 @interface BodyOFMessage : NSObject
 @property(strong,nonatomic)NSString *data;
 @property(strong,nonatomic)NSNumber* size;
--(instancetype)initWithData:(NSDictionary *)body;
+- (instancetype)initWithData:(NSDictionary *)body;
 @end

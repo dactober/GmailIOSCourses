@@ -13,7 +13,5 @@
 
 @interface DetailViewControllerForHtml : UIViewController <UIWebViewDelegate>
 -(void)setData:(MessageEntity *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context;
-
 @property (strong,nonatomic)MessageEntity *message;
-
 @end

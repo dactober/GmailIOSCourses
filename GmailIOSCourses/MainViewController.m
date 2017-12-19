@@ -14,7 +14,6 @@
 #import "MessageEntity+CoreDataClass.h"
 @interface MainViewController ()
 @property (nonatomic)NSUInteger number;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property(nonatomic,strong)NSArray* listOfMessages;
 @property (weak, nonatomic) IBOutlet UIButton *send;
@@ -26,7 +25,7 @@ static NSString* const inboxEntity=@"Inbox";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.fetchedResultsController=[self.coordinator.contForMessages getFetchedResultsController:inbox];
+    self.fetchedResultsController = [self.coordinator.contForMessages getFetchedResultsController:inbox];
     self.fetchedResultsController.delegate=self;
     NSError *error;
     if(![self.fetchedResultsController performFetch:&error]){
@@ -37,7 +36,6 @@ static NSString* const inboxEntity=@"Inbox";
 }
 
 - (void)updateListOfMessages {
-    [self.indicator startAnimating];
     [self.coordinator getMessages:inbox];
 }
 
@@ -50,14 +48,13 @@ static NSString* const inboxEntity=@"Inbox";
     return [[[self fetchedResultsController]sections]count];
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id sectionInfo=[[_fetchedResultsController sections]objectAtIndex:section];
     self.number =[sectionInfo numberOfObjects];
     return self.number;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.indicator stopAnimating];
     CustomTableCell *cell=(CustomTableCell *)[tableView dequeueReusableCellWithIdentifier:myIdForInbox forIndexPath:indexPath];
     MessageEntity *inboxDataModel=[_fetchedResultsController objectAtIndexPath:indexPath];
     [cell customCellDataForInbox:inboxDataModel];
@@ -77,42 +74,35 @@ static NSString* const inboxEntity=@"Inbox";
     }
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(self.number-1-indexPath.row == 0 ) {
         [self.coordinator getMessages:inbox];
     }
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
     [self.myTableView beginUpdates];
 }
+
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     UITableView *tableView = self.myTableView;
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
-            
         case NSFetchedResultsChangeDelete:
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
-            
         case NSFetchedResultsChangeUpdate:
-            
             break;
-            
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     [self.myTableView endUpdates];
 }
 

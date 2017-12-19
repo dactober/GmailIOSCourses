@@ -14,7 +14,7 @@
 @end
 @implementation Sender
 
-- (instancetype)initWithData:(NSURLSession *)session {
+- (instancetype)initWithSession:(NSURLSession *)session {
     self=[super init];
     if(self){
         self.session=session;
@@ -26,8 +26,7 @@
     NSURL *url = [NSURL URLWithString:server];
     NSString *currentAccessToken = accessToken;
     NSDictionary *dict=@{@"raw":[Message encodedMessage:from to:to subject:subject body:body]};
-    NSData *messageData = [NSJSONSerialization dataWithJSONObject:dict
-                                                          options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *messageData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
     NSMutableURLRequest *request =[self getRequest:url accessToken:currentAccessToken];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

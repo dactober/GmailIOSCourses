@@ -82,37 +82,41 @@ typedef NS_ENUM (NSInteger, MimeType) {
     }
     switch (mimeType) {
         case mimeTypeRelated:{
-            Payload *payload=[self anotherPayloadFromPayload:self.payload.parts[0]];
+            Payload *payload=[self anotherPayloadFromPayload:self.payload];
             if ([self mimeTypeContent:payload] == notSupported) {
                 return self.mimeTypeMapping[@(notSupported)];
             }
             if([payload.mimeType isEqualToString:self.mimeTypeMapping[@(mimeTypeAlternative)]]) {
-               Payload *payload1 = [self anotherPayloadFromPayload:payload.parts[0]];
+               Payload *payload1 = [self anotherPayloadFromPayload:payload];
                 if ([self mimeTypeContent:payload1] == notSupported) {
                     return self.mimeTypeMapping[@(notSupported)];
                 }
                decodedString = [self decodedStringWithPayload:payload1];
+                self.payload.mimeType = payload1.mimeType;
             } else {
                decodedString = [self decodedStringWithPayload:payload];
+                self.payload.mimeType = payload.mimeType;
                 //NSLog(@"decoded string - %@",decodedString);
             }
             break;
         }
         case mimeTypeAlternative: {
-           Payload *payload=[self anotherPayloadFromPayload:self.payload.parts[0]];
+           Payload *payload=[self anotherPayloadFromPayload:self.payload];
             if ([self mimeTypeContent:payload] == notSupported) {
                 return self.mimeTypeMapping[@(notSupported)];
             }
            decodedString = [self decodedStringWithPayload:payload];
+            self.payload.mimeType = payload.mimeType;
             break;
         }
         case mimeTypeMixed: {
-            Payload *payload=[self anotherPayloadFromPayload:self.payload.parts[0]];
-            Payload *payload1=[self anotherPayloadFromPayload:payload.parts[0]];
+            Payload *payload=[self anotherPayloadFromPayload:self.payload];
+            Payload *payload1=[self anotherPayloadFromPayload:payload];
             if ([self mimeTypeContent:payload1] == notSupported) {
                 return self.mimeTypeMapping[@(notSupported)];
             }
            decodedString = [self decodedStringWithPayload:payload1];
+            self.payload.mimeType = payload1.mimeType;
             break;
         }
         default: {
