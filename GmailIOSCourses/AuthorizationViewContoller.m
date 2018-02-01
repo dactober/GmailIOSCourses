@@ -20,6 +20,7 @@
 @property (nonatomic, strong)UIStoryboard *storyboard;
 @property (nonatomic, strong)UIWindow *window;
 @property (nonatomic, strong)Coordinator *coordinator;
+@property (nonatomic, strong)GTMOAuth2ViewControllerTouch *parentViewController;
 @end
 
 static NSString *accessToken;
@@ -33,18 +34,22 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     if(self) {
         self.window=window;
         self.storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36", @"UserAgent", nil];
-        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-        self.service = [[GTLRGmailService alloc] init];
-        self.service.authorizer =
-        [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName clientID:kClientID clientSecret:nil];
+        [self.window makeKeyAndVisible];
+        [self addGmailService];
     }
     return self;
 }
 
+- (void)addGmailService {
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36", @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    self.service = [[GTLRGmailService alloc] init];
+    self.service.authorizer = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName clientID:kClientID clientSecret:nil];
+}
+
 - (void)addMainViewController {
     self.mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Inbox"];
-    self.coordinator = [[Coordinator alloc] initWithData:self.service.authorizer.userEmail accessToken:accessToken];
+    self.coordinator = [[Coordinator alloc] initWithEmail:self.service.authorizer.userEmail accessToken:accessToken];
     self.settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
     self.sentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Sent"];
     [self.sentViewController setCoordinator:self.coordinator];
@@ -53,7 +58,6 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     [self.settingsViewController setCoordinator:self.coordinator];
     self.settingsViewController.delegate = self;
     [self addTabBarController];
-    [self.window makeKeyAndVisible];
 }
 
 - (void)addTabBarController {
@@ -71,8 +75,8 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 
 - (void)addAuthorizationViewController {
     if (!self.service.authorizer.canAuthorize) {
-        [self.window setRootViewController:[self createAuthController]];
-        [self.window makeKeyAndVisible];
+        self.parentViewController = [self createAuthController];
+        [self.window setRootViewController:self.parentViewController];
     } else {
         GTMOAuth2Authentication *auth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName clientID:kClientID clientSecret:nil];
         [auth authorizeRequest:nil completionHandler:^(NSError *error) {
@@ -114,11 +118,12 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 
 - (void)logOut {
     NSError* error;
+    self.service = nil;
     NSURL *url = [self.coordinator.contForMessages storeURL];
     [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
     [[NSFileManager defaultManager]removeItemAtPath:url.path error:&error];
-    self.settingsViewController.delegate = nil;
-    [self.window setRootViewController:[self createAuthController]];
+    [self addGmailService];
+    [self addAuthorizationViewController];
 }
 
 @end

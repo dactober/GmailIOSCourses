@@ -25,7 +25,7 @@ static NSString* const inboxEntity=@"Inbox";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.fetchedResultsController = [self.coordinator.contForMessages getFetchedResultsController:inbox];
+    self.fetchedResultsController = [self.coordinator.contForMessages fetchedResultsController:inbox];
     self.fetchedResultsController.delegate=self;
     NSError *error;
     if(![self.fetchedResultsController performFetch:&error]){
@@ -36,7 +36,7 @@ static NSString* const inboxEntity=@"Inbox";
 }
 
 - (void)updateListOfMessages {
-    [self.coordinator getMessages:inbox];
+    [self.coordinator messages:inbox];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,7 +76,7 @@ static NSString* const inboxEntity=@"Inbox";
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(self.number-1-indexPath.row == 0 ) {
-        [self.coordinator getMessages:inbox];
+        [self.coordinator messages:inbox];
     }
 }
 

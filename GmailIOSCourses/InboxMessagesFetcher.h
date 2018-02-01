@@ -11,9 +11,9 @@
 @class Coordinator;
 @class Message;
 @interface InboxMessagesFetcher:NSObject<MessagesFetcherProtocol>
-@property (strong,nonatomic)NSArray *messageArray;
-@property(strong,nonatomic)NSString *accessToken;
--(instancetype)initWithData:(NSString*)accessToken;
--(Message *)createMessage:(NSDictionary *)message;
+@property (strong, nonatomic)NSArray *messageArray;
+@property(strong, nonatomic)NSString *accessToken;
+- (instancetype)initWithAccessToken:(NSString*)accessToken;
+- (Message *)createMessage:(NSDictionary *)message;
 @end
 

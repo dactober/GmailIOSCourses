@@ -31,7 +31,7 @@ static NSString* const sentEntity=@"Sent";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.fetchedResultsController = [self.coordinator.contForMessages getFetchedResultsController:sent];
+    self.fetchedResultsController = [self.coordinator.contForMessages fetchedResultsController:sent];
     self.fetchedResultsController.delegate=self;
     NSError *error;
     if(![self.fetchedResultsController performFetch:&error]) {
@@ -45,7 +45,7 @@ static NSString* const sentEntity=@"Sent";
 }
 
 - (void)updateListOfMessages {
-    [self.coordinator getMessages:sent];
+    [self.coordinator messages:sent];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -79,7 +79,7 @@ static NSString* const sentEntity=@"Sent";
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(self.number-1-indexPath.row == 0) {
-        [self.coordinator getMessages:sent];
+        [self.coordinator messages:sent];
     }
 }
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {

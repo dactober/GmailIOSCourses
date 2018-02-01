@@ -12,8 +12,8 @@
 @interface Coordinator : NSObject
 @property(nonatomic,strong)CreaterContextForMessages *contForMessages;
 @property (strong)NSString *accessToken;
--(instancetype)initWithData:(NSString*)email accessToken:(NSString*)accessToken;
--(void)getMessages:(NSString *)label;
--(void)deleteMessage:(NSString*)ID label:(NSString*)label;
--(void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body;
+- (instancetype)initWithEmail:(NSString*)email accessToken:(NSString*)accessToken;
+- (void)messages:(NSString *)label;
+- (void)deleteMessage:(NSString*)ID label:(NSString*)label;
+- (void)sendMessage:(NSString *)to subject:(NSString*) subject body:(NSString*)body;
 @end

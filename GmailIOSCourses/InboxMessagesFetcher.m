@@ -7,7 +7,7 @@
 @end
 static int maxResults=20;
 @implementation InboxMessagesFetcher
-- (instancetype)initWithData:(NSString*)accessToken {
+- (instancetype)initWithAccessToken:(NSString*)accessToken {
     self=[super init];
     if(self) {
         self.accessToken=accessToken;
@@ -24,16 +24,16 @@ static int maxResults=20;
         serverAddressForReadMessages=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/me/messages?maxResults=%d&labelIds=%@",maxResults,labelId];
     }
     NSURL *url = [NSURL URLWithString:serverAddressForReadMessages];
-    [[self.session dataTaskWithRequest:[self getRequest:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    [[self.session dataTaskWithRequest:[self request:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         callback(json);
     }] resume];
 }
 
-- (void)getMessage:(NSString *)messageID callback:(void(^)(Message*))callback {
+- (void)message:(NSString *)messageID callback:(void(^)(Message*))callback {
     NSString* serverAddressForMessage=[NSString stringWithFormat:@"https://www.googleapis.com/gmail/v1/users/me/messages/%@?field=raw",messageID];
     NSURL *url = [NSURL URLWithString:serverAddressForMessage];
-    [[self.session dataTaskWithRequest:[self getRequest:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    [[self.session dataTaskWithRequest:[self request:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         Message* message= [self createMessage:json];
         callback(message);
@@ -41,7 +41,7 @@ static int maxResults=20;
     }] resume];
 }
 
-- (NSMutableURLRequest*)getRequest:(NSURL*)url {
+- (NSMutableURLRequest*)request:(NSURL*)url {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     NSString *authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@",self.accessToken];
     [request addValue:authorizationHeaderValue forHTTPHeaderField:@"Authorization"];

@@ -23,7 +23,7 @@
     return self;
 }
 
-- (NSFetchedResultsController *)getFetchedResultsController:(NSString*)label {
+- (NSFetchedResultsController *)fetchedResultsController:(NSString*)label {
     NSFetchRequest *fetchRequest=[[NSFetchRequest alloc]init];
     NSEntityDescription *entity=[NSEntityDescription entityForName:@"MessageEntity" inManagedObjectContext:self.context];
     [fetchRequest setEntity:entity];
@@ -62,7 +62,7 @@
     return context;
 }
 
-- (void)addObjectToInboxContext:(Message*)message context:(NSManagedObjectContext*)context {
+- (void)addMessage:(Message*)message ToInboxContext:(NSManagedObjectContext*)context {
     MessageEntity *new=[NSEntityDescription insertNewObjectForEntityForName:@"MessageEntity" inManagedObjectContext:context];
     new.date=message.date;
     new.from=message.from;

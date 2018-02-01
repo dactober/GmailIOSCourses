@@ -9,15 +9,15 @@
 #import "AppDelegate.h"
 #import "AuthorizationViewContoller.h"
 @interface AppDelegate ()
-
+@property (nonatomic, strong)AuthorizationViewContoller* auth;
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    AuthorizationViewContoller* auth=[[AuthorizationViewContoller alloc]initWithWindow:self.window];
-    [auth addAuthorizationViewController];
+    self.auth=[[AuthorizationViewContoller alloc]initWithWindow:self.window];
+    [self.auth addAuthorizationViewController];
     
     // Override point for customization after application launch.
     return YES;
