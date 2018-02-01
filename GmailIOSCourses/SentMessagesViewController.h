@@ -1,6 +1,6 @@
 //
 //  SearchViewController.h
-//  
+//
 //
 //  Created by Aleksey Drachyov on 5/17/17.
 //
@@ -13,11 +13,11 @@
 #import "SettingsTableViewController.h"
 #import "SentMessagesViewController.h"
 
-static NSString *myIdForSent=@"SentId";
+static NSString *myIdForSent = @"SentId";
 
-@interface SentMessagesViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>
-@property (nonatomic, strong)NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong)SettingsTableViewController* settingsViewController;
-@property (nonatomic, strong)SentMessagesViewController *sentMessagesViewController;
-@property (strong, nonatomic)Coordinator *coordinator;
+@interface SentMessagesViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
+@property(nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property(nonatomic, strong) SettingsTableViewController *settingsViewController;
+@property(nonatomic, strong) SentMessagesViewController *sentMessagesViewController;
+@property(strong, nonatomic) Coordinator *coordinator;
 @end

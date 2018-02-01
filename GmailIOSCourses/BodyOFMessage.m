@@ -11,8 +11,8 @@
 @implementation BodyOFMessage
 
 - (instancetype)initWithData:(NSDictionary *)body {
-    self=[super init];
-    if(self) {
+    self = [super init];
+    if (self) {
         self.data = [body objectForKey:@"data"];
         self.size = [body objectForKey:@"size"];
     }

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface BodyOFMessage : NSObject
-@property(strong,nonatomic)NSString *data;
-@property(strong,nonatomic)NSNumber* size;
+@property(strong, nonatomic) NSString *data;
+@property(strong, nonatomic) NSNumber *size;
 - (instancetype)initWithData:(NSDictionary *)body;
 @end

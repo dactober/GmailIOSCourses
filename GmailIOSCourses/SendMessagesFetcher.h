@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "MessagesFetcherProtocol.h"
 @interface SendMessagesFetcher : NSObject<MessagesFetcherProtocol>
-@property (strong,nonatomic)NSArray *messageArray;
-@property(strong,nonatomic)NSString *accessToken;
--(Message *)createMessage:(NSDictionary *)message;
--(instancetype)initWithData:(NSString*)accessToken;
+@property(strong, nonatomic) NSArray *messageArray;
+@property(strong, nonatomic) NSString *accessToken;
+- (Message *)createMessage:(NSDictionary *)message;
+- (instancetype)initWithData:(NSString *)accessToken;
 @end

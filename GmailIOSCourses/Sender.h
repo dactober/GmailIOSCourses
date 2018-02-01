@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @class Coordinator;
 @interface Sender : NSObject
--(instancetype)initWithSession:(NSURLSession *)session;
--(void)send:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body accessToken:(NSString*)accessToken;
--(void)deleteMessage:(Coordinator*)coordinator messageID:(NSString*)messageID callback:(void(^)(void))callback;
+- (instancetype)initWithSession:(NSURLSession *)session;
+- (void)send:(NSString *)from to:(NSString *)to subject:(NSString *)subject body:(NSString *)body accessToken:(NSString *)accessToken;
+- (void)deleteMessage:(Coordinator *)coordinator messageID:(NSString *)messageID callback:(void (^)(void))callback;
 @end

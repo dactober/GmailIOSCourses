@@ -14,6 +14,6 @@
 @end
 
 @interface SettingsTableViewController : UITableViewController
-@property (nonatomic,weak) id <SettingsTableViewControllerDelegate> delegate;
-@property (strong,nonatomic)Coordinator *coordinator;
+@property(nonatomic, weak) id<SettingsTableViewControllerDelegate> delegate;
+@property(strong, nonatomic) Coordinator *coordinator;
 @end

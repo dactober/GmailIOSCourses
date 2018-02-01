@@ -10,10 +10,10 @@
 #import "Message.h"
 #import "MessageEntity+CoreDataClass.h"
 @interface SendViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *to;
-@property (weak, nonatomic) IBOutlet UITextField *subject;
-@property (weak, nonatomic) IBOutlet UITextView *body;
-@property(strong,nonatomic)MessageEntity* message;
+@property(weak, nonatomic) IBOutlet UITextField *to;
+@property(weak, nonatomic) IBOutlet UITextField *subject;
+@property(weak, nonatomic) IBOutlet UITextView *body;
+@property(strong, nonatomic) MessageEntity *message;
 
 @end
 
@@ -25,24 +25,24 @@ bool boolean;
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    if(boolean) {
-        if(self.message!=nil) {
+    if (boolean) {
+        if (self.message != nil) {
             NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
             NSRegularExpression *regex = nil;
             regex = [NSRegularExpression regularExpressionWithPattern:emailRegex options:NSRegularExpressionCaseInsensitive error:nil];
             NSTextCheckingResult *match = [regex firstMatchInString:self.message.from options:0 range:NSMakeRange(0, [self.message.from length])];
-            if(match!=nil){
-                self.to.text= [self.message.from substringWithRange:[match rangeAtIndex:0]];
+            if (match != nil) {
+                self.to.text = [self.message.from substringWithRange:[match rangeAtIndex:0]];
             }
-            self.subject.text=[NSString stringWithFormat:@"Re: %@",self.message.subject];
+            self.subject.text = [NSString stringWithFormat:@"Re: %@", self.message.subject];
         }
     }
 }
 
-- (void)setData:(Coordinator*)coordinator flag:(bool)flag message:(MessageEntity*)message {
-    self.coordinator=coordinator;
-    self.message=message;
-    boolean=flag;
+- (void)setData:(Coordinator *)coordinator flag:(bool)flag message:(MessageEntity *)message {
+    self.coordinator = coordinator;
+    self.message = message;
+    boolean = flag;
 }
 
 - (IBAction)sendMessage:(id)sender {

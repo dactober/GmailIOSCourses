@@ -13,8 +13,8 @@
 #import "Message.h"
 
 @interface DetailViewController ()
-@property(nonatomic,strong)Coordinator *coordinator;
-@property(nonatomic,strong) NSManagedObjectContext *context;
+@property(nonatomic, strong) Coordinator *coordinator;
+@property(nonatomic, strong) NSManagedObjectContext *context;
 @end
 
 @implementation DetailViewController
@@ -24,34 +24,34 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.subject.text=self.messageModel.subject;
-    if([self.messageModel.from containsString:@" <"]){
+    self.subject.text = self.messageModel.subject;
+    if ([self.messageModel.from containsString:@" <"]) {
         NSRange range = [self.messageModel.from rangeOfString:@" <"];
         NSString *shortString = [self.messageModel.from substringToIndex:range.location];
-        self.from.text=shortString;
+        self.from.text = shortString;
     } else {
-        self.from.text=self.messageModel.from;
+        self.from.text = self.messageModel.from;
     }
-    self.body.text=self.messageModel.body;
+    NSString *body =  self.messageModel.body;
+    self.body.text = [body stringByReplacingOccurrencesOfString:@"/n" withString:@""];
 }
 
-- (void)setData:(MessageEntity *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext*)context {
-    self.coordinator=coordinator;
-    self.messageModel=inboxMessage;
-    self.context=context;
+- (void)setData:(MessageEntity *)inboxMessage coordinator:(Coordinator *)coordinator context:(NSManagedObjectContext *)context {
+    self.coordinator = coordinator;
+    self.messageModel = inboxMessage;
+    self.context = context;
 }
 
 - (IBAction)send:(id)sender {
-    SendViewController *send=[self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
+    SendViewController *send = [self.storyboard instantiateViewControllerWithIdentifier:@"Send"];
     [send setData:self.coordinator flag:true message:self.messageModel];
     [self.navigationController pushViewController:send animated:YES];
-    
 }
 
-- (IBAction)delete:(id)sender {
+- (IBAction) delete:(id)sender {
     [self.coordinator deleteMessage:self.messageModel.messageID label:self.messageModel.label];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.navigationController popViewControllerAnimated:YES];
+      [self.navigationController popViewControllerAnimated:YES];
     });
 }
 

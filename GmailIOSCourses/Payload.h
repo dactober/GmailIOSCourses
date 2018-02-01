@@ -10,10 +10,10 @@
 #import "BodyOFMessage.h"
 
 @interface Payload : NSObject
-@property(nonatomic,strong)NSString* mimeType;
-@property(nonatomic,strong)NSString* fileName;
-@property(nonatomic,strong)NSArray* headers;
-@property(nonatomic,strong)BodyOFMessage* body;
-@property(nonatomic,strong)NSArray *parts;
+@property(nonatomic, strong) NSString *mimeType;
+@property(nonatomic, strong) NSString *fileName;
+@property(nonatomic, strong) NSArray *headers;
+@property(nonatomic, strong) BodyOFMessage *body;
+@property(nonatomic, strong) NSArray *parts;
 - (instancetype)initWithData:(NSDictionary *)payload;
 @end

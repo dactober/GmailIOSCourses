@@ -11,18 +11,18 @@
 #import "LabelIds.h"
 @class Coordinator;
 @interface Message : NSObject
-@property(nonatomic,strong)NSString *sizeEstimate;
-@property(nonatomic,strong)LabelIds *labelIDs;
-@property(nonatomic,strong)NSString *ID;
-@property(nonatomic,strong)NSString *snippet;
-@property(nonatomic,strong)NSString *internalDate;
-@property(nonatomic,strong)NSString *historyID;
-@property(nonatomic,strong)Payload *payload;
-@property(nonatomic,strong)NSString *threadId;
-@property(nonatomic,strong)NSString* subject;
-@property(nonatomic,strong)NSString *from;
-@property(nonatomic,strong)NSDate *date;
--(instancetype)initWithData:(NSDictionary*) message;
--(NSString *)decodedMessage;
-+ (NSString *)encodedMessage:(NSString*)from to:(NSString*)to subject:(NSString*)subject body:(NSString*)body;
+@property(nonatomic, strong) NSString *sizeEstimate;
+@property(nonatomic, strong) LabelIds *labelIDs;
+@property(nonatomic, strong) NSString *ID;
+@property(nonatomic, strong) NSString *snippet;
+@property(nonatomic, strong) NSString *internalDate;
+@property(nonatomic, strong) NSString *historyID;
+@property(nonatomic, strong) Payload *payload;
+@property(nonatomic, strong) NSString *threadId;
+@property(nonatomic, strong) NSString *subject;
+@property(nonatomic, strong) NSString *from;
+@property(nonatomic, strong) NSDate *date;
+- (instancetype)initWithData:(NSDictionary *)message;
+- (NSString *)decodedMessage;
++ (NSString *)encodedMessage:(NSString *)from to:(NSString *)to subject:(NSString *)subject body:(NSString *)body;
 @end

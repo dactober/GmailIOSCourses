@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface LabelIds : NSObject
-@property(strong,nonatomic)NSString* tag;
-@property(strong,nonatomic)NSString* category;
-@property(strong,nonatomic)NSString* list;
+@property(strong, nonatomic) NSString *tag;
+@property(strong, nonatomic) NSString *category;
+@property(strong, nonatomic) NSString *list;
 - (instancetype)initWithData:(NSArray *)labelIds;
 @end

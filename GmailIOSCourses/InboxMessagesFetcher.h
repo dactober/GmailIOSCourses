@@ -10,10 +10,9 @@
 #import "MessagesFetcherProtocol.h"
 @class Coordinator;
 @class Message;
-@interface InboxMessagesFetcher:NSObject<MessagesFetcherProtocol>
-@property (strong, nonatomic)NSArray *messageArray;
-@property(strong, nonatomic)NSString *accessToken;
-- (instancetype)initWithAccessToken:(NSString*)accessToken;
+@interface InboxMessagesFetcher : NSObject<MessagesFetcherProtocol>
+@property(strong, nonatomic) NSArray *messageArray;
+@property(strong, nonatomic) NSString *accessToken;
+- (instancetype)initWithAccessToken:(NSString *)accessToken;
 - (Message *)createMessage:(NSDictionary *)message;
 @end
-

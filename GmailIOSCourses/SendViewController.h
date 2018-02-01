@@ -10,6 +10,6 @@
 #import "Coordinator.h"
 @class MessageEntity;
 @interface SendViewController : UIViewController
--(void)setData:(Coordinator*)coordinator flag:(bool)flag message:(MessageEntity *)message;
-@property(nonatomic,strong)Coordinator* coordinator;
+- (void)setData:(Coordinator *)coordinator flag:(bool)flag message:(MessageEntity *)message;
+@property(nonatomic, strong) Coordinator *coordinator;
 @end

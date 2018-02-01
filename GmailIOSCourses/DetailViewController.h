@@ -13,11 +13,11 @@
 #import "CoreData/CoreData.h"
 @class Message;
 @interface DetailViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UILabel *subject;
-@property (weak, nonatomic) IBOutlet UILabel *from;
-@property (weak, nonatomic) IBOutlet UILabel *body;
-@property (strong,nonatomic)MessageEntity *messageModel;
-@property (strong,nonatomic)Message *message;
--(void)setData:(MessageEntity *)inboxMessage coordinator:(Coordinator*)coordinator context:(NSManagedObjectContext *)context;
+@property(weak, nonatomic) IBOutlet UILabel *subject;
+@property(weak, nonatomic) IBOutlet UILabel *from;
+@property(weak, nonatomic) IBOutlet UILabel *body;
+@property(strong, nonatomic) MessageEntity *messageModel;
+@property(strong, nonatomic) Message *message;
+- (void)setData:(MessageEntity *)inboxMessage coordinator:(Coordinator *)coordinator context:(NSManagedObjectContext *)context;
 
 @end
