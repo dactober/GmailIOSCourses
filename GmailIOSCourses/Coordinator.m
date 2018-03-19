@@ -13,6 +13,7 @@
 #import "MessageEntity+CoreDataClass.h"
 #import "Sender.h"
 
+
 @interface Coordinator ()
 - (bool)isHasObject:(NSString *)ID label:(NSString *)label;
 @property(nonatomic, strong) NSString *nextPageTokenForInbox;
@@ -43,6 +44,7 @@ static NSString *const inbox = @"INBOX";
 }
 
 - (void)messages:(NSString *)label {
+    
     [self.inboxMessageFetcher readListOfMessages:^(NSDictionary *listOfMessages) {
       NSArray *arrayOfMessages = [listOfMessages objectForKey:@"messages"];
       if ([label isEqualToString:inbox]) {

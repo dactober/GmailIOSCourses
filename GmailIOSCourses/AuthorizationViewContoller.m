@@ -73,7 +73,7 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
     } else {
         [self showAlert:@"Error" message:error.localizedDescription];
     }
-}
+}//integoDrachyov!&!)(^(^!)!&
 
 // Helper for showing an alert
 - (void)showAlert:(NSString *)title message:(NSString *)message {
@@ -88,7 +88,7 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 }
 
 - (void)createMainViewController {
-    Coordinator *coordinator = [[Coordinator alloc] initWithEmail:self.service.authorizer.userEmail accessToken:accessToken];
+    Coordinator *coordinator = [[Coordinator alloc] initWithEmail:[GIDSignIn sharedInstance].currentUser.userID accessToken:accessToken];
     self.mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Inbox"];
     self.settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
     self.sentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Sent"];

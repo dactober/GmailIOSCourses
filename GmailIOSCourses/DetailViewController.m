@@ -11,6 +11,8 @@
 #import "SendViewController.h"
 #import "MessageEntity+CoreDataClass.h"
 #import "Message.h"
+#import "GTLRCalendar.h"
+#import "GTLRDrive.h"
 
 @interface DetailViewController ()
 @property(nonatomic, strong) Coordinator *coordinator;

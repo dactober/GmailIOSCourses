@@ -35,6 +35,10 @@
 		01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5A1061EBE5F9B00A1A268 /* Message.m */; };
 		01FC563C1ED62E530001398E /* SentMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FC563B1ED62E530001398E /* SentMessagesViewController.m */; };
 		80119999D826E07FED376295 /* libPods-GmailIOSCourses.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */; };
+		842CDA6220405D72006E8DE2 /* libGoogleAPIClientForREST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 842CDA6320405D72006E8DE2 /* libGoogleAPIClientForREST.a */; };
+		842CDA6420405D7A006E8DE2 /* libGTMOAuth2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 842CDA6520405D7A006E8DE2 /* libGTMOAuth2.a */; };
+		842CDA6620405D7E006E8DE2 /* libGTMSessionFetcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 842CDA6720405D7E006E8DE2 /* libGTMSessionFetcher.a */; };
+		842CDA6820405D82006E8DE2 /* libGoogleToolboxForMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 842CDA6920405D82006E8DE2 /* libGoogleToolboxForMac.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +114,10 @@
 		0FDD8A6959C7A9599D0E2352 /* Pods-GmailIOSCourses.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GmailIOSCourses.release.xcconfig"; path = "Pods/Target Support Files/Pods-GmailIOSCourses/Pods-GmailIOSCourses.release.xcconfig"; sourceTree = "<group>"; };
 		517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GmailIOSCourses.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFA4C64963AC5A9774BE509 /* Pods-GmailIOSCourses.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GmailIOSCourses.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GmailIOSCourses/Pods-GmailIOSCourses.debug.xcconfig"; sourceTree = "<group>"; };
+		842CDA6320405D72006E8DE2 /* libGoogleAPIClientForREST.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleAPIClientForREST.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		842CDA6520405D7A006E8DE2 /* libGTMOAuth2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGTMOAuth2.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		842CDA6720405D7E006E8DE2 /* libGTMSessionFetcher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGTMSessionFetcher.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		842CDA6920405D82006E8DE2 /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleToolboxForMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +125,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842CDA6820405D82006E8DE2 /* libGoogleToolboxForMac.a in Frameworks */,
+				842CDA6620405D7E006E8DE2 /* libGTMSessionFetcher.a in Frameworks */,
+				842CDA6420405D7A006E8DE2 /* libGTMOAuth2.a in Frameworks */,
+				842CDA6220405D72006E8DE2 /* libGoogleAPIClientForREST.a in Frameworks */,
 				80119999D826E07FED376295 /* libPods-GmailIOSCourses.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +301,10 @@
 		6B1217AD7CC786834742CB89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				842CDA6920405D82006E8DE2 /* libGoogleToolboxForMac.a */,
+				842CDA6720405D7E006E8DE2 /* libGTMSessionFetcher.a */,
+				842CDA6520405D7A006E8DE2 /* libGTMOAuth2.a */,
+				842CDA6320405D72006E8DE2 /* libGoogleAPIClientForREST.a */,
 				517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */,
 			);
 			name = Frameworks;

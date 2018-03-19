@@ -23,6 +23,14 @@
 #import <UIKit/UIKit.h>
 #endif
 
+#if !defined(GTLR_USE_FRAMEWORK_IMPORTS)
+  #if defined(COCOAPODS) && COCOAPODS
+    #define GTLR_USE_FRAMEWORK_IMPORTS 1
+  #else
+    #define GTLR_USE_FRAMEWORK_IMPORTS 0
+  #endif
+#endif
+
 #import "GTLRService.h"
 
 #import "GTLRFramework.h"
@@ -30,6 +38,15 @@
 #import "GTLRUtilities.h"
 
 #import "GTMMIMEDocument.h"
+
+#if GTLR_USE_FRAMEWORK_IMPORTS
+  #import <GTMSessionFetcher/GTMSessionFetcher.h>
+  #import <GTMSessionFetcher/GTMSessionFetcherService.h>
+#else
+  #import "GTMSessionFetcher.h"
+  #import "GTMSessionFetcherService.h"
+#endif  // GTLR_USE_FRAMEWORK_IMPORTS
+
 
 #ifndef STRIP_GTM_FETCH_LOGGING
   #error GTMSessionFetcher headers should have defaulted this if it wasn't already defined.
@@ -141,7 +158,11 @@ static NSDictionary *MergeDictionaries(NSDictionary *recessiveDict, NSDictionary
 @end
 
 #if !defined(GTLR_HAS_SESSION_UPLOAD_FETCHER_IMPORT)
-#define GTLR_HAS_SESSION_UPLOAD_FETCHER_IMPORT 0
+  #if defined(COCOAPODS) && COCOAPODS
+    #define GTLR_HAS_SESSION_UPLOAD_FETCHER_IMPORT 1
+  #else
+    #define GTLR_HAS_SESSION_UPLOAD_FETCHER_IMPORT 0
+  #endif
 #endif
 
 #if GTLR_HAS_SESSION_UPLOAD_FETCHER_IMPORT
@@ -757,6 +778,23 @@ static NSDictionary *MergeDictionaries(NSDictionary *recessiveDict, NSDictionary
               // We could not parse the JSON payload
               error = parseError;
             } else {
+              // HTTP Streaming defined by Google services is is an array
+              // of requests and replies. This code never makes one of
+              // these requests; but, some GET apis can actually be to
+              // a Streaming result (for media?), so the errors can still
+              // come back in an array.
+              if ([jsonWrapper isKindOfClass:[NSArray class]]) {
+                NSArray *jsonWrapperAsArray = (NSArray *)jsonWrapper;
+#if DEBUG
+                if (jsonWrapperAsArray.count > 1) {
+                  GTLR_DEBUG_LOG(@"Got error array with >1 item, only using first. Full list: %@",
+                                 jsonWrapperAsArray);
+                }
+#endif
+                // Use the first.
+                jsonWrapper = [jsonWrapperAsArray firstObject];
+              }
+
               // Convert the JSON error payload into a structured error
               NSMutableDictionary *errorJSON = [jsonWrapper valueForKey:@"error"];
               if (errorJSON) {
@@ -1661,64 +1699,68 @@ static NSDictionary *MergeDictionaries(NSDictionary *recessiveDict, NSDictionary
 
   testBlock(ticket, ^(id testObject, NSError *testError) {
     dispatch_group_async(ticket.callbackGroup, ticket.callbackQueue, ^{
-      if (testError) {
-        // During simulation, we invoke any retry block, but ignore the result.
-        const BOOL willRetry = NO;
-        GTLRServiceRetryBlock retryBlock = ticket.retryBlock;
-        if (retryBlock) {
-          (void)retryBlock(ticket, willRetry, testError);
-        }
-      } else {
-        // Simulate upload progress, calling back up to three times.
-        if (ticket.uploadProgressBlock) {
-          GTLRQuery *query = (GTLRQuery *)ticket.originalQuery;
-          unsigned long long uploadLength = [self simulatedUploadLengthForQuery:query
-                                                                     dataToPost:dataToPost];
-          unsigned long long sendReportSize = uploadLength / 3 + 1;
-          unsigned long long totalSentSoFar = 0;
-          while (totalSentSoFar < uploadLength) {
-            unsigned long long bytesRemaining = uploadLength - totalSentSoFar;
-            sendReportSize = MIN(sendReportSize, bytesRemaining);
-            totalSentSoFar += sendReportSize;
-
-            [self invokeProgressCallbackForTicket:ticket
-                                   deliveredBytes:(unsigned long long)totalSentSoFar
-                                       totalBytes:(unsigned long long)uploadLength];
+      if (!ticket.cancelled) {
+        if (testError) {
+          // During simulation, we invoke any retry block, but ignore the result.
+          const BOOL willRetry = NO;
+          GTLRServiceRetryBlock retryBlock = ticket.retryBlock;
+          if (retryBlock) {
+            (void)retryBlock(ticket, willRetry, testError);
           }
-          [ticket postNotificationOnMainThreadWithName:kGTLRServiceTicketParsingStartedNotification
-                                                object:ticket
-                                              userInfo:nil];
-          [ticket postNotificationOnMainThreadWithName:kGTLRServiceTicketParsingStoppedNotification
-                                                object:ticket
-                                              userInfo:nil];
+        } else {
+          // Simulate upload progress, calling back up to three times.
+          if (ticket.uploadProgressBlock) {
+            GTLRQuery *query = (GTLRQuery *)ticket.originalQuery;
+            unsigned long long uploadLength = [self simulatedUploadLengthForQuery:query
+                                                                       dataToPost:dataToPost];
+            unsigned long long sendReportSize = uploadLength / 3 + 1;
+            unsigned long long totalSentSoFar = 0;
+            while (totalSentSoFar < uploadLength) {
+              unsigned long long bytesRemaining = uploadLength - totalSentSoFar;
+              sendReportSize = MIN(sendReportSize, bytesRemaining);
+              totalSentSoFar += sendReportSize;
+
+              [self invokeProgressCallbackForTicket:ticket
+                                     deliveredBytes:(unsigned long long)totalSentSoFar
+                                         totalBytes:(unsigned long long)uploadLength];
+            }
+            [ticket postNotificationOnMainThreadWithName:kGTLRServiceTicketParsingStartedNotification
+                                                  object:ticket
+                                                userInfo:nil];
+            [ticket postNotificationOnMainThreadWithName:kGTLRServiceTicketParsingStoppedNotification
+                                                  object:ticket
+                                                userInfo:nil];
+          }
         }
-      }
 
-      if (![originalQuery isBatchQuery]) {
-        // Single query
-        GTLRServiceCompletionHandler completionBlock = originalQuery.completionBlock;
-        if (completionBlock) {
-          completionBlock(ticket, testObject, testError);
+        if (![originalQuery isBatchQuery]) {
+          // Single query
+          GTLRServiceCompletionHandler completionBlock = originalQuery.completionBlock;
+          if (completionBlock) {
+            completionBlock(ticket, testObject, testError);
+          }
+        } else {
+          // Batch query
+          GTLR_DEBUG_ASSERT(!testObject || [testObject isKindOfClass:[GTLRBatchResult class]],
+              @"Batch queries should have result objects of type GTLRBatchResult (not %@)",
+              [testObject class]);
+
+          [self invokeBatchCompletionsWithTicket:ticket
+                                      batchQuery:(GTLRBatchQuery *)originalQuery
+                                     batchResult:(GTLRBatchResult *)testObject
+                                           error:testError];
+        } // isBatchQuery
+
+        if (completionHandler) {
+          completionHandler(ticket, testObject, testError);
         }
-      } else {
-        // Batch query
-        GTLR_DEBUG_ASSERT(!testObject || [testObject isKindOfClass:[GTLRBatchResult class]],
-            @"Batch queries should have result objects of type GTLRBatchResult (not %@)",
-            [testObject class]);
+        ticket.hasCalledCallback = YES;
+      }  // !ticket.cancelled
 
-        [self invokeBatchCompletionsWithTicket:ticket
-                                    batchQuery:(GTLRBatchQuery *)originalQuery
-                                   batchResult:(GTLRBatchResult *)testObject
-                                         error:testError];
-      } // isBatchQuery
-
-      if (completionHandler) {
-        completionHandler(ticket, testObject, testError);
-      }
-      ticket.hasCalledCallback = YES;
-
+      // Even if the ticket has been cancelled, it should notify that it's stopped.
       [ticket notifyStarting:NO];
 
+      // Release query callback blocks.
       [originalQuery invalidateQuery];
     });  // dispatch_group_async
   });  // testBlock
@@ -2431,10 +2473,10 @@ static NSDictionary *MergeDictionaries(NSDictionary *recessiveDict, NSDictionary
 
     _objectClassResolver = params.objectClassResolver ?: service.objectClassResolver;
 
-    _retryEnabled = (params.retryEnabled ? params.retryEnabled.boolValue : service.retryEnabled);
-    _maxRetryInterval = (params.maxRetryInterval ?
+    _retryEnabled = ((params.retryEnabled != nil) ? params.retryEnabled.boolValue : service.retryEnabled);
+    _maxRetryInterval = ((params.maxRetryInterval != nil) ?
                          params.maxRetryInterval.doubleValue : service.maxRetryInterval);
-    _shouldFetchNextPages = (params.shouldFetchNextPages ?
+    _shouldFetchNextPages = ((params.shouldFetchNextPages != nil)?
                              params.shouldFetchNextPages.boolValue : service.shouldFetchNextPages);
 
     GTLRServiceUploadProgressBlock uploadProgressBlock =
@@ -2561,7 +2603,22 @@ static NSDictionary *MergeDictionaries(NSDictionary *recessiveDict, NSDictionary
   id<GTMUIApplicationProtocol> app = [GTMSessionFetcher substituteUIApplication];
   if (app) return app;
 
-  return (id<GTMUIApplicationProtocol>)[UIApplication sharedApplication];
+  static Class applicationClass = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    BOOL isAppExtension = [[[NSBundle mainBundle] bundlePath] hasSuffix:@".appex"];
+    if (!isAppExtension) {
+      Class cls = NSClassFromString(@"UIApplication");
+      if (cls && [cls respondsToSelector:NSSelectorFromString(@"sharedApplication")]) {
+        applicationClass = cls;
+      }
+    }
+  });
+
+  if (applicationClass) {
+    app = (id<GTMUIApplicationProtocol>)[applicationClass sharedApplication];
+  }
+  return app;
 }
 #endif //  GTM_BACKGROUND_TASK_FETCHING
 
@@ -2738,10 +2795,10 @@ static NSDictionary *MergeDictionaries(NSDictionary *recessiveDict, NSDictionary
 }
 
 - (BOOL)hasParameters {
-  if (self.maxRetryInterval) return YES;
-  if (self.retryEnabled) return YES;
+  if (self.maxRetryInterval != nil) return YES;
+  if (self.retryEnabled != nil) return YES;
   if (self.retryBlock) return YES;
-  if (self.shouldFetchNextPages) return YES;
+  if (self.shouldFetchNextPages != nil) return YES;
   if (self.objectClassResolver) return YES;
   if (self.testBlock) return YES;
   if (self.ticketProperties) return YES;

@@ -1,6 +1,10 @@
 platform :ios, '8.0'
 target ‘GmailIOSCourses’ do
-    pod 'GoogleAPIClientForREST/Gmail', '~> 1.1.1'
+    pod 'GoogleAPIClientForREST'
+pod 'GoogleAPIClientForREST/Calendar'
+pod 'GoogleAPIClientForREST/Drive'	
+pod 'GoogleAPIClientForREST/Gmail'
+pod 'GoogleAPIClientForREST/Logging'
     pod 'GTMOAuth2', '~> 1.1.4'
     pod 'Google/SignIn'
 end

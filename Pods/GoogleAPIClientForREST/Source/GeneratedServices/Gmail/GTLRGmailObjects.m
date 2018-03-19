@@ -107,6 +107,26 @@ NSString * const kGTLRGmail_WatchRequest_LabelFilterAction_Include = @"include";
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRGmail_BatchModifyMessagesRequest
+//
+
+@implementation GTLRGmail_BatchModifyMessagesRequest
+@dynamic addLabelIds, ids, removeLabelIds;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"addLabelIds" : [NSString class],
+    @"ids" : [NSString class],
+    @"removeLabelIds" : [NSString class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRGmail_Draft
 //
 
@@ -424,6 +444,24 @@ NSString * const kGTLRGmail_WatchRequest_LabelFilterAction_Include = @"include";
 
 // ----------------------------------------------------------------------------
 //
+//   GTLRGmail_ListSmimeInfoResponse
+//
+
+@implementation GTLRGmail_ListSmimeInfoResponse
+@dynamic smimeInfo;
+
++ (NSDictionary<NSString *, Class> *)arrayPropertyToClassMap {
+  NSDictionary<NSString *, Class> *map = @{
+    @"smimeInfo" : [GTLRGmail_SmimeInfo class]
+  };
+  return map;
+}
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
 //   GTLRGmail_ListThreadsResponse
 //
 
@@ -572,6 +610,22 @@ NSString * const kGTLRGmail_WatchRequest_LabelFilterAction_Include = @"include";
 @implementation GTLRGmail_SendAs
 @dynamic displayName, isDefault, isPrimary, replyToAddress, sendAsEmail,
          signature, smtpMsa, treatAsAlias, verificationStatus;
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLRGmail_SmimeInfo
+//
+
+@implementation GTLRGmail_SmimeInfo
+@dynamic encryptedKeyPassword, expiration, identifier, isDefault, issuerCn, pem,
+         pkcs12;
+
++ (NSDictionary<NSString *, NSString *> *)propertyToJSONKeyMap {
+  return @{ @"identifier" : @"id" };
+}
+
 @end
 
 

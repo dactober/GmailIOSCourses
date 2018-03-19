@@ -1,6 +1,7 @@
 
 #import "InboxMessagesFetcher.h"
 #import "Message.h"
+#import "GTLRGmail.h"
 
 @interface InboxMessagesFetcher ()
 @property(strong, nonatomic) NSURLSession *session;

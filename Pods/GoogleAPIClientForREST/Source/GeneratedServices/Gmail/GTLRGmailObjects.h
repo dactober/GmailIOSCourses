@@ -34,8 +34,14 @@
 @class GTLRGmail_MessagePartBody;
 @class GTLRGmail_MessagePartHeader;
 @class GTLRGmail_SendAs;
+@class GTLRGmail_SmimeInfo;
 @class GTLRGmail_SmtpMsa;
 @class GTLRGmail_Thread;
+
+// Generated comments include content from the discovery document; avoid them
+// causing warnings since clang's checks are some what arbitrary.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -212,6 +218,25 @@ GTLR_EXTERN NSString * const kGTLRGmail_WatchRequest_LabelFilterAction_Include;
 
 /** The IDs of the messages to delete. */
 @property(nonatomic, strong, nullable) NSArray<NSString *> *ids;
+
+@end
+
+
+/**
+ *  GTLRGmail_BatchModifyMessagesRequest
+ */
+@interface GTLRGmail_BatchModifyMessagesRequest : GTLRObject
+
+/** A list of label IDs to add to messages. */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *addLabelIds;
+
+/**
+ *  The IDs of the messages to modify. There is a limit of 1000 ids per request.
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *ids;
+
+/** A list of label IDs to remove from messages. */
+@property(nonatomic, strong, nullable) NSArray<NSString *> *removeLabelIds;
 
 @end
 
@@ -722,6 +747,17 @@ GTLR_EXTERN NSString * const kGTLRGmail_WatchRequest_LabelFilterAction_Include;
 
 
 /**
+ *  GTLRGmail_ListSmimeInfoResponse
+ */
+@interface GTLRGmail_ListSmimeInfoResponse : GTLRObject
+
+/** List of SmimeInfo. */
+@property(nonatomic, strong, nullable) NSArray<GTLRGmail_SmimeInfo *> *smimeInfo;
+
+@end
+
+
+/**
  *  GTLRGmail_ListThreadsResponse
  *
  *  @note This class supports NSFastEnumeration and indexed subscripting over
@@ -887,7 +923,7 @@ GTLR_EXTERN NSString * const kGTLRGmail_WatchRequest_LabelFilterAction_Include;
 @property(nonatomic, copy, nullable) NSString *data;
 
 /**
- *  Total number of bytes in the body of the message part.
+ *  Number of bytes for the message part data (encoding notwithstanding).
  *
  *  Uses NSNumber of intValue.
  */
@@ -1096,6 +1132,60 @@ GTLR_EXTERN NSString * const kGTLRGmail_WatchRequest_LabelFilterAction_Include;
 
 
 /**
+ *  An S/MIME email config.
+ */
+@interface GTLRGmail_SmimeInfo : GTLRObject
+
+/** Encrypted key password, when key is encrypted. */
+@property(nonatomic, copy, nullable) NSString *encryptedKeyPassword;
+
+/**
+ *  When the certificate expires (in milliseconds since epoch).
+ *
+ *  Uses NSNumber of longLongValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *expiration;
+
+/**
+ *  The immutable ID for the SmimeInfo.
+ *
+ *  identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
+ */
+@property(nonatomic, copy, nullable) NSString *identifier;
+
+/**
+ *  Whether this SmimeInfo is the default one for this user's send-as address.
+ *
+ *  Uses NSNumber of boolValue.
+ */
+@property(nonatomic, strong, nullable) NSNumber *isDefault;
+
+/** The S/MIME certificate issuer's common name. */
+@property(nonatomic, copy, nullable) NSString *issuerCn;
+
+/**
+ *  PEM formatted X509 concatenated certificate string (standard base64
+ *  encoding). Format used for returning key, which includes public key as well
+ *  as certificate chain (not private key).
+ */
+@property(nonatomic, copy, nullable) NSString *pem;
+
+/**
+ *  PKCS#12 format containing a single private/public key pair and certificate
+ *  chain. This format is only accepted from client for creating a new SmimeInfo
+ *  and is never returned, because the private key is not intended to be
+ *  exported. PKCS#12 may be encrypted, in which case encryptedKeyPassword
+ *  should be set appropriately.
+ *
+ *  Contains encoded binary data; GTLRBase64 can encode/decode (probably
+ *  web-safe format).
+ */
+@property(nonatomic, copy, nullable) NSString *pkcs12;
+
+@end
+
+
+/**
  *  Configuration for communication with an SMTP service.
  */
 @interface GTLRGmail_SmtpMsa : GTLRObject
@@ -1217,7 +1307,7 @@ GTLR_EXTERN NSString * const kGTLRGmail_WatchRequest_LabelFilterAction_Include;
 
 /**
  *  Flag that determines whether responses are sent to recipients who are
- *  outside of the user's domain. This feature is only available for Google Apps
+ *  outside of the user's domain. This feature is only available for G Suite
  *  users.
  *
  *  Uses NSNumber of boolValue.
@@ -1295,3 +1385,5 @@ GTLR_EXTERN NSString * const kGTLRGmail_WatchRequest_LabelFilterAction_Include;
 @end
 
 NS_ASSUME_NONNULL_END
+
+#pragma clang diagnostic pop
