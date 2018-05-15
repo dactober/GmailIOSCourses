@@ -12,7 +12,7 @@
 - (NSFetchedResultsController *)fetchedResultsController:(NSString *)label;
 - (NSManagedObjectContext *)setupBackGroundManagedObjectContext;
 - (void)addMessage:(Message *)message ToInboxContext:(NSManagedObjectContext *)context;
-- (NSURL *)storeURL;
++ (NSURL *)storeURL;
 - (void)deleteFromContext:(NSString *)ID;
 @property(nonatomic, strong) NSManagedObjectContext *context;
 @end

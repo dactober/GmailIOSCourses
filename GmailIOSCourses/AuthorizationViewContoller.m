@@ -38,17 +38,23 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.menuController = nil;
     [self showLoading:[LoadingViewController sharedInstance] containerView:self.view];
     self.navigationController.navigationBarHidden = YES;
     GIDSignIn *signIn = [GIDSignIn sharedInstance];
     signIn.delegate = self;
     signIn.uiDelegate = self;
     [GIDSignIn sharedInstance].scopes = @[
-        kGTLRAuthScopeGmailReadonly, kGTLRAuthScopeGmailSend, kGTLRAuthScopeGmailMailGoogleCom, kGTLRAuthScopeGmailSettingsBasic, kGTLRAuthScopeGmailInsert,
-        kGTLRAuthScopeGmailCompose, kGTLRAuthScopeDrive, kGTLRAuthScopeDriveFile, kGTLRAuthScopeDriveAppdata, kGTLRAuthScopeDriveMetadata
-    ];
+                                          kGTLRAuthScopeGmailReadonly, kGTLRAuthScopeGmailSend, kGTLRAuthScopeGmailMailGoogleCom, kGTLRAuthScopeGmailSettingsBasic, kGTLRAuthScopeGmailInsert,
+                                          kGTLRAuthScopeGmailCompose, kGTLRAuthScopeDrive, kGTLRAuthScopeDriveFile, kGTLRAuthScopeDriveAppdata, kGTLRAuthScopeDriveMetadata
+                                          ];
     [signIn signInSilently];
-
+    
     self.signInButton = [[GIDSignInButton alloc] init];
     [self.containerView addSubview:self.signInButton];
     self.signInButton.style = kGIDSignInButtonStyleWide;
@@ -60,7 +66,6 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
 - (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
     [self hideLoading:[LoadingViewController sharedInstance]];
     if (error != nil) {
-        [self showAlert:@"Authentication Error" message:error.localizedDescription];
         self.service.authorizer = nil;
     } else {
         self.signInButton.hidden = true;
@@ -76,7 +81,7 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
     } else {
         [self showAlert:@"Error" message:error.localizedDescription];
     }
-}//integoDrachyov!&!)(^(^!)!&
+}
 
 // Helper for showing an alert
 - (void)showAlert:(NSString *)title message:(NSString *)message {
@@ -95,12 +100,10 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
     
     MainViewController *mainViewController = [MainViewController controllerWithCoordinator:coordinator delegate:self];
     SentMessagesViewController *sentViewController = [SentMessagesViewController controllerWithCoordinator:coordinator];
-    SettingsTableViewController *settingsViewController = [SettingsTableViewController controllerWithCoordinator:coordinator];
     DriveAuthorizationViewController *driveAuthController = [DriveAuthorizationViewController new];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:driveAuthController];
-    settingsViewController.delegate = (id)self;
     
-    NSArray <UINavigationController *> *tabViewControllers = [self tabViewControllers:@[mainViewController, sentViewController, settingsViewController]];
+    NSArray <UINavigationController *> *tabViewControllers = [self tabViewControllers:@[mainViewController, sentViewController]];
     UITabBarController *tabController = [self createTabBarControllerWithViewControllers:tabViewControllers];
     GMLeftMenuViewController *leftViewController = [GMLeftMenuViewController leftMenuWithItems:@[tabController, navController]];
     
@@ -134,8 +137,8 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
 - (UITabBarController *)createTabBarControllerWithViewControllers:(NSArray <UINavigationController *> *)viewControllers {
     UITabBarController *controller = [UITabBarController new];
     for (int i = 0; i < viewControllers.count; i++) {
-        viewControllers[i].tabBarItem = [[UITabBarItem alloc] initWithTitle:[self mapping][@(i)] image:nil tag:i];
-        [viewControllers[i].navigationBar.layer insertSublayer:[self gradientForView:viewControllers[i].navigationBar] atIndex:0];
+        viewControllers[i].tabBarItem = [[UITabBarItem alloc] initWithTitle:[self mapping][@(i)] image:[self imageMapping][@(i)] tag:i];
+        [viewControllers[i].navigationBar setBackgroundImage:[self imageFromLayer:[self gradientForView:viewControllers[i].navigationBar]] forBarMetrics:UIBarMetricsDefault];
     }
     controller.tabBar.tintColor = [UIColor blackColor];
     [controller.tabBar.layer insertSublayer:[self gradientForTabBar:controller.tabBar] atIndex:0];
@@ -143,12 +146,24 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
     return controller;
 }
 
+- (UIImage *)imageFromLayer:(CALayer *)layer
+{
+    UIGraphicsBeginImageContext([layer frame].size);
+    
+    [layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *outputImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return outputImage;
+}
+
 - (CAGradientLayer *)gradientForView:(UIView *)view {
     CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = view.bounds;
-    gradient.startPoint = CGPointZero;
-    gradient.endPoint = CGPointMake(1, 1);
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0/255.0 green:127/255.0 blue:255/255.0 alpha:1.0] CGColor],(id)[[UIColor colorWithRed:0/255.0 green:112/255.0 blue:240/255.0 alpha:1.0] CGColor], nil];
+    CGRect gradientFrame = self.navigationController.navigationBar.bounds;
+    gradientFrame.size.height += [UIApplication sharedApplication].statusBarFrame.size.height;
+    gradient.frame = gradientFrame;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:137/255.0 green:207/255.0 blue:240/255.0 alpha:1.0] CGColor],(id)[[UIColor colorWithRed:122/255.0 green:192/255.0 blue:225/255.0 alpha:1.0] CGColor], nil];
     return gradient;
 }
 
@@ -165,18 +180,14 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
     return @{
              @(TabItemTypeInbox) : @"Inbox",
              @(TabItemTypeSent) : @"Sent",
-             @(TabItemTypeSettings) : @"Settings",
              };
 }
 
-//- (void)logOut:(NSURL *)url {
-//[GTMAppAuthFetcherAuthorization
-// removeAuthorizationFromKeychainForName:kGTMAppAuthKeychainItemName];
-//service.authorizer = nil;
-//    NSError *error;
-//    [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
-//    [[NSFileManager defaultManager] removeItemAtPath:url.path error:&error];
-//    [self.window setRootViewController:[self createAuthController]];
-//}
+- (NSDictionary *)imageMapping {
+    return @{
+             @(TabItemTypeInbox) : [UIImage imageNamed:@"inbox"],
+             @(TabItemTypeSent) : [UIImage imageNamed:@"sentTab"],
+             };
+}
 
 @end

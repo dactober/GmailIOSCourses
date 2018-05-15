@@ -11,6 +11,9 @@
 #import "MainViewController.h"
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
 #import "DriveViewController.h"
+#import <Google/SignIn.h>
+#import "CreaterContextForMessages.h"
+#import "LeftMenuHeaderView.h"
 
 typedef NS_ENUM(NSUInteger, TableViewCellType) {
     TableViewCellTypeGmail,
@@ -23,6 +26,8 @@ typedef NS_ENUM(NSUInteger, TableViewCellType) {
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic, strong) LGSideMenuController *sideMenu;
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) UIButton *logOut;
+@property (nonatomic, strong) LeftMenuTableViewCell *currentCell;
 @end
 
 @implementation GMLeftMenuViewController
@@ -41,7 +46,9 @@ typedef NS_ENUM(NSUInteger, TableViewCellType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setImageView];
     self.tableView = [self createTableView];
+    self.logOut = [self createLogOutButton];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     UINib *cellNib = [UINib nibWithNibName:@"LeftMenuTableViewCell" bundle:nil];
@@ -53,24 +60,42 @@ typedef NS_ENUM(NSUInteger, TableViewCellType) {
     [super viewWillAppear:animated];    
 }
 
+- (void)setImageView {
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectZero];
+    imageView.image = [UIImage imageNamed:@"gradient"];
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:imageView];
+    [imageView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
+    [imageView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [imageView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    [imageView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
+}
+
 - (UITableView *)createTableView {
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    tableView.tableHeaderView = [self headerView];
-    tableView.backgroundColor = [UIColor whiteColor];
+    tableView.backgroundColor = [UIColor clearColor];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:tableView];
     [tableView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:65].active = YES;
     [tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     [tableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
-    [tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:20].active = YES;
     return tableView;
 }
 
-- (UIView *)headerView {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
-    view.backgroundColor = [UIColor blackColor];
-    return view;
+- (UIButton *)createLogOutButton {
+    UIButton *logOut = [[UIButton alloc] initWithFrame:CGRectZero];
+    [logOut setBackgroundImage:[UIImage imageNamed:@"logout"] forState:UIControlStateNormal];
+    logOut.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:logOut];
+    [logOut.topAnchor constraintEqualToAnchor:self.tableView.bottomAnchor constant:8].active = YES;
+    [logOut.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16].active = YES;
+    [logOut.widthAnchor constraintEqualToConstant:24].active = YES;
+    [logOut.heightAnchor constraintEqualToConstant:24].active = YES;
+    
+    [logOut.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-16].active = YES;
+    [logOut addTarget:self action:@selector(showLogOutAlert) forControlEvents:UIControlEventTouchUpInside];
+    return logOut;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -81,6 +106,14 @@ typedef NS_ENUM(NSUInteger, TableViewCellType) {
     return TableViewCellTypeCount;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return [LeftMenuHeaderView header];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 100;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LeftMenuTableViewCell *cell = (LeftMenuTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"leftMenuCell" forIndexPath:indexPath];
     NSDictionary *dict = [self tableMapping][@(indexPath.row)];
@@ -88,11 +121,19 @@ typedef NS_ENUM(NSUInteger, TableViewCellType) {
     cell.image.image = dict[title];
     cell.label.text = title;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (!self.currentCell && indexPath.row == 0) {
+        self.currentCell = cell;
+        cell.label.textColor = UIColor.blackColor;
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self setSideMenuFromNavigationController];
+    self.currentCell.label.textColor = [UIColor lightGrayColor];
+    LeftMenuTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    cell.label.textColor = [UIColor blackColor];
+    self.currentCell = cell;
     switch (indexPath.row) {
         case TableViewCellTypeGmail:
             self.sideMenu.rootViewController = self.items[TableViewCellTypeGmail];
@@ -131,9 +172,26 @@ typedef NS_ENUM(NSUInteger, TableViewCellType) {
 - (NSDictionary *)leftMenuMapping {
     return @{
              @(TableViewCellTypeGmail) : @"Gmail",
-             @(TableViewCellTypeDrive) : @{@"Drive" : [UIImage imageNamed:@"drive"] },
-             @(TableViewCellTypeCalendar) : @{@"Calendar" : [UIImage imageNamed:@"calendar"] },
+             @(TableViewCellTypeDrive) : @"Drive",
+             @(TableViewCellTypeCalendar) : @"Calendar",
              };
+}
+
+- (void)logout {
+    [[GIDSignIn sharedInstance] signOut];
+    [[NSFileManager defaultManager] removeItemAtPath:[CreaterContextForMessages storeURL].path error:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)showLogOutAlert {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Attention" message:@"Do you want to logout?" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self logout];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 

@@ -44,6 +44,7 @@
                     <constraint firstItem="l6C-OF-mOg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="z11-LV-FvD"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
                 <outlet property="image" destination="He2-7T-mj7" id="PwA-tz-Hjy"/>

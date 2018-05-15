@@ -10,4 +10,6 @@
 
 @interface LeftMenuHeaderView : UIView
 
++ (instancetype)header;
+
 @end

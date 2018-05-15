@@ -15,6 +15,4 @@
 
 @property(nonatomic, strong) GTLRGmailService *service;
 
-- (void)logOut:(NSURL *)url;
-
 @end

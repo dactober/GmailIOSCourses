@@ -37,7 +37,7 @@
     ;
 }
 
-- (NSURL *)storeURL {
++ (NSURL *)storeURL {
     NSURL *url = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL];
     return [url URLByAppendingPathComponent:@"storeMessages.sqlite"];
 }
@@ -51,7 +51,7 @@
     self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     self.context.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
     NSError *error;
-    [self.context.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[self storeURL] options:nil error:&error];
+    [self.context.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[CreaterContextForMessages storeURL] options:nil error:&error];
     if (error) {
         NSLog(@"error %@", error);
     }
