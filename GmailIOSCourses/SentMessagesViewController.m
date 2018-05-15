@@ -22,6 +22,7 @@
 @property(nonatomic, strong) Message *message;
 @property(nonatomic, strong) NSManagedObjectContext *context;
 @property(nonatomic, strong) NSString *nextPageToken;
+@property(strong, nonatomic) Coordinator *coordinator;
 @end
 
 static NSString *const sent = @"SENT";
@@ -29,8 +30,23 @@ static NSString *const text = @"text/html";
 static NSString *const sentEntity = @"Sent";
 @implementation SentMessagesViewController
 
++ (instancetype)controllerWithCoordinator:(Coordinator *)coordinator {
+    return [[self alloc] initWithCoordinator:coordinator];
+}
+
+- (instancetype)initWithCoordinator:(Coordinator *)coordinator {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [sb instantiateViewControllerWithIdentifier:sentEntity];
+    if (self) {
+        self.coordinator = coordinator;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.title = sentEntity;
     self.fetchedResultsController = [self.coordinator.contForMessages fetchedResultsController:sent];
     self.fetchedResultsController.delegate = self;
     NSError *error;
@@ -62,6 +78,7 @@ static NSString *const sentEntity = @"Sent";
     CustomTableCell *cell = (CustomTableCell *)[tableView dequeueReusableCellWithIdentifier:myIdForSent forIndexPath:indexPath];
     MessageEntity *sentDataModel = [_fetchedResultsController objectAtIndexPath:indexPath];
     [cell customCellDataForInbox:sentDataModel];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -77,15 +94,18 @@ static NSString *const sentEntity = @"Sent";
         [self.navigationController pushViewController:dvc animated:YES];
     }
 }
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.number - 1 - indexPath.row == 0) {
         [self.coordinator messages:sent];
     }
 }
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
     [self.myTableView beginUpdates];
 }
+
 - (void)controller:(NSFetchedResultsController *)controller
     didChangeObject:(id)anObject
         atIndexPath:(NSIndexPath *)indexPath

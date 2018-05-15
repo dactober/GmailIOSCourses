@@ -12,11 +12,15 @@
 #import "DetailViewControllerForHtml.h"
 #import "CreaterContextForMessages.h"
 #import "MessageEntity+CoreDataClass.h"
+#import "LoadingViewController.h"
+
 @interface MainViewController ()
-@property(nonatomic) NSUInteger number;
+@property(nonatomic, assign) NSUInteger number;
 @property(weak, nonatomic) IBOutlet UITableView *tableView;
 @property(nonatomic, strong) NSArray *listOfMessages;
 @property(weak, nonatomic) IBOutlet UIButton *send;
+@property(strong, nonatomic) Coordinator *coordinator;
+@property(weak, nonatomic) id<LGSideMenuDelegate> delegate;
 @end
 static NSString *const text = @"text/html";
 static NSString *const inbox = @"INBOX";
@@ -25,8 +29,24 @@ static const int kCountVisibleCells = 7;
 static const int kCountCellsForUpdate = 5;
 @implementation MainViewController
 
++ (instancetype)controllerWithCoordinator:(Coordinator *)coordinator delegate:(id<LGSideMenuDelegate>)delegate {
+    return [[self alloc] initWithCoordinator:coordinator delegate:delegate];
+}
+
+- (instancetype)initWithCoordinator:(Coordinator *)coordinator delegate:(id<LGSideMenuDelegate>)delegate {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [sb instantiateViewControllerWithIdentifier:inboxEntity];
+    if (self) {
+        self.coordinator = coordinator;
+        self.delegate = delegate;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.title = inboxEntity;
     self.fetchedResultsController = [self.coordinator.contForMessages fetchedResultsController:inbox];
     self.fetchedResultsController.delegate = self;
     NSError *error;
@@ -34,7 +54,6 @@ static const int kCountCellsForUpdate = 5;
         NSLog(@"Unresolved error %@,%@", error, [error userInfo]);
         exit(-1);
     }
-    // Do any additional setup after loading the view.
 }
 
 - (void)updateListOfMessages {
@@ -42,7 +61,7 @@ static const int kCountCellsForUpdate = 5;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
+    [super viewWillAppear:animated];
     [self updateListOfMessages];
 }
 
@@ -60,6 +79,7 @@ static const int kCountCellsForUpdate = 5;
     CustomTableCell *cell = (CustomTableCell *)[tableView dequeueReusableCellWithIdentifier:myIdForInbox forIndexPath:indexPath];
     MessageEntity *inboxDataModel = [_fetchedResultsController objectAtIndexPath:indexPath];
     [cell customCellDataForInbox:inboxDataModel];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -115,6 +135,7 @@ static const int kCountCellsForUpdate = 5;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self hideLoading:[LoadingViewController sharedInstance]];
     [self.tableView endUpdates];
 }
 

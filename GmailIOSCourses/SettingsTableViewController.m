@@ -10,10 +10,23 @@
 #import "AuthorizationViewContoller.h"
 #import "CreaterContextForMessages.h"
 @interface SettingsTableViewController ()
-
+@property(strong, nonatomic) Coordinator *coordinator;
 @end
 
 @implementation SettingsTableViewController
+
++ (instancetype)controllerWithCoordinator:(Coordinator *)coordinator {
+    return [[self alloc] initWithCoordinator:coordinator];
+}
+
+- (instancetype)initWithCoordinator:(Coordinator *)coordinator {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [sb instantiateViewControllerWithIdentifier:@"Settings"];
+    if (self) {
+        self.coordinator = coordinator;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

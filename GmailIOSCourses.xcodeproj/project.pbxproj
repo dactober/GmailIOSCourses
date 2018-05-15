@@ -34,6 +34,22 @@
 		01F1ADC31ECB3DBC007839EE /* non_existing_id.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F1ADC21ECB3DBC007839EE /* non_existing_id.png */; };
 		01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5A1061EBE5F9B00A1A268 /* Message.m */; };
 		01FC563C1ED62E530001398E /* SentMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FC563B1ED62E530001398E /* SentMessagesViewController.m */; };
+		2A10CB65209C6C4C005BBA87 /* DriveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A10CB63209C6C4C005BBA87 /* DriveTableViewCell.m */; };
+		2A10CB66209C6C4C005BBA87 /* DriveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A10CB64209C6C4C005BBA87 /* DriveTableViewCell.xib */; };
+		2A1B5C432099D00C00A626F0 /* GMLeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1B5C422099D00C00A626F0 /* GMLeftMenuViewController.m */; };
+		2A1B5C47209AF77900A626F0 /* LeftMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1B5C45209AF77900A626F0 /* LeftMenuTableViewCell.m */; };
+		2A1B5C48209AF77900A626F0 /* LeftMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A1B5C46209AF77900A626F0 /* LeftMenuTableViewCell.xib */; };
+		2A1B5C4C209B389E00A626F0 /* DriveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1B5C4A209B389E00A626F0 /* DriveViewController.m */; };
+		2A1B5C4D209B389E00A626F0 /* DriveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A1B5C4B209B389E00A626F0 /* DriveViewController.xib */; };
+		2A6AD6DD20AADB8A00D36DEE /* LeftMenuHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6AD6DC20AADB8A00D36DEE /* LeftMenuHeaderView.m */; };
+		2A6AD6DF20AADD5500D36DEE /* LeftMenuHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A6AD6DE20AADD5500D36DEE /* LeftMenuHeaderView.xib */; };
+		2A83F988209B586600A3048D /* DriveAuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A83F986209B586600A3048D /* DriveAuthorizationViewController.m */; };
+		2A83F989209B586600A3048D /* DriveAuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A83F987209B586600A3048D /* DriveAuthorizationViewController.xib */; };
+		2A8701E120A996640013F49D /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8701DF20A996640013F49D /* LoadingViewController.m */; };
+		2A8701E220A996640013F49D /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8701E020A996640013F49D /* LoadingViewController.xib */; };
+		2A8701E520A998F60013F49D /* UIViewController+LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8701E420A998F60013F49D /* UIViewController+LoadingViewController.m */; };
+		2AE191F820A9DDB50062E493 /* WebLinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE191F620A9DDB50062E493 /* WebLinkViewController.m */; };
+		2AE191F920A9DDB50062E493 /* WebLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AE191F720A9DDB50062E493 /* WebLinkViewController.xib */; };
 		80119999D826E07FED376295 /* libPods-GmailIOSCourses.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */; };
 		842CDA6220405D72006E8DE2 /* libGoogleAPIClientForREST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 842CDA6320405D72006E8DE2 /* libGoogleAPIClientForREST.a */; };
 		842CDA6420405D7A006E8DE2 /* libGTMOAuth2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 842CDA6520405D7A006E8DE2 /* libGTMOAuth2.a */; };
@@ -112,6 +128,31 @@
 		01FC563A1ED62E530001398E /* SentMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentMessagesViewController.h; sourceTree = "<group>"; };
 		01FC563B1ED62E530001398E /* SentMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentMessagesViewController.m; sourceTree = "<group>"; };
 		0FDD8A6959C7A9599D0E2352 /* Pods-GmailIOSCourses.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GmailIOSCourses.release.xcconfig"; path = "Pods/Target Support Files/Pods-GmailIOSCourses/Pods-GmailIOSCourses.release.xcconfig"; sourceTree = "<group>"; };
+		2A10CB62209C6C4C005BBA87 /* DriveTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriveTableViewCell.h; sourceTree = "<group>"; };
+		2A10CB63209C6C4C005BBA87 /* DriveTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriveTableViewCell.m; sourceTree = "<group>"; };
+		2A10CB64209C6C4C005BBA87 /* DriveTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DriveTableViewCell.xib; sourceTree = "<group>"; };
+		2A1B5C412099D00C00A626F0 /* GMLeftMenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMLeftMenuViewController.h; sourceTree = "<group>"; };
+		2A1B5C422099D00C00A626F0 /* GMLeftMenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMLeftMenuViewController.m; sourceTree = "<group>"; };
+		2A1B5C44209AF77900A626F0 /* LeftMenuTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftMenuTableViewCell.h; sourceTree = "<group>"; };
+		2A1B5C45209AF77900A626F0 /* LeftMenuTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftMenuTableViewCell.m; sourceTree = "<group>"; };
+		2A1B5C46209AF77900A626F0 /* LeftMenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeftMenuTableViewCell.xib; sourceTree = "<group>"; };
+		2A1B5C49209B389E00A626F0 /* DriveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriveViewController.h; sourceTree = "<group>"; };
+		2A1B5C4A209B389E00A626F0 /* DriveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriveViewController.m; sourceTree = "<group>"; };
+		2A1B5C4B209B389E00A626F0 /* DriveViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DriveViewController.xib; sourceTree = "<group>"; };
+		2A6AD6DB20AADB8A00D36DEE /* LeftMenuHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftMenuHeaderView.h; sourceTree = "<group>"; };
+		2A6AD6DC20AADB8A00D36DEE /* LeftMenuHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftMenuHeaderView.m; sourceTree = "<group>"; };
+		2A6AD6DE20AADD5500D36DEE /* LeftMenuHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeftMenuHeaderView.xib; sourceTree = "<group>"; };
+		2A83F985209B586600A3048D /* DriveAuthorizationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriveAuthorizationViewController.h; sourceTree = "<group>"; };
+		2A83F986209B586600A3048D /* DriveAuthorizationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DriveAuthorizationViewController.m; sourceTree = "<group>"; };
+		2A83F987209B586600A3048D /* DriveAuthorizationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DriveAuthorizationViewController.xib; sourceTree = "<group>"; };
+		2A8701DE20A996640013F49D /* LoadingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
+		2A8701DF20A996640013F49D /* LoadingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
+		2A8701E020A996640013F49D /* LoadingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
+		2A8701E320A998F60013F49D /* UIViewController+LoadingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LoadingViewController.h"; sourceTree = "<group>"; };
+		2A8701E420A998F60013F49D /* UIViewController+LoadingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadingViewController.m"; sourceTree = "<group>"; };
+		2AE191F520A9DDB50062E493 /* WebLinkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebLinkViewController.h; sourceTree = "<group>"; };
+		2AE191F620A9DDB50062E493 /* WebLinkViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebLinkViewController.m; sourceTree = "<group>"; };
+		2AE191F720A9DDB50062E493 /* WebLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebLinkViewController.xib; sourceTree = "<group>"; };
 		517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GmailIOSCourses.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFA4C64963AC5A9774BE509 /* Pods-GmailIOSCourses.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GmailIOSCourses.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GmailIOSCourses/Pods-GmailIOSCourses.debug.xcconfig"; sourceTree = "<group>"; };
 		842CDA6320405D72006E8DE2 /* libGoogleAPIClientForREST.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleAPIClientForREST.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,6 +210,15 @@
 				011CBF111EC5FA4C005759D1 /* LabelIds.m */,
 				011CBF161EC5FDC6005759D1 /* BodyOFMessage.h */,
 				011CBF171EC5FDC6005759D1 /* BodyOFMessage.m */,
+				2A1B5C44209AF77900A626F0 /* LeftMenuTableViewCell.h */,
+				2A1B5C45209AF77900A626F0 /* LeftMenuTableViewCell.m */,
+				2A1B5C46209AF77900A626F0 /* LeftMenuTableViewCell.xib */,
+				2A10CB62209C6C4C005BBA87 /* DriveTableViewCell.h */,
+				2A10CB63209C6C4C005BBA87 /* DriveTableViewCell.m */,
+				2A10CB64209C6C4C005BBA87 /* DriveTableViewCell.xib */,
+				2A6AD6DB20AADB8A00D36DEE /* LeftMenuHeaderView.h */,
+				2A6AD6DC20AADB8A00D36DEE /* LeftMenuHeaderView.m */,
+				2A6AD6DE20AADD5500D36DEE /* LeftMenuHeaderView.xib */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -265,6 +315,22 @@
 				01A8BE911EC25E10008D187B /* SendViewController.m */,
 				01C971DE1ECCEFE20020B152 /* SettingsTableViewController.h */,
 				01C971DF1ECCEFE20020B152 /* SettingsTableViewController.m */,
+				2A1B5C412099D00C00A626F0 /* GMLeftMenuViewController.h */,
+				2A1B5C422099D00C00A626F0 /* GMLeftMenuViewController.m */,
+				2A1B5C49209B389E00A626F0 /* DriveViewController.h */,
+				2A1B5C4A209B389E00A626F0 /* DriveViewController.m */,
+				2A1B5C4B209B389E00A626F0 /* DriveViewController.xib */,
+				2A83F985209B586600A3048D /* DriveAuthorizationViewController.h */,
+				2A83F986209B586600A3048D /* DriveAuthorizationViewController.m */,
+				2A83F987209B586600A3048D /* DriveAuthorizationViewController.xib */,
+				2A8701DE20A996640013F49D /* LoadingViewController.h */,
+				2A8701DF20A996640013F49D /* LoadingViewController.m */,
+				2A8701E020A996640013F49D /* LoadingViewController.xib */,
+				2A8701E320A998F60013F49D /* UIViewController+LoadingViewController.h */,
+				2A8701E420A998F60013F49D /* UIViewController+LoadingViewController.m */,
+				2AE191F520A9DDB50062E493 /* WebLinkViewController.h */,
+				2AE191F620A9DDB50062E493 /* WebLinkViewController.m */,
+				2AE191F720A9DDB50062E493 /* WebLinkViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -330,7 +396,6 @@
 				018080C21EB3F75200288280 /* Sources */,
 				018080C31EB3F75200288280 /* Frameworks */,
 				018080C41EB3F75200288280 /* Resources */,
-				7553BFDD51581B159AB14C33 /* [CP] Embed Pods Frameworks */,
 				06E1C24748197949DC5D326A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -389,7 +454,13 @@
 				TargetAttributes = {
 					018080C51EB3F75200288280 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = K55998T238;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 					018080E11EB3F75300288280 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -429,10 +500,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				018080DC1EB3F75200288280 /* LaunchScreen.storyboard in Resources */,
+				2AE191F920A9DDB50062E493 /* WebLinkViewController.xib in Resources */,
+				2A1B5C48209AF77900A626F0 /* LeftMenuTableViewCell.xib in Resources */,
 				01B11FFF1EB61C4900EC80F6 /* GoogleService-Info.plist in Resources */,
+				2A8701E220A996640013F49D /* LoadingViewController.xib in Resources */,
 				01F1ADC31ECB3DBC007839EE /* non_existing_id.png in Resources */,
 				018080D91EB3F75200288280 /* Assets.xcassets in Resources */,
+				2A10CB66209C6C4C005BBA87 /* DriveTableViewCell.xib in Resources */,
 				018080D41EB3F75200288280 /* Main.storyboard in Resources */,
+				2A1B5C4D209B389E00A626F0 /* DriveViewController.xib in Resources */,
+				2A83F989209B586600A3048D /* DriveAuthorizationViewController.xib in Resources */,
+				2A6AD6DF20AADD5500D36DEE /* LeftMenuHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,7 +543,8 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GTMOAuth2ViewTouch.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -490,21 +569,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7553BFDD51581B159AB14C33 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GmailIOSCourses/Pods-GmailIOSCourses-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -513,14 +577,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				018080D11EB3F75200288280 /* AuthorizationViewContoller.m in Sources */,
+				2A1B5C4C209B389E00A626F0 /* DriveViewController.m in Sources */,
 				018080CE1EB3F75200288280 /* AppDelegate.m in Sources */,
 				01B11FFD1EB6108600EC80F6 /* MainViewController.m in Sources */,
 				018080CB1EB3F75200288280 /* main.m in Sources */,
+				2A1B5C432099D00C00A626F0 /* GMLeftMenuViewController.m in Sources */,
+				2A10CB65209C6C4C005BBA87 /* DriveTableViewCell.m in Sources */,
 				01BA9EDB1ED75F080095253E /* Sender.m in Sources */,
 				012B592F1EC11CA400577F8A /* DetailViewController.m in Sources */,
+				2AE191F820A9DDB50062E493 /* WebLinkViewController.m in Sources */,
 				019106051EC7A0A400591EE5 /* DetailViewControllerForHtml.m in Sources */,
 				011CDB891EC5064E00C8CE4C /* Payload.m in Sources */,
 				011CBF181EC5FDC6005759D1 /* BodyOFMessage.m in Sources */,
+				2A83F988209B586600A3048D /* DriveAuthorizationViewController.m in Sources */,
 				013469D31EBBE81900272BEB /* InboxMessagesFetcher.m in Sources */,
 				01EDC6F41EE9ED5C00D9523E /* MessageModel.xcdatamodeld in Sources */,
 				01244E721EB696C000DA93E7 /* CustomTableCell.m in Sources */,
@@ -529,7 +598,11 @@
 				01F5A1071EBE5F9B00A1A268 /* Message.m in Sources */,
 				013469D21EBBE81900272BEB /* Coordinator.m in Sources */,
 				01EDC6F11EE9ED2000D9523E /* CreaterContextForMessages.m in Sources */,
+				2A8701E520A998F60013F49D /* UIViewController+LoadingViewController.m in Sources */,
+				2A8701E120A996640013F49D /* LoadingViewController.m in Sources */,
 				011CBF1E1EC64469005759D1 /* SendMessagesFetcher.m in Sources */,
+				2A1B5C47209AF77900A626F0 /* LeftMenuTableViewCell.m in Sources */,
+				2A6AD6DD20AADB8A00D36DEE /* LeftMenuHeaderView.m in Sources */,
 				011CBF121EC5FA4C005759D1 /* LabelIds.m in Sources */,
 				01A8BE921EC25E10008D187B /* SendViewController.m in Sources */,
 			);
@@ -693,11 +766,13 @@
 			baseConfigurationReference = 6DFA4C64963AC5A9774BE509 /* Pods-GmailIOSCourses.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K55998T238;
 				INFOPLIST_FILE = GmailIOSCourses/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.company.GmailIOSCourses;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -706,11 +781,13 @@
 			baseConfigurationReference = 0FDD8A6959C7A9599D0E2352 /* Pods-GmailIOSCourses.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K55998T238;
 				INFOPLIST_FILE = GmailIOSCourses/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.company.GmailIOSCourses;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

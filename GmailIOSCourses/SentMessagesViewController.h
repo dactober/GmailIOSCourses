@@ -16,8 +16,11 @@
 static NSString *myIdForSent = @"SentId";
 
 @interface SentMessagesViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
+
++ (instancetype)controllerWithCoordinator:(Coordinator *)coordinator;
+- (instancetype)initWithCoordinator:(Coordinator *)coordinator;
+
 @property(nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property(nonatomic, strong) SettingsTableViewController *settingsViewController;
 @property(nonatomic, strong) SentMessagesViewController *sentMessagesViewController;
-@property(strong, nonatomic) Coordinator *coordinator;
 @end

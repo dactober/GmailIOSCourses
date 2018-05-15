@@ -26,6 +26,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.body.delegate = self;
+    UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"remove"] style:UIBarButtonItemStylePlain target:self action:@selector(delete:)];
+    deleteButton.tintColor = [UIColor blackColor];
+    UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reply"] style:UIBarButtonItemStylePlain target:self action:@selector(send:)];
+    sendButton.tintColor = [UIColor blackColor];
+    self.navigationItem.rightBarButtonItems = @[sendButton, deleteButton];
 
     // Do any additional setup after loading the view.
 }
@@ -61,7 +66,10 @@
     [self.navigationController pushViewController:send animated:YES];
 }
 
-- (IBAction) delete:(id)sender {
+- (IBAction)delete:(id)sender {
     [self.coordinator deleteMessage:self.message.messageID label:self.message.label];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.navigationController popViewControllerAnimated:YES];
+    });
 }
 @end

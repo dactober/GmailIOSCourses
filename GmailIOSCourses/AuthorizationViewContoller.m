@@ -11,56 +11,59 @@
 #import "Coordinator.h"
 #import "SettingsTableViewController.h"
 #import "SentMessagesViewController.h"
-@interface AuthorizationViewContoller ()
-@property(nonatomic, strong) SettingsTableViewController *settingsViewController;
-@property(nonatomic, strong) SentMessagesViewController *sentViewController;
-@property(nonatomic, strong) MainViewController *mainViewController;
+#import "GMLeftMenuViewController.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+#import "DriveAuthorizationViewController.h"
+#import "GTLRDrive.h"
+#import "LoadingViewController.h"
+
+typedef NS_ENUM(NSUInteger, TabItemType) {
+    TabItemTypeInbox,
+    TabItemTypeSent,
+    TabItemTypeSettings
+};
+
+@interface AuthorizationViewContoller ()<LGSideMenuDelegate>
 @property(weak, nonatomic) IBOutlet UIView *containerView;
+@property(nonatomic, strong) LGSideMenuController *menuController;
+
 @end
 
 static NSString *accessToken;
 static NSString *const kKeychainItemName = @"Google API";
-static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrcjj.apps.googleusercontent.com";
+static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupefb.apps.googleusercontent.com";
 
 @implementation AuthorizationViewContoller
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Configure Google Sign-in.
+    [self showLoading:[LoadingViewController sharedInstance] containerView:self.view];
+    self.navigationController.navigationBarHidden = YES;
     GIDSignIn *signIn = [GIDSignIn sharedInstance];
     signIn.delegate = self;
     signIn.uiDelegate = self;
-    signIn.scopes = @[
+    [GIDSignIn sharedInstance].scopes = @[
         kGTLRAuthScopeGmailReadonly, kGTLRAuthScopeGmailSend, kGTLRAuthScopeGmailMailGoogleCom, kGTLRAuthScopeGmailSettingsBasic, kGTLRAuthScopeGmailInsert,
-        kGTLRAuthScopeGmailCompose
+        kGTLRAuthScopeGmailCompose, kGTLRAuthScopeDrive, kGTLRAuthScopeDriveFile, kGTLRAuthScopeDriveAppdata, kGTLRAuthScopeDriveMetadata
     ];
     [signIn signInSilently];
 
-    // Add the sign-in button.
     self.signInButton = [[GIDSignInButton alloc] init];
     [self.containerView addSubview:self.signInButton];
     self.signInButton.style = kGIDSignInButtonStyleWide;
-    // Create a UITextView to display output.
-    self.output = [[UITextView alloc] initWithFrame:self.view.bounds];
-    self.output.editable = false;
-    self.output.contentInset = UIEdgeInsetsMake(20.0, 0.0, 20.0, 0.0);
-    self.output.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.output.hidden = true;
-    [self.view addSubview:self.output];
-
-    // Initialize the service object.
     self.service = [[GTLRGmailService alloc] init];
 }
 
 // When the view loads, create necessary subviews, and initialize the Gmail AP
 
 - (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
+    [self hideLoading:[LoadingViewController sharedInstance]];
     if (error != nil) {
         [self showAlert:@"Authentication Error" message:error.localizedDescription];
         self.service.authorizer = nil;
     } else {
         self.signInButton.hidden = true;
-        self.output.hidden = false;
         self.service.authorizer = user.authentication.fetcherAuthorizer;
         accessToken = user.authentication.accessToken;
         [self createMainViewController];
@@ -89,28 +92,87 @@ static NSString *const kClientID = @"341159379147-rnod9n0vgg0sakksoqlt4ggbjdutrc
 
 - (void)createMainViewController {
     Coordinator *coordinator = [[Coordinator alloc] initWithEmail:[GIDSignIn sharedInstance].currentUser.userID accessToken:accessToken];
-    self.mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Inbox"];
-    self.settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
-    self.sentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Sent"];
-    [self.sentViewController setCoordinator:coordinator];
-    [self.mainViewController setCoordinator:coordinator];
-    [self.settingsViewController setCoordinator:coordinator];
-    self.mainViewController.settingsViewController = self.settingsViewController;
-    self.mainViewController.sentMessagesViewController = self.sentViewController;
-    self.settingsViewController.delegate = (id)self;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
-    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:self.sentViewController];
-    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:self.settingsViewController];
-    NSArray *tabViewControllers = @[ nav, nav1, nav2 ];
-    UITabBarController *tabController = [[UITabBarController alloc] init];
-    [tabController setViewControllers:tabViewControllers];
-    nav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Inbox" image:nil tag:1];
-    nav1.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Sent" image:nil tag:2];
-    nav2.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Settings" image:nil tag:3];
-    [self presentViewController:tabController animated:YES completion:nil];
+    
+    MainViewController *mainViewController = [MainViewController controllerWithCoordinator:coordinator delegate:self];
+    SentMessagesViewController *sentViewController = [SentMessagesViewController controllerWithCoordinator:coordinator];
+    SettingsTableViewController *settingsViewController = [SettingsTableViewController controllerWithCoordinator:coordinator];
+    DriveAuthorizationViewController *driveAuthController = [DriveAuthorizationViewController new];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:driveAuthController];
+    settingsViewController.delegate = (id)self;
+    
+    NSArray <UINavigationController *> *tabViewControllers = [self tabViewControllers:@[mainViewController, sentViewController, settingsViewController]];
+    UITabBarController *tabController = [self createTabBarControllerWithViewControllers:tabViewControllers];
+    GMLeftMenuViewController *leftViewController = [GMLeftMenuViewController leftMenuWithItems:@[tabController, navController]];
+    
+    self.menuController = [LGSideMenuController sideMenuControllerWithRootViewController:tabController leftViewController:leftViewController rightViewController:nil];
+    self.menuController.leftViewWidth = 250;
+    self.menuController.leftViewBackgroundColor = [UIColor whiteColor];
+    self.menuController.leftViewPresentationStyle = LGSideMenuPresentationStyleSlideBelow;
+    driveAuthController.sideMenu = self.menuController;
+    [self.navigationController pushViewController:self.menuController animated:YES];
+}
+
+- (void)showLeftView {
+    [self.menuController showLeftViewAnimated:YES completionHandler:nil];
+}
+
+- (NSArray <UINavigationController *> *)tabViewControllers:(NSArray *)viewControllers {
+    NSMutableArray *tabViewControllers = [NSMutableArray new];
+    for (UIViewController *controller in viewControllers) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+        [self setupNavigationItemForViewController:controller];
+        [tabViewControllers addObject:nav];
+    }
+    return tabViewControllers;
+}
+
+- (void)setupNavigationItemForViewController:(UIViewController *)viewController {
+    viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"hamburger"] style:UIBarButtonItemStyleDone target:self action:@selector(showLeftView)];
+    viewController.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
+}
+
+- (UITabBarController *)createTabBarControllerWithViewControllers:(NSArray <UINavigationController *> *)viewControllers {
+    UITabBarController *controller = [UITabBarController new];
+    for (int i = 0; i < viewControllers.count; i++) {
+        viewControllers[i].tabBarItem = [[UITabBarItem alloc] initWithTitle:[self mapping][@(i)] image:nil tag:i];
+        [viewControllers[i].navigationBar.layer insertSublayer:[self gradientForView:viewControllers[i].navigationBar] atIndex:0];
+    }
+    controller.tabBar.tintColor = [UIColor blackColor];
+    [controller.tabBar.layer insertSublayer:[self gradientForTabBar:controller.tabBar] atIndex:0];
+    [controller setViewControllers:viewControllers];
+    return controller;
+}
+
+- (CAGradientLayer *)gradientForView:(UIView *)view {
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = view.bounds;
+    gradient.startPoint = CGPointZero;
+    gradient.endPoint = CGPointMake(1, 1);
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0/255.0 green:127/255.0 blue:255/255.0 alpha:1.0] CGColor],(id)[[UIColor colorWithRed:0/255.0 green:112/255.0 blue:240/255.0 alpha:1.0] CGColor], nil];
+    return gradient;
+}
+
+- (CAGradientLayer *)gradientForTabBar:(UITabBar *)view {
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = view.bounds;
+    gradient.startPoint = CGPointZero;
+    gradient.endPoint = CGPointMake(1, 1);
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:137/255.0 green:207/255.0 blue:240/255.0 alpha:1.0] CGColor],(id)[[UIColor colorWithRed:122/255.0 green:192/255.0 blue:225/255.0 alpha:1.0] CGColor], nil];
+    return gradient;
+}
+
+- (NSDictionary *)mapping {
+    return @{
+             @(TabItemTypeInbox) : @"Inbox",
+             @(TabItemTypeSent) : @"Sent",
+             @(TabItemTypeSettings) : @"Settings",
+             };
 }
 
 //- (void)logOut:(NSURL *)url {
+//[GTMAppAuthFetcherAuthorization
+// removeAuthorizationFromKeychainForName:kGTMAppAuthKeychainItemName];
+//service.authorizer = nil;
 //    NSError *error;
 //    [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
 //    [[NSFileManager defaultManager] removeItemAtPath:url.path error:&error];

@@ -11,11 +11,13 @@
 #import "Coordinator.h"
 #import "SendViewController.h"
 #import "SentMessagesViewController.h"
+#import "UIViewController+LGSideMenuController.h"
 
 @interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
+
++ (instancetype)controllerWithCoordinator:(Coordinator *)coordinator delegate:(id<LGSideMenuDelegate>)delegate;
+- (instancetype)initWithCoordinator:(Coordinator *)coordinator delegate:(id<LGSideMenuDelegate>)delegate;
+
 @property(nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-@property(nonatomic, strong) SentMessagesViewController *sentMessagesViewController;
-@property(strong, nonatomic) Coordinator *coordinator;
-@property(nonatomic, strong) SettingsTableViewController *settingsViewController;
 @end
 static NSString *myIdForInbox = @"Id";

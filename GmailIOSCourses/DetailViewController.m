@@ -11,8 +11,6 @@
 #import "SendViewController.h"
 #import "MessageEntity+CoreDataClass.h"
 #import "Message.h"
-#import "GTLRCalendar.h"
-#import "GTLRDrive.h"
 
 @interface DetailViewController ()
 @property(nonatomic, strong) Coordinator *coordinator;
@@ -23,7 +21,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"remove"] style:UIBarButtonItemStylePlain target:self action:@selector(delete:)];
+    deleteButton.tintColor = [UIColor blackColor];
+    UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reply"] style:UIBarButtonItemStylePlain target:self action:@selector(send:)];
+    sendButton.tintColor = [UIColor blackColor];
+    self.navigationItem.rightBarButtonItems = @[sendButton, deleteButton];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.subject.text = self.messageModel.subject;
