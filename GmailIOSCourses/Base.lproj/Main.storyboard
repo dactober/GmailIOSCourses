@@ -88,7 +88,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lgF-RM-TSQ">
                                 <rect key="frame" x="0.0" y="28" width="375" height="590"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Id" rowHeight="84" id="soN-zp-MBg" customClass="CustomTableCell">
@@ -156,6 +156,7 @@
                                                 <constraint firstItem="F9f-a4-zI9" firstAttribute="leading" secondItem="ch8-KY-nS8" secondAttribute="trailing" constant="7" id="wj8-Pf-dCt"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="body" destination="3Tb-Q1-0yW" id="b6N-U1-9YF"/>
                                             <outlet property="date" destination="F9f-a4-zI9" id="4YH-8D-bcf"/>

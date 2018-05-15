@@ -44,31 +44,22 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
     //[self logout];
     [self showLoading:[LoadingViewController sharedInstance] containerView:self.view];
     self.navigationController.navigationBarHidden = YES;
-    // Configure Google Sign-in.
     self.signIn = [GIDSignIn sharedInstance];
     self.signIn.delegate = self;
     self.signIn.uiDelegate = self;
-//    self.signIn.scopes = @[
-//                      kGTLRAuthScopeDrive, kGTLRAuthScopeDriveFile, kGTLRAuthScopeDriveAppdata, kGTLRAuthScopeDriveMetadata
-//                      ];
     self.service = [[GTLRDriveService alloc] init];
     [self.signIn signInSilently];
     
-    // Add the sign-in button.
     self.signInButton = [[GIDSignInButton alloc] init];
     [self.containerView addSubview:self.signInButton];
     self.signInButton.style = kGIDSignInButtonStyleWide;
-    // Create a UITextView to display output.
-    
-    // Initialize the service object.
-   
 }
 
 // When the view loads, create necessary subviews, and initialize the Gmail AP
 
 - (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
     if (error != nil) {
-        [self showAlert:@"Authentication Error" message:error.localizedDescription];
+        [self hideLoading:[LoadingViewController sharedInstance]];
         self.service.authorizer = nil;
     } else {
         self.signInButton.hidden = true;
@@ -76,10 +67,10 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
         accessToken = user.authentication.accessToken;
         [self createMainViewController];
     }
-    [self hideLoading:[LoadingViewController sharedInstance]];
 }
 
 - (void)createMainViewController {
+    [self hideLoading:[LoadingViewController sharedInstance]];
     DriveViewController *controller = [[DriveViewController alloc] initWithService:self.service delegate:self];
     [self.navigationController pushViewController:controller animated:YES];
 }

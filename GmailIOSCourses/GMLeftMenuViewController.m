@@ -90,8 +90,8 @@ typedef NS_ENUM(NSUInteger, TableViewCellType) {
     [self.view addSubview:logOut];
     [logOut.topAnchor constraintEqualToAnchor:self.tableView.bottomAnchor constant:8].active = YES;
     [logOut.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16].active = YES;
-    [logOut.widthAnchor constraintEqualToConstant:24].active = YES;
-    [logOut.heightAnchor constraintEqualToConstant:24].active = YES;
+    [logOut.widthAnchor constraintEqualToConstant:40].active = YES;
+    [logOut.heightAnchor constraintEqualToConstant:40].active = YES;
     
     [logOut.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-16].active = YES;
     [logOut addTarget:self action:@selector(showLogOutAlert) forControlEvents:UIControlEventTouchUpInside];
@@ -179,7 +179,7 @@ typedef NS_ENUM(NSUInteger, TableViewCellType) {
 
 - (void)logout {
     [[GIDSignIn sharedInstance] signOut];
-    [[NSFileManager defaultManager] removeItemAtPath:[CreaterContextForMessages storeURL].path error:nil];
+    [self deleteAllEntities:@"MessageEntity"];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -192,6 +192,30 @@ typedef NS_ENUM(NSUInteger, TableViewCellType) {
         [self logout];
     }]];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)deleteAllEntities:(NSString *)nameEntity {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:nameEntity];
+    [fetchRequest setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+    
+    NSError *error;
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    NSURL *momdURL = [[NSBundle mainBundle] URLForResource:@"MessageModel" withExtension:@"momd"];
+    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
+    context.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+    [context.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[CreaterContextForMessages storeURL] options:nil error:&error];
+    if (error) {
+        NSLog(@"error %@", error);
+    }
+    context.undoManager = [[NSUndoManager alloc] init];
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    for (NSManagedObject *object in fetchedObjects)
+    {
+        [context deleteObject:object];
+    }
+    
+    error = nil;
+    [context save:&error];
 }
 
 

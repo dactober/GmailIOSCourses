@@ -21,14 +21,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="He2-7T-mj7">
-                        <rect key="frame" x="9" y="13" width="30" height="20"/>
+                        <rect key="frame" x="9" y="-7" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="34A-UC-wZV"/>
-                            <constraint firstAttribute="width" constant="30" id="TIK-PG-Wsq"/>
+                            <constraint firstAttribute="height" constant="40" id="34A-UC-wZV"/>
+                            <constraint firstAttribute="width" constant="40" id="TIK-PG-Wsq"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6C-OF-mOg">
-                        <rect key="frame" x="47" y="11" width="249" height="21"/>
+                        <rect key="frame" x="57" y="11" width="239" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>

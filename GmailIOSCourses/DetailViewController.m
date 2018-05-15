@@ -55,10 +55,22 @@
 }
 
 - (IBAction) delete:(id)sender {
-    [self.coordinator deleteMessage:self.messageModel.messageID label:self.messageModel.label];
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [self.navigationController popViewControllerAnimated:YES];
-    });
+    [self showDeleteAlert];
+}
+
+- (void)showDeleteAlert{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Attention" message:@"Do you want to delete mail?" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.coordinator deleteMessage:self.messageModel.messageID label:self.messageModel.label];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

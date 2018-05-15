@@ -39,6 +39,7 @@ static const int kCountCellsForUpdate = 5;
     if (self) {
         self.coordinator = coordinator;
         self.delegate = delegate;
+        
     }
     return self;
 }
