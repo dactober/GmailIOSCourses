@@ -17,6 +17,8 @@
 #import "DriveAuthorizationViewController.h"
 #import "GTLRDrive.h"
 #import "LoadingViewController.h"
+#import <GTLRCalendar.h>
+#import "CalendarViewController.h"
 
 typedef NS_ENUM(NSUInteger, TabItemType) {
     TabItemTypeInbox,
@@ -51,12 +53,15 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
     signIn.uiDelegate = self;
     [GIDSignIn sharedInstance].scopes = @[
                                           kGTLRAuthScopeGmailReadonly, kGTLRAuthScopeGmailSend, kGTLRAuthScopeGmailMailGoogleCom, kGTLRAuthScopeGmailSettingsBasic, kGTLRAuthScopeGmailInsert,
-                                          kGTLRAuthScopeGmailCompose, kGTLRAuthScopeDrive, kGTLRAuthScopeDriveFile, kGTLRAuthScopeDriveAppdata, kGTLRAuthScopeDriveMetadata
+                                          kGTLRAuthScopeGmailCompose, kGTLRAuthScopeDrive, kGTLRAuthScopeDriveFile, kGTLRAuthScopeDriveAppdata, kGTLRAuthScopeDriveMetadata, kGTLRAuthScopeCalendar
                                           ];
     [signIn signInSilently];
     
     self.signInButton = [[GIDSignInButton alloc] init];
-    [self.containerView addSubview:self.signInButton];
+    [self.view addSubview:self.signInButton];
+    self.signInButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.signInButton.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
+    [self.signInButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
     self.signInButton.style = kGIDSignInButtonStyleWide;
     self.service = [[GTLRGmailService alloc] init];
 }
@@ -101,17 +106,19 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
     MainViewController *mainViewController = [MainViewController controllerWithCoordinator:coordinator delegate:self];
     SentMessagesViewController *sentViewController = [SentMessagesViewController controllerWithCoordinator:coordinator];
     DriveAuthorizationViewController *driveAuthController = [DriveAuthorizationViewController new];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:driveAuthController];
-    
+    CalendarViewController *calendarViewController = [CalendarViewController new];
+    UINavigationController *driveNavController = [[UINavigationController alloc] initWithRootViewController:driveAuthController];
+    UINavigationController *calendarNavController = [[UINavigationController alloc] initWithRootViewController:calendarViewController];
     NSArray <UINavigationController *> *tabViewControllers = [self tabViewControllers:@[mainViewController, sentViewController]];
     UITabBarController *tabController = [self createTabBarControllerWithViewControllers:tabViewControllers];
-    GMLeftMenuViewController *leftViewController = [GMLeftMenuViewController leftMenuWithItems:@[tabController, navController]];
+    GMLeftMenuViewController *leftViewController = [GMLeftMenuViewController leftMenuWithItems:@[tabController, driveNavController, calendarNavController]];
     
     self.menuController = [LGSideMenuController sideMenuControllerWithRootViewController:tabController leftViewController:leftViewController rightViewController:nil];
     self.menuController.leftViewWidth = 250;
     self.menuController.leftViewBackgroundColor = [UIColor whiteColor];
     self.menuController.leftViewPresentationStyle = LGSideMenuPresentationStyleSlideBelow;
     driveAuthController.sideMenu = self.menuController;
+    calendarViewController.delegate = self;
     [self.navigationController pushViewController:self.menuController animated:YES];
 }
 

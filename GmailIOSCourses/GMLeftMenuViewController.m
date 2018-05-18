@@ -18,9 +18,9 @@
 typedef NS_ENUM(NSUInteger, TableViewCellType) {
     TableViewCellTypeGmail,
     TableViewCellTypeDrive,
-    TableViewCellTypeCalendar,
     
-    TableViewCellTypeCount
+    TableViewCellTypeCount,
+    TableViewCellTypeCalendar,
 };
 @interface GMLeftMenuViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) UITableView *tableView;
@@ -144,7 +144,8 @@ typedef NS_ENUM(NSUInteger, TableViewCellType) {
             [self.sideMenu hideLeftViewAnimated:YES completionHandler:nil];
             break;
         case TableViewCellTypeCalendar:
-            
+            self.sideMenu.rootViewController = self.items[TableViewCellTypeCalendar];
+            [self.sideMenu hideLeftViewAnimated:YES completionHandler:nil];
             break;
             
         default:

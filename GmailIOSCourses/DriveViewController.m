@@ -126,7 +126,7 @@
                               self->_fileList = fileList;
                               self->_files = fileList.files.mutableCopy;
                               [self sortDocuments];
-                              [UIView animateWithDuration:0.5 animations:^{
+                              [UIView animateWithDuration:0 animations:^{
                                   [self->_tableView reloadData];
                               } completion:^(BOOL finished) {
                                   [self hideLoading:[LoadingViewController sharedInstance]];

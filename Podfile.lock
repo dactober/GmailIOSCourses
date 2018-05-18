@@ -1,4 +1,5 @@
 PODS:
+  - Calendar-iOS (0.12)
   - FirebaseAnalytics (3.9.0):
     - FirebaseCore (~> 3.6)
     - FirebaseInstanceID (~> 1.0)
@@ -54,6 +55,7 @@ PODS:
   - LGSideMenuController (2.1.1)
 
 DEPENDENCIES:
+  - Calendar-iOS
   - Google/SignIn
   - GoogleAPIClientForREST
   - GoogleAPIClientForREST/Calendar
@@ -65,6 +67,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - Calendar-iOS
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseInstanceID
@@ -77,6 +80,7 @@ SPEC REPOS:
     - LGSideMenuController
 
 SPEC CHECKSUMS:
+  Calendar-iOS: 7e2b1cad60ba5fbaefccb4e30a44c6fdad0cdad5
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
@@ -88,6 +92,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   LGSideMenuController: ae40c80983ab8b8801c7cef0a6804d43aaa72d45
 
-PODFILE CHECKSUM: 696e65f5f4f7e2ac1d359d17bd66f187cf87ea27
+PODFILE CHECKSUM: a88db14d92f77b8d8528cf97489faf4ed2c8c1ea
 
 COCOAPODS: 1.5.0

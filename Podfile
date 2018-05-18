@@ -8,4 +8,5 @@ pod 'GoogleAPIClientForREST/Logging'
     pod 'GTMOAuth2', '~> 1.1.4'
     pod 'Google/SignIn'
 pod 'LGSideMenuController'
+pod 'Calendar-iOS'
 end

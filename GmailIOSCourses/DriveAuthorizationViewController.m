@@ -70,7 +70,6 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
 }
 
 - (void)createMainViewController {
-    [self hideLoading:[LoadingViewController sharedInstance]];
     DriveViewController *controller = [[DriveViewController alloc] initWithService:self.service delegate:self];
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -97,12 +96,6 @@ static NSString *const kClientID = @"341159379147-utrggbj15aghj07mj675512os6mupe
                                                }];
     [alert addAction:ok];
     [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)logout {
-    GTLRDriveService *service = self.service;
-    GIDSignIn *signIn = [GIDSignIn sharedInstance];
-    [signIn signOut];
 }
 
 @end

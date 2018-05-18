@@ -48,6 +48,8 @@
 		2A8701E120A996640013F49D /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8701DF20A996640013F49D /* LoadingViewController.m */; };
 		2A8701E220A996640013F49D /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A8701E020A996640013F49D /* LoadingViewController.xib */; };
 		2A8701E520A998F60013F49D /* UIViewController+LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8701E420A998F60013F49D /* UIViewController+LoadingViewController.m */; };
+		2A87D05C20AC2170002B5A7E /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A87D05A20AC2170002B5A7E /* CalendarViewController.m */; };
+		2A87D05D20AC2170002B5A7E /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A87D05B20AC2170002B5A7E /* CalendarViewController.xib */; };
 		2AE191F820A9DDB50062E493 /* WebLinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE191F620A9DDB50062E493 /* WebLinkViewController.m */; };
 		2AE191F920A9DDB50062E493 /* WebLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AE191F720A9DDB50062E493 /* WebLinkViewController.xib */; };
 		80119999D826E07FED376295 /* libPods-GmailIOSCourses.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 517378FFD8BDBF4B11E221E7 /* libPods-GmailIOSCourses.a */; };
@@ -150,6 +152,9 @@
 		2A8701E020A996640013F49D /* LoadingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
 		2A8701E320A998F60013F49D /* UIViewController+LoadingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LoadingViewController.h"; sourceTree = "<group>"; };
 		2A8701E420A998F60013F49D /* UIViewController+LoadingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadingViewController.m"; sourceTree = "<group>"; };
+		2A87D05920AC2170002B5A7E /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		2A87D05A20AC2170002B5A7E /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		2A87D05B20AC2170002B5A7E /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
 		2AE191F520A9DDB50062E493 /* WebLinkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebLinkViewController.h; sourceTree = "<group>"; };
 		2AE191F620A9DDB50062E493 /* WebLinkViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebLinkViewController.m; sourceTree = "<group>"; };
 		2AE191F720A9DDB50062E493 /* WebLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebLinkViewController.xib; sourceTree = "<group>"; };
@@ -331,6 +336,9 @@
 				2AE191F520A9DDB50062E493 /* WebLinkViewController.h */,
 				2AE191F620A9DDB50062E493 /* WebLinkViewController.m */,
 				2AE191F720A9DDB50062E493 /* WebLinkViewController.xib */,
+				2A87D05920AC2170002B5A7E /* CalendarViewController.h */,
+				2A87D05A20AC2170002B5A7E /* CalendarViewController.m */,
+				2A87D05B20AC2170002B5A7E /* CalendarViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -503,6 +511,7 @@
 				2AE191F920A9DDB50062E493 /* WebLinkViewController.xib in Resources */,
 				2A1B5C48209AF77900A626F0 /* LeftMenuTableViewCell.xib in Resources */,
 				01B11FFF1EB61C4900EC80F6 /* GoogleService-Info.plist in Resources */,
+				2A87D05D20AC2170002B5A7E /* CalendarViewController.xib in Resources */,
 				2A8701E220A996640013F49D /* LoadingViewController.xib in Resources */,
 				01F1ADC31ECB3DBC007839EE /* non_existing_id.png in Resources */,
 				018080D91EB3F75200288280 /* Assets.xcassets in Resources */,
@@ -604,6 +613,7 @@
 				2A1B5C47209AF77900A626F0 /* LeftMenuTableViewCell.m in Sources */,
 				2A6AD6DD20AADB8A00D36DEE /* LeftMenuHeaderView.m in Sources */,
 				011CBF121EC5FA4C005759D1 /* LabelIds.m in Sources */,
+				2A87D05C20AC2170002B5A7E /* CalendarViewController.m in Sources */,
 				01A8BE921EC25E10008D187B /* SendViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -768,7 +778,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = K55998T238;
 				INFOPLIST_FILE = GmailIOSCourses/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.company.GmailIOSCourses;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -783,7 +793,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = K55998T238;
 				INFOPLIST_FILE = GmailIOSCourses/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.company.GmailIOSCourses;
 				PRODUCT_NAME = "$(TARGET_NAME)";
